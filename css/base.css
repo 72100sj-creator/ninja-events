@@ -1,0 +1,63 @@
+/* ============================================================
+   NINJA EVENTS — base.css
+   Variables (palette GDD §11.2), reset, typographie, utilitaires.
+   ============================================================ */
+
+:root {
+  /* --- Palette cœur (chaleur backstage) --- */
+  --c-night:   #2B3A55;  /* fond coulisses */
+  --c-night-2: #22304a;  /* variante plus sombre */
+  --c-wood:    #D9A05B;  /* bois de scène */
+  --c-curtain: #C94F4F;  /* rideau / accents */
+  --c-curtain-2:#a93f3f; /* plis du rideau */
+  --c-light:   #F5C86E;  /* lumière or doux */
+  --c-gaffer:  #F2D437;  /* gaffeur / signalétique */
+  --c-matcha:  #7FA65A;  /* validation */
+  --c-ink:     #22252B;  /* Yuki / encre */
+  --c-washi:   #F7F1E3;  /* papier UI */
+  --c-washi-2: #efe6d0;  /* papier ombré */
+
+  /* --- UI --- */
+  --radius: 18px;
+  --radius-s: 12px;
+  --shadow: 0 4px 14px rgba(0, 0, 0, .25);
+  --tap-min: 48px;        /* cible tactile minimale (GDD §9.1) */
+  --font: "Nunito", "Quicksand", ui-rounded, "Hiragino Maru Gothic ProN",
+          system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* --- Durées d'animation (GDD §11.4) --- */
+  --t-fast: 150ms;
+  --t-med:  300ms;
+  --t-slow: 450ms;
+}
+
+/* --- Reset minimal --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;               /* la scène gère tout */
+  background: #141b2a;            /* letterbox autour de la scène */
+  font-family: var(--font);
+  color: var(--c-washi);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;     /* supprime le délai de double-tap */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+
+h1, h2, h3 { font-weight: 700; letter-spacing: .5px; }
+
+/* --- Utilitaires --- */
+.muted  { opacity: .65; font-size: .85em; }
+.hidden { display: none !important; }
+
+.scrollable {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}

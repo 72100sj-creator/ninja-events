@@ -1,0 +1,48 @@
+/* ============================================================
+   NINJA EVENTS — themes.css
+   Ambiances d'actes (GDD §11.2), mode sombre, palettes daltonisme,
+   réduction des animations. Tout passe par les variables CSS.
+   ============================================================ */
+
+/* --- Ambiances par acte (dominantes, GDD §11.2) --- */
+.game-scene[data-theme="act1"] { --c-night: #2B3A55; --c-night-2: #22304a; } /* Salle : bois, poussière dorée */
+.game-scene[data-theme="act2"] { --c-night: #46283a; --c-night-2: #38202e; } /* Théâtre : rouge et or */
+.game-scene[data-theme="act3"] { --c-night: #1e2f4f; --c-night-2: #182741; } /* Festival : nuit bleue */
+.game-scene[data-theme="act4"] { --c-night: #37404d; --c-night-2: #2b333e; } /* Tournée : gris routes */
+.game-scene[data-theme="act5"] { --c-night: #35284f; --c-night-2: #2a2040; } /* Concert : violet nuit */
+
+/* --- Mode sombre (menus : washi jour → washi nuit) --- */
+/* Appliqué par main.js via data-dark="on|off" selon le réglage
+   (auto = suit prefers-color-scheme). */
+.game-scene[data-dark="on"] {
+  --c-washi:   #2e3442;
+  --c-washi-2: #262b37;
+  --c-ink:     #e9e4d6;
+}
+.game-scene[data-dark="on"] .btn        { color: var(--c-ink); }
+.game-scene[data-dark="on"] .wood-sign  { color: #221a10; }
+
+/* --- Palettes daltonisme (redondance couleur+forme au niveau design ;
+       ici, on ajuste les teintes ambiguës, GDD §13) --- */
+.game-scene[data-colorblind="deutan"],
+.game-scene[data-colorblind="protan"] {
+  --c-matcha: #4d9ec9;   /* le vert de validation devient bleu */
+  --c-curtain: #d1553a;  /* rouge tiré vers l'orangé */
+}
+.game-scene[data-colorblind="tritan"] {
+  --c-light:  #f0a4b8;   /* l'or devient rose clair */
+  --c-gaffer: #ff9d5c;   /* le jaune gaffeur devient orange */
+}
+
+/* --- Réduction des animations --- */
+/* Deux portes d'entrée : la préférence système, OU le réglage en jeu
+   (data-motion="reduced" posé par main.js). */
+@media (prefers-reduced-motion: reduce) {
+  .sway, .bob, .title-dust i, .tap-hint { animation: none !important; }
+  .curtain-panel { transition-duration: 1ms !important; }
+}
+.game-scene[data-motion="reduced"] .sway,
+.game-scene[data-motion="reduced"] .bob,
+.game-scene[data-motion="reduced"] .title-dust i,
+.game-scene[data-motion="reduced"] .tap-hint { animation: none !important; }
+.game-scene[data-motion="reduced"] .curtain-panel { transition-duration: 1ms !important; }

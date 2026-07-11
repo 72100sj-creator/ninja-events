@@ -1,0 +1,112 @@
+/* ============================================================
+   NINJA EVENTS — scene.css
+   Scene Engine 2.0 (GDD §14.2) :
+   - conteneur .game-scene au ratio FIXE 9:16, centré, letterboxé ;
+   - tous les écrans positionnés en pourcentages à l'intérieur ;
+   - la .puzzle-grid convertit des cases logiques en pourcentages.
+   ============================================================ */
+
+/* --- La scène : ratio 9:16 quel que soit l'appareil --- */
+.game-scene {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  aspect-ratio: 9 / 16;
+  /* La scène occupe le plus grand rectangle 9:16 qui tient à l'écran */
+  width:  min(100vw, calc(100vh * 9 / 16));
+  height: min(100vh, calc(100vw * 16 / 9));
+  background: var(--c-night);
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 0, 0, .5);
+}
+
+/* --- Les écrans : couches pleines dans la scène --- */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 4% 5%;
+  padding-top: calc(4% + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(4% + env(safe-area-inset-bottom, 0px));
+}
+.screen.is-active { display: flex; }
+
+/* En-tête commun des écrans de menu */
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4%;
+}
+.screen-header h2 { flex: 1; text-align: center; margin-right: var(--tap-min); }
+
+/* --- Zone de jeu (écran mission) --- */
+.mission-stage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- La grille logique : cases → pourcentages --- */
+/* JS pose --cols / --rows ; chaque cellule/pièce est positionnée
+   par --x / --y (coordonnées logiques) et --w / --h (taille en cases). */
+.puzzle-grid {
+  position: relative;
+  width: 100%;
+  max-height: 100%;
+  aspect-ratio: var(--cols, 6) / var(--rows, 8);
+  background: linear-gradient(180deg, #3a4c6e, #33445f);
+  border-radius: var(--radius-s);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, .35);
+}
+
+.grid-cell, .grid-piece, .grid-target, .grid-wall {
+  position: absolute;
+  left:   calc(var(--x) / var(--cols) * 100%);
+  top:    calc(var(--y) / var(--rows) * 100%);
+  width:  calc(var(--w, 1) / var(--cols) * 100%);
+  height: calc(var(--h, 1) / var(--rows) * 100%);
+}
+
+/* Sol : damier de parquet très discret */
+.grid-cell {
+  border: 1px solid rgba(255, 255, 255, .04);
+}
+
+/* Marque au gaffeur (destination) — jaune, pointillés, coins ronds */
+.grid-target {
+  border: 3px dashed var(--c-gaffer);
+  border-radius: 10%;
+  opacity: .8;
+  margin: 1%;
+  width:  calc(var(--w, 1) / var(--cols) * 100% - 2%);
+  height: calc(var(--h, 1) / var(--rows) * 100% - 2%);
+}
+
+/* Mur / pilier de salle */
+.grid-wall {
+  background: var(--c-night-2);
+  border-radius: 14%;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .3);
+}
+
+/* Flight case (rendu Phase 1 : statique) */
+.grid-piece {
+  background: linear-gradient(180deg, #5b6b8a, #4a5977);
+  border: 2px solid rgba(0, 0, 0, .35);
+  border-radius: 12%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .35), inset 0 2px 0 rgba(255,255,255,.15);
+  padding: 4%;
+  transition: transform var(--t-fast) ease-out;
+}
+/* Coins métalliques stylisés */
+.grid-piece::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border: 2px solid rgba(245, 200, 110, .35);
+  border-radius: 10%;
+}

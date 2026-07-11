@@ -1,0 +1,198 @@
+/* ============================================================
+   NINJA EVENTS — ui.css
+   Boutons « galets », panneaux washi, listes, HUD (GDD §10.3).
+   ============================================================ */
+
+/* --- Boutons galets --- */
+.btn {
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: var(--c-washi);
+  color: var(--c-ink);
+  font-weight: 700;
+  font-size: 1.05rem;
+  box-shadow: var(--shadow);
+  transition: transform var(--t-fast) ease-out, box-shadow var(--t-fast) ease-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.btn:disabled { opacity: .35; pointer-events: none; }
+.btn:focus-visible { outline: 3px solid var(--c-light); outline-offset: 2px; }
+
+.btn-primary { background: var(--c-curtain); color: var(--c-washi); }
+.btn-big     { min-height: 64px; font-size: 1.25rem; padding: 14px 40px; }
+.btn-icon    { padding: 0; width: var(--tap-min); font-size: 1.3rem; }
+.btn-danger  { background: transparent; color: var(--c-curtain);
+               border: 2px solid var(--c-curtain); box-shadow: none; }
+
+/* ============ ÉCRAN TITRE ============ */
+#screen-title { align-items: center; justify-content: center; padding: 0; }
+
+.title-curtain {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--c-curtain) 0 9%,
+      var(--c-curtain-2) 9% 12%);
+}
+.title-curtain .drape {   /* lambrequin du haut */
+  position: absolute; top: 0; left: 0; right: 0; height: 9%;
+  background: var(--c-curtain-2);
+  border-radius: 0 0 40% 40%;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+}
+.title-lantern {
+  position: absolute; top: 5%; right: 8%;
+  font-size: clamp(28px, 9vw, 52px);
+  transform-origin: top center;
+  filter: drop-shadow(0 0 14px rgba(245, 200, 110, .8));
+}
+.title-content {
+  position: relative;
+  text-align: center;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, .45);
+}
+.game-logo {
+  display: flex; flex-direction: column; line-height: 1.02;
+  font-size: clamp(42px, 15vw, 84px);
+  color: var(--c-washi);
+  letter-spacing: 3px;
+}
+.game-logo span:last-child { color: var(--c-light); }
+.game-tagline { margin-top: 10px; font-size: 1.1rem; opacity: .95; }
+.tap-hint {
+  margin-top: 16%;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  opacity: .9;
+}
+
+/* ============ LE DOJO ============ */
+.dojo-header { text-align: center; margin-top: 6%; }
+.wood-sign {
+  display: inline-block;
+  background: var(--c-wood);
+  color: var(--c-ink);
+  padding: 10px 34px;
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow), inset 0 -4px 0 rgba(0, 0, 0, .18);
+}
+.dojo-lantern {
+  position: absolute; top: 3%; left: 7%;
+  font-size: clamp(26px, 8vw, 44px);
+  transform-origin: top center;
+  filter: drop-shadow(0 0 12px rgba(245, 200, 110, .7));
+}
+.dojo-yuki { flex: 1; display: flex; align-items: center; justify-content: center; }
+.dojo-yuki .yuki { width: min(46%, 220px); }
+.dojo-menu {
+  display: flex; flex-direction: column; gap: 14px;
+  align-items: stretch;
+  margin-bottom: 6%;
+}
+.dojo-footer { text-align: center; min-height: 1.4em; }
+
+/* ============ FEUILLE DE ROUTE (carte des actes) ============ */
+.map-list { flex: 1; display: flex; flex-direction: column; gap: 14px; padding-bottom: 4%; }
+
+.act-card {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  background: var(--c-washi);
+  color: var(--c-ink);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 14px;
+  transition: transform var(--t-fast) ease-out;
+}
+.act-card:active { transform: scale(.98); }
+.act-card .act-emoji { font-size: 2rem; }
+.act-card .act-name  { font-weight: 800; }
+.act-card .act-sub   { font-size: .85rem; opacity: .7; }
+.act-card .act-fans  { margin-left: auto; font-weight: 700; white-space: nowrap; }
+
+/* Acte verrouillé : rideau baissé, lanterne éteinte (jamais de cadenas) */
+.act-card.locked {
+  background: var(--c-night-2);
+  color: var(--c-washi);
+  opacity: .8;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(90deg,
+    rgba(201, 79, 79, .25) 0 9%, rgba(169, 63, 63, .25) 9% 12%);
+}
+.act-card.locked .act-sub { opacity: .6; }
+
+/* ============ CARNET DE RÉGIE (missions) ============ */
+.notebook-list { flex: 1; display: flex; flex-direction: column; gap: 10px; padding-bottom: 4%; }
+
+.mission-card {
+  width: 100%;
+  text-align: left;
+  background: var(--c-washi);
+  color: var(--c-ink);
+  border-radius: var(--radius-s);
+  padding: 13px 16px;
+  box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 12px;
+  transition: transform var(--t-fast) ease-out;
+}
+.mission-card:active { transform: scale(.98); }
+.mission-card .m-num  { font-weight: 800; opacity: .5; min-width: 2ch; }
+.mission-card .m-name { flex: 1; font-weight: 700; }
+.mission-card .m-fans { letter-spacing: 2px; }
+.mission-card.locked  { opacity: .45; pointer-events: none; }
+.mission-card.done    { border-left: 6px solid var(--c-matcha); }
+
+/* ============ MISSION (jeu) ============ */
+#screen-mission { padding: 3% 4%; }
+.mission-title {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  min-height: 2em;
+  color: var(--c-light);
+  transition: opacity 600ms ease;
+}
+.mission-title.faded { opacity: 0; }
+
+.mission-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3% 6% 0;
+}
+.phase1-note {
+  text-align: center;
+  font-size: .8rem;
+  opacity: .5;
+  padding-top: 6px;
+}
+
+/* ============ RÉGLAGES ============ */
+.settings-list { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: rgba(247, 241, 227, .08);
+  border-radius: var(--radius-s);
+  padding: 13px 16px;
+  min-height: var(--tap-min);
+}
+.setting-row > span { font-weight: 700; }
+.setting-row input[type="range"] { width: 45%; accent-color: var(--c-light); }
+.setting-row select {
+  background: var(--c-washi); color: var(--c-ink);
+  border: none; border-radius: 10px; padding: 8px 10px; font-weight: 700;
+}
+.switch { width: 26px; height: 26px; accent-color: var(--c-matcha); }
+.danger-zone { justify-content: center; background: none; margin-top: 8px; }
+.version-line { text-align: center; padding: 10px 0; }
