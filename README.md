@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.4.1 (Phase 2 — Effets sonores accordés)
+## Version actuelle : v0.4.2 (Phase 2 — Applaudissements réalistes)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -103,6 +103,19 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.4.2 — Applaudissements réalistes (juillet 2026)
+- 👏 Applaudissements entièrement resynthétisés en physique du clap :
+  chaque clap traverse deux **résonateurs** (la cavité des mains ~750–1250 Hz
+  + le claquement ~1,5–2,4 kHz) au lieu d'un simple souffle — c'était la
+  cause du rendu « papier froissé ».
+- Deux plans sonores : ~700 claps en masse (hauteurs variées ±18 %) et
+  26 claps « premiers rangs » distincts, plus une rumeur de salle qui
+  respire.
+- Aigus arrondis, graves nettoyés, réverbération de salle longue (1,1 s),
+  compression douce, 5,7 s avec un fondu naturel.
+- Un seul fichier changé : `assets/audio/applause.m4a` (50 KB).
+- `CACHE_VERSION` → v0.4.2.
 
 ### v0.4.1 — Sons accordés et réverbérés (juillet 2026)
 - 🎵 Les 11 sons sont régénérés : **tout est accordé en ré majeur
