@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.3.3";
+const APP_VERSION = "v0.4.0";
 
 const App = (() => {
 
@@ -240,6 +240,11 @@ const App = (() => {
     applySettings();
     bindSettings();
     renderDojoStats();
+
+    // Un « tap » discret sur chaque bouton (délégation globale)
+    document.addEventListener("click", (ev) => {
+      if (ev.target.closest(".btn")) GameAudio.play("tap");
+    });
 
     // Boutons de navigation génériques (attribut data-goto)
     document.querySelectorAll("[data-goto]").forEach(btn => {

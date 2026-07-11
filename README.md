@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.3.3 (Phase 2 — Séquence Rideau validée)
+## Version actuelle : v0.4.0 (Phase 2 — Effets sonores)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -28,9 +28,12 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
   ouverture du rideau sur le plateau du joueur, projecteurs un à un,
   public en contre-jour, pétales — skippable dès la deuxième victoire
 
+- 🔊 **11 effets sonores** synthétisés sur mesure (~78 KB) : trois coups,
+  rideau, roulements, carillon du gaffeur, applaudissements…
+
 ### Ce qui arrive dans les prochaines livraisons
-Les effets sonores, la reprise du plateau en cours après fermeture de
-l'app, le Chat de la Régie (niveau A1-03).
+La musique zen et les ambiances (curseurs déjà en place), la reprise du
+plateau en cours après fermeture de l'app, le Chat de la Régie (A1-03).
 
 ---
 
@@ -100,6 +103,20 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.4.0 — Phase 2, livraison 3 : les effets sonores (juillet 2026)
+- 11 sons **synthétisés sur mesure** (numpy → AAC/m4a, 78 KB au total,
+  libres de droits) : trois coups du brigadier, tissu du rideau (×2),
+  roulement de caisse, carillon du gaffeur, arpège de victoire, annuler,
+  recommencer, projecteurs, applaudissements (110 claps), tap d'interface.
+- `audio.js` réécrit en Web Audio API : déblocage au premier toucher
+  (contrainte iOS), bus « Effets » branché sur le curseur des Réglages,
+  variation de hauteur ±3 % (GDD §12.4), anti-répétition sous 70 ms.
+- Les trois coups et les projecteurs sont **calés sur les animations CSS**
+  (0/480/960 ms et 0/320/640 ms) : le son et l'image tombent ensemble.
+- Son « tap » discret sur tous les boutons.
+- Service worker : les sons entrent dans le cache hors ligne.
+- `CACHE_VERSION` → v0.4.0. Moteur, sauvegarde et niveaux non touchés.
 
 ### v0.3.3 — Le public se lève vraiment (juillet 2026)
 - 🐛 Les silhouettes du public étaient enterrées sous le bord bas de la
