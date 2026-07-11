@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v0.3.0";
+const CACHE_VERSION = "ninja-events-v0.3.1";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison. */
 const CORE_FILES = [

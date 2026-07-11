@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.3.0 (Phase 2 — Séquence Rideau)
+## Version actuelle : v0.3.1 (Phase 2 — Séquence Rideau, correctif)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -100,6 +100,19 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.3.1 — Correctif + embellissement de la Séquence Rideau (juillet 2026)
+- 🐛 **Bug corrigé** : le sélecteur des trois coups (`.rideau.p-knocks i`)
+  touchait TOUS les éléments `<i>` du rideau et figeait faisceaux et
+  silhouettes à opacité 0. Il est désormais scellé sur `.r-knocks i`.
+- ✨ Faisceaux : plus lumineux, fondu additif (`mix-blend-mode: screen`),
+  flaque de lumière au pied de chaque projecteur.
+- ✨ Public : vraies silhouettes tête + épaules, tailles variées, léger
+  balancement une fois levé.
+- ✨ Pétales : deux couleurs (or et rose), 8 tailles/durées différentes,
+  dérives gauche/droite qui tournoient — fini la ligne trop régulière.
+- Chronologie : public à 3,7 s, fin de séquence à 5,8 s.
+- `CACHE_VERSION` → v0.3.1.
 
 ### v0.3.0 — Phase 2, livraison 2 : la Séquence Rideau (juillet 2026)
 - `curtain.js` : nouvelle fonction `playVictory()` — chronologie de 5,4 s

@@ -59,9 +59,9 @@ const Curtain = (() => {
     { at:  550, cls: "p-knocks",   sfx: "three-knocks" },   // toc, toc, toc
     { at: 2100, cls: "p-open",     sfx: "curtain-open" },   // le rideau s'ouvre
     { at: 2800, cls: "p-spots",    sfx: "spotlight" },      // projecteurs 1 à 1
-    { at: 4000, cls: "p-audience", sfx: "applause" }        // public + pétales
+    { at: 3700, cls: "p-audience", sfx: "applause" }        // public + pétales
   ];
-  const TOTAL = 5400;   // fin de séquence → panneau de victoire
+  const TOTAL = 5800;   // fin de séquence → panneau de victoire
 
   let timers = [];
   let finishFn = null;
