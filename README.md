@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.3.2 (Phase 2 — Séquence Rideau, correctif pétales)
+## Version actuelle : v0.3.3 (Phase 2 — Séquence Rideau validée)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -100,6 +100,13 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.3.3 — Le public se lève vraiment (juillet 2026)
+- 🐛 Les silhouettes du public étaient enterrées sous le bord bas de la
+  scène (ancrage à -6 % + translation finale trop basse) : seules les
+  têtes dépassaient. Remontées : têtes et épaules se lèvent devant la scène.
+- ✨ Faisceaux légèrement adoucis (moins « triangle », plus « lumière »).
+- `CACHE_VERSION` → v0.3.3.
 
 ### v0.3.2 — Correctif pétales (juillet 2026)
 - 🐛 Le raccourci CSS `animation:` des pétales écrasait leurs durées et
