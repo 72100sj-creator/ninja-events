@@ -81,3 +81,21 @@
 
 .curtain.closed .curtain-panel.left  { transform: translateX(0); }
 .curtain.closed .curtain-panel.right { transform: translateX(0); }
+
+/* --- Victoire : éventail qui s'ouvre (« fwip ») --- */
+@keyframes fan-pop {
+  from { transform: scale(0) rotate(-40deg); }
+  to   { transform: scale(1) rotate(0deg); }
+}
+
+/* --- Victoire : pulsation matcha des caisses verrouillées --- */
+.grid-piece.win-pulse {
+  border-color: var(--c-matcha);
+  box-shadow: 0 0 16px rgba(127, 166, 90, .85),
+              inset 0 2px 0 rgba(255, 255, 255, .15);
+  transition: box-shadow var(--t-med) ease-out, border-color var(--t-med) ease-out;
+}
+
+/* --- Réduction des animations : le panneau reste instantané --- */
+.game-scene[data-motion="reduced"] .victory,
+.game-scene[data-motion="reduced"] .v-fans span.earned { animation: none !important; }

@@ -1,20 +1,22 @@
 /* ============================================================
    NINJA EVENTS — main.js
    Orchestration : navigation entre écrans, rendu des menus à
-   partir des données, liaison des réglages, démarrage, PWA.
+   partir des données, réglages, victoire, démarrage, PWA.
    Aucune logique de puzzle ici (elle vit dans js/families/).
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.1.0";
+const APP_VERSION = "v0.2.0";
 
 const App = (() => {
 
   // ----------------------------------------------------------
-  // Navigation
+  // État de navigation
   // ----------------------------------------------------------
   let currentScreen = "title";
   let currentAct = "act1";
+  let currentLevel = null;      // niveau en cours de jeu
+  let currentFamily = null;     // moteur de la famille en cours
 
   function screenEl(name) { return document.getElementById("screen-" + name); }
 
@@ -37,13 +39,14 @@ const App = (() => {
 
     for (const act of Levels.ACTS) {
       const unlocked = Progress.isActUnlocked(act.id);
+      const fans = unlocked ? Progress.fansOfAct(act.id) : 0;
       const card = document.createElement("button");
       card.className = "act-card" + (unlocked ? "" : " locked");
       card.innerHTML =
         `<span class="act-emoji">${act.emoji}</span>` +
         `<span><span class="act-name">Acte ${act.num} — ${act.name}</span><br>` +
         `<span class="act-sub">${unlocked ? act.sub : "Le rideau est encore baissé…"}</span></span>` +
-        (unlocked ? `<span class="act-fans">🪭 ${Progress.fansOfAct(act.id)}</span>` : "");
+        (fans > 0 ? `<span class="act-fans">🪭 ${fans}</span>` : "");
       if (unlocked) {
         card.addEventListener("click", () => {
           currentAct = act.id;
@@ -83,26 +86,72 @@ const App = (() => {
   }
 
   // ----------------------------------------------------------
-  // Mission : chargement d'un niveau dans le moteur
+  // Mission : chargement d'un niveau dans son moteur
   // ----------------------------------------------------------
-  const FAMILIES = { cases: () => FamilyCases };   // extensible en Phase 2+
+  const FAMILIES = { cases: () => FamilyCases };   // extensible (Phase 2+)
 
   function openMission(level) {
-    goto("mission", () => {
-      const grid = document.getElementById("puzzle-grid");
-      const family = (FAMILIES[level.family] || FAMILIES.cases)();
-      family.init(level, grid);
+    goto("mission", () => loadLevel(level));
+  }
 
-      // Titre poétique : visible 3 s, puis fondu (GDD §10.2)
-      const title = document.getElementById("mission-title");
-      title.textContent = level.name.fr;
-      title.classList.remove("faded");
-      clearTimeout(title._t);
-      title._t = setTimeout(() => title.classList.add("faded"), 3000);
+  /** Prépare l'écran mission pour un niveau (sans transition). */
+  function loadLevel(level) {
+    currentLevel = level;
+    hideVictory();
 
-      // Mémoriser la mission en cours (reprise après fermeture)
-      Save.update(s => { s.current.levelId = level.id; });
+    const grid = document.getElementById("puzzle-grid");
+    currentFamily = (FAMILIES[level.family] || FAMILIES.cases)();
+    currentFamily.init(level, grid, {
+      onWin: (moves) => onVictory(level, moves),
+      onChange: (st) => {
+        document.getElementById("btn-undo").disabled = !st.canUndo;
+        document.getElementById("btn-restart").disabled = !st.canUndo;
+      }
     });
+
+    // Titre poétique : visible 3 s, puis fondu (GDD §10.2)
+    const title = document.getElementById("mission-title");
+    title.textContent = level.name.fr;
+    title.classList.remove("faded");
+    clearTimeout(title._t);
+    title._t = setTimeout(() => title.classList.add("faded"), 3000);
+
+    // Mémoriser la mission en cours (reprise après fermeture)
+    Save.update(s => { s.current.levelId = level.id; });
+  }
+
+  // ----------------------------------------------------------
+  // Victoire : éventails, enregistrement, panneau de fin
+  // ----------------------------------------------------------
+  function onVictory(level, moves) {
+    const fans = Progress.fansFor(level, moves);
+    Progress.completeLevel(level.id, fans, moves);
+    Save.update(s => { s.current.levelId = null; });
+    GameAudio.play("applause");
+
+    // Remplissage du panneau
+    document.getElementById("victory-name").textContent = level.name.fr;
+    document.getElementById("victory-moves").textContent =
+      moves + (moves > 1 ? " coups" : " coup");
+    document.querySelectorAll("#victory .v-fans span").forEach((el, i) => {
+      el.classList.toggle("earned", i < fans);
+    });
+
+    // « Spectacle suivant » seulement s'il existe un niveau après
+    document.getElementById("btn-next").classList.toggle("hidden", !nextLevel(level));
+
+    document.getElementById("victory").classList.remove("hidden");
+  }
+
+  function hideVictory() {
+    document.getElementById("victory").classList.add("hidden");
+  }
+
+  /** Niveau suivant dans l'acte courant (ou null si c'était le dernier). */
+  function nextLevel(level) {
+    const list = Levels.ofAct(currentAct);
+    const i = list.findIndex(l => l.id === level.id);
+    return (i >= 0 && i + 1 < list.length) ? list[i + 1] : null;
   }
 
   // ----------------------------------------------------------
@@ -112,7 +161,6 @@ const App = (() => {
     const s = Save.get().settings;
     const scene = document.getElementById("app");
 
-    // Mode sombre : auto = suit le système
     const dark = s.darkMode === "dark" ||
       (s.darkMode === "auto" &&
        window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -128,7 +176,6 @@ const App = (() => {
     const s = Save.get().settings;
     const $ = id => document.getElementById(id);
 
-    // Valeurs initiales
     $("set-music").value = s.music;
     $("set-sfx").value = s.sfx;
     $("set-ambient").value = s.ambient;
@@ -137,7 +184,6 @@ const App = (() => {
     $("set-reducedmotion").checked = s.reducedMotion;
     $("set-colorblind").value = s.colorblind;
 
-    // Un seul schéma de liaison : { idHTML : [cléSauvegarde, lecture] }
     const bindings = {
       "set-music":        ["music",        el => Number(el.value)],
       "set-sfx":          ["sfx",          el => Number(el.value)],
@@ -155,17 +201,15 @@ const App = (() => {
       });
     }
 
-    // Effacer la progression (double confirmation douce)
     $("btn-reset-save").addEventListener("click", () => {
       if (confirm("Effacer toute la progression ?\nLe rideau retombera sur tout ce que tu as construit.")) {
         Save.reset();
         applySettings();
-        bindSettings();   // recharge les valeurs par défaut dans les champs
+        bindSettings();
         renderDojoStats();
       }
     });
 
-    // Le mode auto suit les changements du système en direct
     window.matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", applySettings);
   }
@@ -198,6 +242,20 @@ const App = (() => {
         goto(target, prepare);
       });
     });
+
+    // HUD de mission
+    document.getElementById("btn-undo")
+      .addEventListener("click", () => currentFamily && currentFamily.undo());
+    document.getElementById("btn-restart")
+      .addEventListener("click", () => currentFamily && currentFamily.restart());
+
+    // Panneau de victoire
+    document.getElementById("btn-next").addEventListener("click", () => {
+      const next = nextLevel(currentLevel);
+      if (next) openMission(next);
+    });
+    document.getElementById("btn-back-notebook")
+      .addEventListener("click", () => goto("notebook", renderNotebook));
 
     // Écran titre : premier toucher = déblocage audio + entrée au Dojo
     screenEl("title").addEventListener("pointerdown", () => {

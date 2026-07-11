@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.1.0 (Phase 1 — Fondations)
+## Version actuelle : v0.2.0 (Phase 2 — Moteur de poussée)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -20,9 +20,13 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 💾 **Sauvegarde locale** continue (localStorage, versionnée, migrations prévues)
 - 📱 **PWA hors ligne** (service worker cache-first, installable iOS/Android/Desktop)
 
-### Ce qui arrive en Phase 2
-Le gameplay (poussée des caisses, règles, victoire), la séquence Rideau complète,
-les sons, les éventails gagnés en jouant.
+- 🕹 **Gameplay Flight Cases** : glisser les caisses au doigt, collisions, victoire
+- 🪭 **Éventails gagnés** (1 à 3 selon le nombre de coups), enregistrés dans la sauvegarde
+- ↩ **Annulation illimitée** et ⟳ recommencer
+
+### Ce qui arrive dans les prochaines livraisons
+La séquence Rideau complète (GDD §11.5), les sons, la reprise du plateau
+en cours après fermeture de l'app, le Chat de la Régie (niveau A1-03).
 
 ---
 
@@ -92,6 +96,18 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.2.0 — Phase 2, livraison 1 : Moteur de poussée (juillet 2026)
+- `families/cases.js` réécrit : glisser tactile case par case (axe dominant,
+  contournement naturel), collisions bords/murs/caisses, 1 coup = 1 case.
+- Marques au gaffeur qui s'illuminent en matcha quand la bonne caisse est posée.
+- Victoire : pulsation des caisses, panneau « Le rideau s'ouvre ! » avec
+  éventails animés, nombre de coups, « Spectacle suivant ».
+- Boutons Annuler (illimité) et Recommencer actifs dans le HUD.
+- `progress.js` : calcul des éventails selon les seuils `par` des niveaux.
+- Micro-retours des captures : damier du sol renforcé, « 🪭 0 » masqué sur la carte.
+- `touch-action: none` sur la grille (le glisser ne fait plus défiler la page).
+- `CACHE_VERSION` → v0.2.0.
 
 ### v0.1.0 — Phase 1 : Fondations (juillet 2026)
 - Création du projet complet : 21 fichiers.

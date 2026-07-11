@@ -196,3 +196,45 @@
 .switch { width: 26px; height: 26px; accent-color: var(--c-matcha); }
 .danger-zone { justify-content: center; background: none; margin-top: 8px; }
 .version-line { text-align: center; padding: 10px 0; }
+
+/* ============ PANNEAU DE VICTOIRE (Phase 2) ============ */
+.victory {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 14, 22, .82);
+  animation: victory-fade var(--t-slow) ease-out;
+}
+@keyframes victory-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.victory-panel {
+  width: 82%;
+  background: var(--c-washi);
+  color: var(--c-ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px 22px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.v-eyebrow {
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: .8rem;
+  color: var(--c-curtain);
+}
+.v-fans { font-size: 2.1rem; letter-spacing: 8px; min-height: 1.3em; }
+.v-fans span { display: inline-block; opacity: .15; filter: grayscale(1); }
+.v-fans span.earned {
+  opacity: 1;
+  filter: none;
+  animation: fan-pop .5s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+.v-fans span.earned:nth-child(2) { animation-delay: .18s; }
+.v-fans span.earned:nth-child(3) { animation-delay: .36s; }

@@ -57,6 +57,7 @@
   position: relative;
   width: 100%;
   max-height: 100%;
+  touch-action: none;   /* le glisser des caisses ne doit pas scroller la page */
   aspect-ratio: var(--cols, 6) / var(--rows, 8);
   background: linear-gradient(180deg, #3a4c6e, #33445f);
   border-radius: var(--radius-s);
@@ -71,9 +72,9 @@
   height: calc(var(--h, 1) / var(--rows) * 100%);
 }
 
-/* Sol : damier de parquet très discret */
+/* Sol : damier de parquet (renforcé après validation des captures) */
 .grid-cell {
-  border: 1px solid rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .09);
 }
 
 /* Marque au gaffeur (destination) — jaune, pointillés, coins ronds */
@@ -109,4 +110,22 @@
   inset: 8%;
   border: 2px solid rgba(245, 200, 110, .35);
   border-radius: 10%;
+}
+
+/* Marque au gaffeur satisfaite : la bonne caisse est dessus (GDD §5.1) */
+.grid-target.lit {
+  border-style: solid;
+  border-color: var(--c-matcha);
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(127, 166, 90, .5);
+  transition: box-shadow var(--t-med) ease-out;
+}
+
+/* Caisse en cours de glisser : légèrement soulevée */
+.grid-piece { cursor: grab; }
+.grid-piece.dragging {
+  z-index: 5;
+  cursor: grabbing;
+  filter: brightness(1.12);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .45), inset 0 2px 0 rgba(255,255,255,.15);
 }

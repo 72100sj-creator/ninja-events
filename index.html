@@ -108,7 +108,21 @@
         <button id="btn-menu" class="btn btn-icon" data-goto="notebook" aria-label="Menu">☰</button>
         <button id="btn-restart" class="btn btn-icon" aria-label="Recommencer" disabled>⟳</button>
       </div>
-      <div class="phase1-note">Moteur en préparation — Phase 2 🥷</div>
+
+      <!-- Panneau de victoire (version simple — la séquence Rideau
+           complète du GDD §11.5 arrivera dans une livraison dédiée) -->
+      <div id="victory" class="victory hidden">
+        <div class="victory-panel">
+          <p class="v-eyebrow">Le rideau s'ouvre&nbsp;!</p>
+          <div class="v-fans" aria-label="Éventails gagnés">
+            <span>🪭</span><span>🪭</span><span>🪭</span>
+          </div>
+          <h3 id="victory-name"></h3>
+          <p id="victory-moves" class="muted"></p>
+          <button id="btn-next" class="btn btn-primary btn-big">Spectacle suivant</button>
+          <button id="btn-back-notebook" class="btn">Carnet de Régie</button>
+        </div>
+      </div>
     </section>
 
     <!-- ============ ÉCRAN : RÉGLAGES ============ -->

@@ -59,5 +59,16 @@ const Progress = (() => {
     return Levels.ofAct(actId).reduce((sum, lvl) => sum + fansOf(lvl.id), 0);
   }
 
-  return { fansOf, isDone, isUnlocked, isActUnlocked, completeLevel, fansOfAct };
+  /**
+   * Éventails gagnés selon le nombre de coups (GDD §5.9).
+   * 1 éventail = toujours acquis ; les seuils viennent du niveau.
+   */
+  function fansFor(level, moves) {
+    const par = level.par || {};
+    if (par.moves3fans && moves <= par.moves3fans) return 3;
+    if (par.moves2fans && moves <= par.moves2fans) return 2;
+    return 1;
+  }
+
+  return { fansOf, isDone, isUnlocked, isActUnlocked, completeLevel, fansOfAct, fansFor };
 })();
