@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.2.0 (Phase 2 — Moteur de poussée)
+## Version actuelle : v0.3.0 (Phase 2 — Séquence Rideau)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -24,9 +24,13 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 🪭 **Éventails gagnés** (1 à 3 selon le nombre de coups), enregistrés dans la sauvegarde
 - ↩ **Annulation illimitée** et ⟳ recommencer
 
+- 🎬 **La Séquence Rideau** (GDD §11.5) : noir de salle, trois coups,
+  ouverture du rideau sur le plateau du joueur, projecteurs un à un,
+  public en contre-jour, pétales — skippable dès la deuxième victoire
+
 ### Ce qui arrive dans les prochaines livraisons
-La séquence Rideau complète (GDD §11.5), les sons, la reprise du plateau
-en cours après fermeture de l'app, le Chat de la Régie (niveau A1-03).
+Les effets sonores, la reprise du plateau en cours après fermeture de
+l'app, le Chat de la Régie (niveau A1-03).
 
 ---
 
@@ -96,6 +100,16 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.3.0 — Phase 2, livraison 2 : la Séquence Rideau (juillet 2026)
+- `curtain.js` : nouvelle fonction `playVictory()` — chronologie de 5,4 s
+  (noir 0,5 s → trois coups → ouverture du rideau 1,4 s → 3 projecteurs
+  en cascade → public + pétales), puis panneau d'éventails.
+- Skippable d'un toucher dès la deuxième victoire (jamais la première).
+- « Réduire les animations » : la séquence devient un simple fondu de 0,25 s.
+- Nouvelles couches CSS (#rideau) : uniquement transform/opacity, 60 fps.
+- Voile du panneau de victoire allégé : la scène éclairée reste visible.
+- `CACHE_VERSION` → v0.3.0. Moteur de jeu et sauvegarde non touchés.
 
 ### v0.2.0 — Phase 2, livraison 1 : Moteur de poussée (juillet 2026)
 - `families/cases.js` réécrit : glisser tactile case par case (axe dominant,

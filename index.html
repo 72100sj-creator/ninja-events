@@ -109,6 +109,23 @@
         <button id="btn-restart" class="btn btn-icon" aria-label="Recommencer" disabled>⟳</button>
       </div>
 
+      <!-- Séquence Rideau de victoire (GDD §11.5) — couches animées :
+           noir de salle, trois coups, pans du rideau, projecteurs,
+           public, pétales. Pilotée par curtain.js (classes p-*). -->
+      <div id="rideau" class="rideau hidden" aria-hidden="true">
+        <div class="r-blackout"></div>
+        <div class="r-spots"><i></i><i></i><i></i></div>
+        <div class="r-audience">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="r-petals">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="r-panel r-left"></div>
+        <div class="r-panel r-right"></div>
+        <div class="r-knocks"><i></i><i></i><i></i></div>
+      </div>
+
       <!-- Panneau de victoire (version simple — la séquence Rideau
            complète du GDD §11.5 arrivera dans une livraison dédiée) -->
       <div id="victory" class="victory hidden">

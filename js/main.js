@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.2.0";
+const APP_VERSION = "v0.3.0";
 
 const App = (() => {
 
@@ -98,6 +98,7 @@ const App = (() => {
   function loadLevel(level) {
     currentLevel = level;
     hideVictory();
+    Curtain.resetVictory();
 
     const grid = document.getElementById("puzzle-grid");
     currentFamily = (FAMILIES[level.family] || FAMILIES.cases)();
@@ -124,23 +125,29 @@ const App = (() => {
   // Victoire : éventails, enregistrement, panneau de fin
   // ----------------------------------------------------------
   function onVictory(level, moves) {
+    // « Skippable dès la deuxième victoire » (GDD §11.5) : on regarde
+    // AVANT d'enregistrer si le joueur a déjà vu la séquence.
+    const alreadySeen = Progress.isDone(level.id) ||
+                        Save.get().stats.totalLevels > 0;
+
     const fans = Progress.fansFor(level, moves);
     Progress.completeLevel(level.id, fans, moves);
     Save.update(s => { s.current.levelId = null; });
-    GameAudio.play("applause");
 
-    // Remplissage du panneau
+    // Remplissage du panneau (affiché à la FIN de la séquence Rideau)
     document.getElementById("victory-name").textContent = level.name.fr;
     document.getElementById("victory-moves").textContent =
       moves + (moves > 1 ? " coups" : " coup");
     document.querySelectorAll("#victory .v-fans span").forEach((el, i) => {
       el.classList.toggle("earned", i < fans);
     });
-
-    // « Spectacle suivant » seulement s'il existe un niveau après
     document.getElementById("btn-next").classList.toggle("hidden", !nextLevel(level));
 
-    document.getElementById("victory").classList.remove("hidden");
+    // La séquence signature : noir → trois coups → rideau → lumières
+    Curtain.playVictory({
+      skippable: alreadySeen,
+      onDone: () => document.getElementById("victory").classList.remove("hidden")
+    });
   }
 
   function hideVictory() {
@@ -255,7 +262,10 @@ const App = (() => {
       if (next) openMission(next);
     });
     document.getElementById("btn-back-notebook")
-      .addEventListener("click", () => goto("notebook", renderNotebook));
+      .addEventListener("click", () => {
+        Curtain.resetVictory();
+        goto("notebook", renderNotebook);
+      });
 
     // Écran titre : premier toucher = déblocage audio + entrée au Dojo
     screenEl("title").addEventListener("pointerdown", () => {

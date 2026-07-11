@@ -99,3 +99,145 @@
 /* --- Réduction des animations : le panneau reste instantané --- */
 .game-scene[data-motion="reduced"] .victory,
 .game-scene[data-motion="reduced"] .v-fans span.earned { animation: none !important; }
+
+/* ============================================================
+   LA SÉQUENCE RIDEAU DE VICTOIRE (GDD §11.5)
+   Couches empilées dans #rideau, révélées par les classes de
+   phase (p-black → p-knocks → p-open → p-spots → p-audience)
+   posées par curtain.js. Uniquement transform + opacity.
+   ============================================================ */
+.rideau {
+  position: absolute;
+  inset: 0;
+  z-index: 30;              /* au-dessus du plateau, sous le panneau (40) */
+  overflow: hidden;
+}
+.rideau.hidden { display: none; }
+
+/* --- 1. Noir de salle (puis voile de spectacle à l'ouverture) --- */
+.r-blackout {
+  position: absolute;
+  inset: 0;
+  background: #0a0e16;
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+.rideau.p-black .r-blackout { opacity: 1; }
+.rideau.p-open  .r-blackout { opacity: .45; transition: opacity 1400ms ease-out; }
+
+/* --- 2. Les trois coups (pulsations dorées au centre) --- */
+.r-knocks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6%;
+}
+.r-knocks i {
+  width: 5%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c-light);
+  box-shadow: 0 0 24px rgba(245, 200, 110, .9);
+  transform: scale(0);
+  opacity: 0;
+}
+.rideau.p-knocks i { animation: knock 500ms ease-out both; }
+.rideau.p-knocks .r-knocks i:nth-child(2) { animation-delay: 480ms; }
+.rideau.p-knocks .r-knocks i:nth-child(3) { animation-delay: 960ms; }
+@keyframes knock {
+  0%   { transform: scale(0);   opacity: 0; }
+  35%  { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(1);   opacity: 0; }
+}
+
+/* --- 3. Les pans du rideau (fermés pendant le noir, puis s'ouvrent) --- */
+.r-panel {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 51%;
+  background: repeating-linear-gradient(90deg,
+    var(--c-curtain) 0 14%, var(--c-curtain-2) 14% 19%);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .55);
+  opacity: 0;
+  transition: transform 1400ms ease-in-out, opacity 400ms ease-in;
+  will-change: transform;
+}
+.r-left  { left: 0;  transform: translateX(0); }
+.r-right { right: 0; transform: translateX(0); }
+.rideau.p-black .r-panel { opacity: 1; }             /* apparaissent dans le noir */
+.rideau.p-open  .r-left  { transform: translateX(-102%); }
+.rideau.p-open  .r-right { transform: translateX(102%); }
+
+/* --- 4. Les projecteurs s'allument un à un --- */
+.r-spots { position: absolute; inset: 0; }
+.r-spots i {
+  position: absolute;
+  top: 0;
+  height: 72%;
+  width: 34%;
+  background: linear-gradient(180deg, rgba(245, 200, 110, .34), rgba(245, 200, 110, 0) 78%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  opacity: 0;
+  transition: opacity 700ms ease-out;
+}
+.r-spots i:nth-child(1) { left: 1%; }
+.r-spots i:nth-child(2) { left: 33%; }
+.r-spots i:nth-child(3) { left: 65%; }
+.rideau.p-spots .r-spots i:nth-child(1) { opacity: 1; }
+.rideau.p-spots .r-spots i:nth-child(2) { opacity: 1; transition-delay: 320ms; }
+.rideau.p-spots .r-spots i:nth-child(3) { opacity: 1; transition-delay: 640ms; }
+
+/* --- 5. Le public en contre-jour (silhouettes qui se lèvent) --- */
+.r-audience {
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -6%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  transform: translateY(110%);
+  transition: transform 900ms cubic-bezier(.22, 1.1, .36, 1);
+}
+.r-audience i {
+  width: 13%;
+  aspect-ratio: 1 / 1.25;
+  border-radius: 50% 50% 20% 20%;
+  background: #0c1019;
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, .5);
+}
+.r-audience i:nth-child(even) { transform: translateY(14%); }
+.rideau.p-audience .r-audience { transform: translateY(32%); }
+
+/* --- 6. Pétales qui tombent doucement --- */
+.r-petals { position: absolute; inset: 0; }
+.r-petals i {
+  position: absolute;
+  top: -4%;
+  width: 3.4%;
+  aspect-ratio: 1 / 1.3;
+  border-radius: 70% 30% 60% 40%;
+  background: var(--c-light);
+  opacity: 0;
+}
+.rideau.p-audience .r-petals i { animation: petal 4.5s linear infinite; }
+.r-petals i:nth-child(1) { left:  8%; animation-delay:   0ms; }
+.r-petals i:nth-child(2) { left: 21%; animation-delay: 900ms; }
+.r-petals i:nth-child(3) { left: 33%; animation-delay: 350ms; }
+.r-petals i:nth-child(4) { left: 46%; animation-delay: 1500ms; }
+.r-petals i:nth-child(5) { left: 58%; animation-delay: 600ms; }
+.r-petals i:nth-child(6) { left: 70%; animation-delay: 1900ms; }
+.r-petals i:nth-child(7) { left: 82%; animation-delay: 1200ms; }
+.r-petals i:nth-child(8) { left: 92%; animation-delay: 2400ms; }
+@keyframes petal {
+  0%   { transform: translateY(0) rotate(0deg);        opacity: 0; }
+  8%   { opacity: .85; }
+  85%  { opacity: .5; }
+  100% { transform: translateY(108vh) rotate(300deg) translateX(30px); opacity: 0; }
+}
+
+/* --- Animations réduites : la séquence est court-circuitée par
+       curtain.js ; on neutralise aussi les boucles par sécurité. --- */
+.game-scene[data-motion="reduced"] .r-petals i,
+.game-scene[data-motion="reduced"] .r-knocks i { animation: none !important; }

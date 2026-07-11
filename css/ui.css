@@ -205,7 +205,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 14, 22, .82);
+  background: rgba(10, 14, 22, .35);   /* la scène reste visible derrière */
   animation: victory-fade var(--t-slow) ease-out;
 }
 @keyframes victory-fade { from { opacity: 0; } to { opacity: 1; } }
