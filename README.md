@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.4.0 (Phase 2 — Effets sonores)
+## Version actuelle : v0.4.1 (Phase 2 — Effets sonores accordés)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -103,6 +103,24 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.4.1 — Sons accordés et réverbérés (juillet 2026)
+- 🎵 Les 11 sons sont régénérés : **tout est accordé en ré majeur
+  pentatonique** (la gamme de l'arpège de victoire) — gaffeur en ré6/la6,
+  tap en ré6, bloom des projecteurs en ré3. Plus de notes qui se frottent.
+- ✨ **Réverbération de petite salle** sur les sons de spectacle (coups,
+  rideau, gaffeur, victoire, projecteurs, applaudissements) : de l'air,
+  du liant, moins de sécheresse. Les sons fréquents (roulement, annuler)
+  restent secs pour ne pas empâter.
+- 👏 Applaudissements réécrits : 130 claps aux timbres variés + une rumeur
+  chaleureuse de foule en dessous.
+- 🥁 Trois coups plus « bois de brigadier » (trois modes de résonance).
+- Poids total : 111 KB (budget GDD : 4 MB).
+- Aucun fichier de code modifié (mêmes noms de fichiers sons).
+- `CACHE_VERSION` → v0.4.1.
+- ℹ️ Rappel : en ouvrant `index.html` en direct (`file://`), les navigateurs
+  de bureau bloquent le chargement des sons — tester via GitHub Pages ou
+  `python3 -m http.server 8000`.
 
 ### v0.4.0 — Phase 2, livraison 3 : les effets sonores (juillet 2026)
 - 11 sons **synthétisés sur mesure** (numpy → AAC/m4a, 78 KB au total,
