@@ -37,6 +37,14 @@ const Levels = (() => {
     /** Tous les niveaux d'un acte, dans l'ordre. */
     ofAct(actId) { return registry[actId] || []; },
 
+    /** Acte auquel appartient un niveau (ex. "A1-02" → "act1"). */
+    actOf(levelId) {
+      for (const actId of Object.keys(registry)) {
+        if (registry[actId].some(l => l.id === levelId)) return actId;
+      }
+      return null;
+    },
+
     /** Retrouve un niveau par son id (ex. "A1-02"). */
     byId(levelId) {
       for (const actId of Object.keys(registry)) {

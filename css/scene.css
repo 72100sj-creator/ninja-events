@@ -129,3 +129,42 @@
   filter: brightness(1.12);
   box-shadow: 0 6px 14px rgba(0, 0, 0, .45), inset 0 2px 0 rgba(255,255,255,.15);
 }
+
+/* --- Le Chat de la Régie : dort sur sa case, imperturbable --- */
+.grid-cat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(18px, 6vmin, 42px);
+  pointer-events: none;             /* on ne déplace pas un chat */
+  animation: cat-breathe 3.4s ease-in-out infinite;
+  transform-origin: 50% 90%;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .4));
+}
+.grid-cat::after {                  /* petit songe */
+  content: "\1F4A4";
+  position: absolute;
+  top: -8%;
+  right: 2%;
+  font-size: .45em;
+  opacity: .8;
+  animation: cat-dream 3.4s ease-in-out infinite;
+}
+@keyframes cat-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05, 0.97); }
+}
+@keyframes cat-dream {
+  0%, 100% { opacity: .25; transform: translateY(0); }
+  50%      { opacity: .9;  transform: translateY(-14%); }
+}
+/* Dérangé par une caisse : il frémit… puis se rendort */
+.grid-cat.nudge { animation: cat-nudge .4s ease-out; }
+@keyframes cat-nudge {
+  0%   { transform: rotate(0) scale(1); }
+  30%  { transform: rotate(-7deg) scale(1.12); }
+  60%  { transform: rotate(6deg) scale(1.06); }
+  100% { transform: rotate(0) scale(1); }
+}
+.game-scene[data-motion="reduced"] .grid-cat,
+.game-scene[data-motion="reduced"] .grid-cat::after { animation: none !important; }

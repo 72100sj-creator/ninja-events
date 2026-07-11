@@ -2,7 +2,12 @@
    NINJA EVENTS — families/cases.js
    Famille A « Le Ballet des Caisses » (GDD §5.1).
 
-   PHASE 2 — MOTEUR COMPLET (v0.2.0) :
+   PHASE 2 — MOTEUR COMPLET (v0.5.0) :
+   - reprise du plateau : l'état (positions, coups, historique) est
+     émis à chaque changement via hooks.onState → sauvegarde continue,
+     et restauré par init(…, savedState) (GDD §9.2) ;
+   - le Chat de la Régie 🐱 : dort sur une case, bloque les caisses,
+     frémit quand on le dérange — mais ne se lève JAMAIS ;
    - glisser une caisse au doigt : elle se déplace case par case ;
    - collisions : bords, murs, autres caisses ;
    - 1 coup = 1 case parcourue (cohérent avec les `par` des niveaux) ;
@@ -39,6 +44,11 @@ const FamilyCases = (() => {
     return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
   }
 
+  /** Le chat occupe-t-il une des cases visées ? */
+  function onCat(p, x, y) {
+    return S.cat && overlaps(x, y, p.w, p.h, S.cat.x, S.cat.y, 1, 1);
+  }
+
   /** La pièce `p` peut-elle occuper (x, y) ? */
   function isFree(p, x, y) {
     // Bords de la grille
@@ -47,6 +57,8 @@ const FamilyCases = (() => {
     for (const [wx, wy] of S.walls) {
       if (overlaps(x, y, p.w, p.h, wx, wy, 1, 1)) return false;
     }
+    // Le Chat de la Régie : on ne pousse pas un chat qui dort.
+    if (onCat(p, x, y)) return false;
     // Autres caisses
     for (const other of S.pieces) {
       if (other === p) continue;
@@ -60,7 +72,11 @@ const FamilyCases = (() => {
   /** Tente UN pas ; retourne true si la caisse a bougé. */
   function tryStep(p, dx, dy) {
     const nx = p.x + dx, ny = p.y + dy;
-    if (!isFree(p, nx, ny)) return false;
+    if (!isFree(p, nx, ny)) {
+      // Si c'est le chat qui bloque : il frémit, sans jamais bouger.
+      if (onCat(p, nx, ny)) nudgeCat();
+      return false;
+    }
 
     S.history.push({ p, x: p.x, y: p.y });   // pour l'annulation
     p.x = nx; p.y = ny;
@@ -71,7 +87,33 @@ const FamilyCases = (() => {
     GameAudio.haptic(6);
     updateTargets();
     notify();
+    emitState();
     return true;
+  }
+
+  /** Frémissement du chat dérangé (au plus toutes les 600 ms). */
+  let lastNudge = 0;
+  function nudgeCat() {
+    const now = performance.now();
+    if (!S.cat || now - lastNudge < 600) return;
+    lastNudge = now;
+    S.cat.el.classList.remove("nudge");
+    void S.cat.el.offsetWidth;
+    S.cat.el.classList.add("nudge");
+    GameAudio.haptic(4);
+  }
+
+  /** Photographie sérialisable du plateau (reprise après fermeture). */
+  function serialize() {
+    return {
+      pieces: S.pieces.map(p => [p.x, p.y]),
+      moves: S.moves,
+      history: S.history.map(h => ({ i: S.pieces.indexOf(h.p), x: h.x, y: h.y }))
+    };
+  }
+
+  function emitState() {
+    if (S && S.hooks.onState && !S.won) S.hooks.onState(serialize());
   }
 
   /* ---------- Glisser au doigt ---------- */
@@ -169,7 +211,7 @@ const FamilyCases = (() => {
    * @param {HTMLElement} gridEl
    * @param {object} hooks   { onWin(moves), onChange({canUndo, moves}) }
    */
-  function init(level, gridEl, hooks = {}) {
+  function init(level, gridEl, hooks = {}, savedState = null) {
     SceneEngine.setupGrid(gridEl, level.grid.cols, level.grid.rows);
 
     S = {
@@ -177,6 +219,7 @@ const FamilyCases = (() => {
       cols: level.grid.cols,
       rows: level.grid.rows,
       walls: (level.walls || []).slice(),
+      cat: null,
       pieces: [],
       targets: [],
       moves: 0,
@@ -206,8 +249,32 @@ const FamilyCases = (() => {
       attachDrag(p);
     }
 
+    // Le Chat de la Régie (modificateur « cat », GDD §5.1)
+    if (level.cat) {
+      const el = SceneEngine.place(gridEl, "grid-cat", level.cat[0], level.cat[1], 1, 1);
+      el.textContent = "🐱";
+      S.cat = { el, x: level.cat[0], y: level.cat[1] };
+    }
+
+    // Reprise d'un plateau en cours (GDD §9.2)
+    if (savedState && Array.isArray(savedState.pieces) &&
+        savedState.pieces.length === S.pieces.length) {
+      savedState.pieces.forEach(([x, y], i) => {
+        const p = S.pieces[i];
+        if (x >= 0 && y >= 0 && x + p.w <= S.cols && y + p.h <= S.rows) {
+          p.x = x; p.y = y;
+          SceneEngine.moveEl(p.el, x, y);
+        }
+      });
+      S.moves = savedState.moves || 0;
+      S.history = (savedState.history || [])
+        .filter(h => S.pieces[h.i])
+        .map(h => ({ p: S.pieces[h.i], x: h.x, y: h.y }));
+    }
+
     updateTargets();
     notify();
+    emitState();
   }
 
   /** Annule le dernier pas (illimité). */
@@ -220,6 +287,7 @@ const FamilyCases = (() => {
     GameAudio.play("undo");
     updateTargets();
     notify();
+    emitState();
   }
 
   /** Recommence le niveau (repart des positions initiales). */

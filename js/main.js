@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.4.2";
+const APP_VERSION = "v0.5.0";
 
 const App = (() => {
 
@@ -94,11 +94,16 @@ const App = (() => {
     goto("mission", () => loadLevel(level));
   }
 
-  /** Prépare l'écran mission pour un niveau (sans transition). */
+  /** Prépare l'écran mission pour un niveau (sans transition).
+      Si ce niveau est la mission en cours sauvegardée, le plateau
+      reprend exactement où il en était (GDD §9.2). */
   function loadLevel(level) {
     currentLevel = level;
     hideVictory();
     Curtain.resetVictory();
+
+    const cur = Save.get().current;
+    const savedState = (cur.levelId === level.id && cur.state) ? cur.state : null;
 
     const grid = document.getElementById("puzzle-grid");
     currentFamily = (FAMILIES[level.family] || FAMILIES.cases)();
@@ -107,8 +112,13 @@ const App = (() => {
       onChange: (st) => {
         document.getElementById("btn-undo").disabled = !st.canUndo;
         document.getElementById("btn-restart").disabled = !st.canUndo;
-      }
-    });
+      },
+      // Sauvegarde continue du plateau, coup après coup.
+      onState: (state) => Save.update(s => {
+        s.current.levelId = level.id;
+        s.current.state = state;
+      })
+    }, savedState);
 
     // Titre poétique : visible 3 s, puis fondu (GDD §10.2)
     const title = document.getElementById("mission-title");
@@ -117,8 +127,7 @@ const App = (() => {
     clearTimeout(title._t);
     title._t = setTimeout(() => title.classList.add("faded"), 3000);
 
-    // Mémoriser la mission en cours (reprise après fermeture)
-    Save.update(s => { s.current.levelId = level.id; });
+
   }
 
   // ----------------------------------------------------------
@@ -132,7 +141,7 @@ const App = (() => {
 
     const fans = Progress.fansFor(level, moves);
     Progress.completeLevel(level.id, fans, moves);
-    Save.update(s => { s.current.levelId = null; });
+    Save.update(s => { s.current.levelId = null; s.current.state = null; });
 
     // Remplissage du panneau (affiché à la FIN de la séquence Rideau)
     document.getElementById("victory-name").textContent = level.name.fr;
@@ -230,6 +239,11 @@ const App = (() => {
       st.totalLevels > 0
         ? `${st.totalLevels} spectacle${st.totalLevels > 1 ? "s" : ""} · 🪭 ${st.totalFans}`
         : "Ton premier spectacle t'attend.";
+
+    // « Reprendre » : visible seulement si une mission est en cours
+    const cur = Save.get().current;
+    const resumable = cur.levelId && cur.state && Levels.byId(cur.levelId);
+    document.getElementById("btn-resume").classList.toggle("hidden", !resumable);
   }
 
   // ----------------------------------------------------------
@@ -253,6 +267,15 @@ const App = (() => {
         const prepare = { map: renderMap, notebook: renderNotebook, dojo: renderDojoStats }[target];
         goto(target, prepare);
       });
+    });
+
+    // « Reprendre » la mission en cours depuis le Dojo
+    document.getElementById("btn-resume").addEventListener("click", () => {
+      const cur = Save.get().current;
+      const level = cur.levelId && Levels.byId(cur.levelId);
+      if (!level) return;
+      currentAct = Levels.actOf(level.id) || currentAct;
+      openMission(level);
     });
 
     // HUD de mission

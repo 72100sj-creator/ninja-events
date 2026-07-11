@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.4.2 (Phase 2 — Applaudissements réalistes)
+## Version actuelle : v0.5.0 (Phase 2 — Reprise du plateau + le Chat)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -31,9 +31,13 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 🔊 **11 effets sonores** synthétisés sur mesure (~78 KB) : trois coups,
   rideau, roulements, carillon du gaffeur, applaudissements…
 
+- 💾 **Reprise du plateau en cours** : fermer l'app en pleine partie,
+  tout retrouver exactement en l'état (positions, coups, annulations)
+- 🐱 **Le Chat de la Régie** dort sur A1-03 — il bloque, frémit, ne bouge jamais
+
 ### Ce qui arrive dans les prochaines livraisons
-La musique zen et les ambiances (curseurs déjà en place), la reprise du
-plateau en cours après fermeture de l'app, le Chat de la Régie (A1-03).
+La musique zen et les ambiances (curseurs déjà en place), puis la Phase 3
+(succès, statistiques, davantage de niveaux).
 
 ---
 
@@ -103,6 +107,21 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.5.0 — Phase 2, livraison finale : reprise du plateau + le Chat (juillet 2026)
+- 💾 **Interruptibilité totale (GDD §9.2)** : le plateau est photographié
+  après chaque coup (positions, compteur, historique d'annulation) dans
+  `current.state` — un format que `save.js` prévoyait depuis la v0.1.0,
+  il n'a donc PAS été modifié. Rouvrir le même niveau (ou l'app) reprend
+  la partie exactement où elle en était, annulations comprises.
+- 🎬 Bouton **« Reprendre »** au Dojo quand une mission est en cours
+  (reprise en 2 touchers depuis l'écran d'accueil, comme au GDD).
+- 🐱 **Le Chat de la Régie** (modificateur `cat`, niveau A1-03) : il dort
+  sur sa case en respirant avec un 💤, bloque les caisses comme un pilier,
+  et frémit quand on le dérange — mais ne se lève jamais.
+- La victoire nettoie l'état sauvegardé ; « Recommencer » sauvegarde le
+  plateau remis à zéro.
+- `CACHE_VERSION` → v0.5.0.
 
 ### v0.4.2 — Applaudissements réalistes (juillet 2026)
 - 👏 Applaudissements entièrement resynthétisés en physique du clap :

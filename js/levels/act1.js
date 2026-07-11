@@ -62,6 +62,7 @@ Levels.register("act1", [
     ],
     walls: [[2, 2], [3, 6]],
     modifiers: ["cat"],
+    cat: [4, 2],
     par: { moves2fans: 18, moves3fans: 12 },
     reward: null
   }
