@@ -1,0 +1,17 @@
+{
+  "name": "Ninja Events",
+  "short_name": "NinjaEvents",
+  "description": "Prépare le spectacle. Ouvre le rideau. Savoure les applaudissements.",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2B3A55",
+  "theme_color": "#2B3A55",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

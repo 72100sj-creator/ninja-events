@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Ninja Events</title>
+  <meta name="description" content="Prépare le spectacle. Ouvre le rideau. Savoure les applaudissements.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2B3A55">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ninja Events">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+
+  <!-- Styles (ordre important : base → scène → ui → thèmes → animations) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/scene.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- ================================================================
+       LA SCÈNE — conteneur 9:16 unique (Scene Engine 2.0, GDD §14.2)
+       Tous les écrans vivent à l'intérieur, positionnés en pourcentages.
+       ================================================================ -->
+  <div id="app" class="game-scene" data-theme="act1">
+
+    <!-- ============ ÉCRAN : TITRE (rideau fermé) ============ -->
+    <section id="screen-title" class="screen is-active" data-ambient="title">
+      <div class="title-curtain" aria-hidden="true">
+        <div class="drape"></div>
+      </div>
+      <div class="title-dust" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="title-lantern" aria-hidden="true">🏮</div>
+      <div class="title-content">
+        <h1 class="game-logo"><span>NINJA</span><span>EVENTS</span></h1>
+        <p class="game-tagline">Prépare la magie.</p>
+        <p class="tap-hint">Toucher pour entrer</p>
+      </div>
+    </section>
+
+    <!-- ============ ÉCRAN : LE DOJO (accueil) ============ -->
+    <section id="screen-dojo" class="screen" data-ambient="dojo">
+      <div class="dojo-lantern sway" aria-hidden="true">🏮</div>
+      <header class="dojo-header">
+        <h2 class="wood-sign">Le Dojo</h2>
+      </header>
+      <div class="dojo-yuki" aria-hidden="true">
+        <!-- Yuki, le kuroko — SVG simple, animé par CSS (bob doux) -->
+        <svg viewBox="0 0 120 140" class="yuki bob">
+          <ellipse cx="60" cy="132" rx="34" ry="7" fill="rgba(0,0,0,.25)"/>
+          <circle cx="60" cy="78" r="38" fill="var(--c-ink)"/>
+          <circle cx="60" cy="46" r="30" fill="var(--c-ink)"/>
+          <rect x="32" y="38" width="56" height="16" rx="8" fill="var(--c-curtain)"/>
+          <circle cx="48" cy="46" r="4.5" fill="#fff"/>
+          <circle cx="72" cy="46" r="4.5" fill="#fff"/>
+          <circle cx="49.5" cy="47" r="2" fill="var(--c-ink)"/>
+          <circle cx="73.5" cy="47" r="2" fill="var(--c-ink)"/>
+          <path d="M88 44 q14 -6 18 -16" stroke="var(--c-curtain)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <nav class="dojo-menu">
+        <button class="btn btn-primary btn-big" data-goto="map">🎭&nbsp; Jouer</button>
+        <button class="btn" data-goto="settings">🏮&nbsp; Réglages</button>
+      </nav>
+      <footer class="dojo-footer">
+        <span id="dojo-stats" class="muted"></span>
+      </footer>
+    </section>
+
+    <!-- ============ ÉCRAN : LA FEUILLE DE ROUTE (carte) ============ -->
+    <section id="screen-map" class="screen">
+      <header class="screen-header">
+        <button class="btn btn-icon" data-goto="dojo" aria-label="Retour au Dojo">←</button>
+        <h2>La Feuille de Route</h2>
+      </header>
+      <div id="map-list" class="map-list scrollable">
+        <!-- Vignettes des 5 actes, générées par main.js -->
+      </div>
+    </section>
+
+    <!-- ============ ÉCRAN : LE CARNET DE RÉGIE (missions) ============ -->
+    <section id="screen-notebook" class="screen">
+      <header class="screen-header">
+        <button class="btn btn-icon" data-goto="map" aria-label="Retour à la carte">←</button>
+        <h2 id="notebook-title">Carnet de Régie</h2>
+      </header>
+      <div id="notebook-list" class="notebook-list scrollable">
+        <!-- Missions de l'acte, générées par main.js -->
+      </div>
+    </section>
+
+    <!-- ============ ÉCRAN : MISSION (jeu) ============ -->
+    <section id="screen-mission" class="screen">
+      <div id="mission-title" class="mission-title" aria-live="polite"></div>
+      <div id="mission-stage" class="mission-stage">
+        <div id="puzzle-grid" class="puzzle-grid"></div>
+      </div>
+      <div class="mission-hud">
+        <button id="btn-undo" class="btn btn-icon" aria-label="Annuler" disabled>↩</button>
+        <button id="btn-menu" class="btn btn-icon" data-goto="notebook" aria-label="Menu">☰</button>
+        <button id="btn-restart" class="btn btn-icon" aria-label="Recommencer" disabled>⟳</button>
+      </div>
+      <div class="phase1-note">Moteur en préparation — Phase 2 🥷</div>
+    </section>
+
+    <!-- ============ ÉCRAN : RÉGLAGES ============ -->
+    <section id="screen-settings" class="screen">
+      <header class="screen-header">
+        <button class="btn btn-icon" data-goto="dojo" aria-label="Retour au Dojo">←</button>
+        <h2>Réglages</h2>
+      </header>
+      <div class="settings-list scrollable">
+        <label class="setting-row">
+          <span>🎵 Musique</span>
+          <input type="range" id="set-music" min="0" max="1" step="0.1">
+        </label>
+        <label class="setting-row">
+          <span>🔔 Effets</span>
+          <input type="range" id="set-sfx" min="0" max="1" step="0.1">
+        </label>
+        <label class="setting-row">
+          <span>🌿 Ambiances</span>
+          <input type="range" id="set-ambient" min="0" max="1" step="0.1">
+        </label>
+        <label class="setting-row">
+          <span>📳 Vibrations</span>
+          <input type="checkbox" id="set-haptics" class="switch">
+        </label>
+        <label class="setting-row">
+          <span>🌙 Mode sombre</span>
+          <select id="set-darkmode">
+            <option value="auto">Auto</option>
+            <option value="light">Clair</option>
+            <option value="dark">Sombre</option>
+          </select>
+        </label>
+        <label class="setting-row">
+          <span>🍃 Réduire les animations</span>
+          <input type="checkbox" id="set-reducedmotion" class="switch">
+        </label>
+        <label class="setting-row">
+          <span>👁 Daltonisme</span>
+          <select id="set-colorblind">
+            <option value="none">Aucun</option>
+            <option value="deutan">Deutéranopie</option>
+            <option value="protan">Protanopie</option>
+            <option value="tritan">Tritanopie</option>
+          </select>
+        </label>
+        <div class="setting-row danger-zone">
+          <button id="btn-reset-save" class="btn btn-danger">Effacer la progression</button>
+        </div>
+        <p class="muted version-line">Ninja Events <span id="app-version"></span> — hors ligne ✔</p>
+      </div>
+    </section>
+
+    <!-- ============ LE RIDEAU (transition entre écrans) ============ -->
+    <div id="curtain" class="curtain" aria-hidden="true">
+      <div class="curtain-panel left"></div>
+      <div class="curtain-panel right"></div>
+    </div>
+
+  </div><!-- /.game-scene -->
+
+  <!-- Scripts (ordre : données → moteurs → orchestration) -->
+  <script src="js/save.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/scene-engine.js"></script>
+  <script src="js/scene-debug.js"></script>
+  <script src="js/levels-index.js"></script>
+  <script src="js/levels/act1.js"></script>
+  <script src="js/families/cases.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/curtain.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
