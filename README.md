@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.3.1 (Phase 2 — Séquence Rideau, correctif)
+## Version actuelle : v0.3.2 (Phase 2 — Séquence Rideau, correctif pétales)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -100,6 +100,13 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.3.2 — Correctif pétales (juillet 2026)
+- 🐛 Le raccourci CSS `animation:` des pétales écrasait leurs durées et
+  délais individuels (durée 0 s → pétales invisibles). Remplacé par les
+  propriétés longues (`animation-name` / `timing-function` / `iteration-count`)
+  qui laissent vivre les réglages pétale par pétale.
+- `CACHE_VERSION` → v0.3.2. Aucun autre fichier touché.
 
 ### v0.3.1 — Correctif + embellissement de la Séquence Rideau (juillet 2026)
 - 🐛 **Bug corrigé** : le sélecteur des trois coups (`.rideau.p-knocks i`)

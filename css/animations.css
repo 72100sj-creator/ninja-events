@@ -253,8 +253,14 @@
   opacity: 0;
 }
 .r-petals i:nth-child(odd) { background: #e8a0a0; }   /* pétales de rose (rideau) */
-.rideau.p-audience .r-petals i:nth-child(odd)  { animation: petal-a linear infinite; }
-.rideau.p-audience .r-petals i:nth-child(even) { animation: petal-b linear infinite; }
+/* IMPORTANT : pas de raccourci `animation:` ici — il remettrait à zéro
+   les durées/délais définis pétale par pétale ci-dessous. */
+.rideau.p-audience .r-petals i {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.rideau.p-audience .r-petals i:nth-child(odd)  { animation-name: petal-a; }
+.rideau.p-audience .r-petals i:nth-child(even) { animation-name: petal-b; }
 .r-petals i:nth-child(1) { left:  6%; width: 3.6%; animation-duration: 5.2s; animation-delay:   0ms; }
 .r-petals i:nth-child(2) { left: 24%; width: 2.6%; animation-duration: 4.1s; animation-delay: 1400ms; }
 .r-petals i:nth-child(3) { left: 37%; width: 3.1%; animation-duration: 5.8s; animation-delay:  600ms; }
