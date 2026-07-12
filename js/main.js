@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.10.0";
+const APP_VERSION = "v0.11.0";
 
 const App = (() => {
 
@@ -91,7 +91,8 @@ const App = (() => {
   // ----------------------------------------------------------
   const FAMILIES = {
     cases:  () => FamilyCases,
-    cables: () => FamilyCables
+    cables: () => FamilyCables,
+    lights: () => FamilyLights
   };
 
   function openMission(level) {

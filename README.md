@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.10.0 (Phase 3 — La famille Câbles, Acte II)
+## Version actuelle : v0.11.0 (Phase 3 — La famille Projecteurs)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -46,9 +46,11 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 💾 **Export/import de sauvegarde par code** (Réglages)
 
 - 🔌 **La famille Câbles** et l'ouverture de l'**Acte II** (8 missions)
+- 💡 **La famille Projecteurs** : « le focus » — 8 missions de plus (Acte II = 16)
 
 ### Ce qui arrive ensuite
-Habillage complet de l'Acte II (musique, décors), puis l'Acte III.
+Habillage complet de l'Acte II (musique, décors), la transformation des
+lieux, puis l'Acte III.
 
 ---
 
@@ -118,6 +120,26 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.11.0 — Phase 3, livraison 5 : la famille Projecteurs (juillet 2026)
+- 💡 **Troisième moteur de puzzle** (`families/lights.js`) : un toucher =
+  un quart de tour horaire ; le faisceau file jusqu'à un mur, un autre
+  projecteur ou le bord. Éclairer toutes les marques de scène **sans
+  jamais éclairer les couloirs des kuroko** (☾) — la règle de conception
+  fondamentale du GDD §1.6 en mécanique pure : c'est le vrai « focus »
+  d'un réglage lumière.
+- 🧩 **8 missions** (A2-09 → A2-16) prouvées par le **solveur Projecteurs**
+  (recherche exhaustive des 4ⁿ orientations) — il a rejeté 3 designs
+  insolvables et 2 designs quasi résolus d'avance. Courbe : 2 → 12 touchers.
+- 🎨 Projecteurs au corps métallique avec lentille dorée orientée,
+  faisceaux en lumière additive, marques de scène qui s'embrasent,
+  lune des kuroko qui rougit et tremble si on la dérange.
+- 🔊 Son « spot-turn » : clic de relais + petit servo (0,16 s).
+- Reprise, annulation, éventails, séquence Rideau : héritage automatique
+  grâce à l'API commune des familles. Banc d'essai en 5 points au vert.
+- L'Acte II compte désormais **16 missions** (Câbles + Projecteurs alternés
+  dans le Carnet de Régie).
+- `CACHE_VERSION` → v0.11.0. Aucun moteur existant modifié.
 
 ### v0.10.0 — Phase 3, livraison 4 : la famille Câbles + l'Acte II (juillet 2026)
 - 🔌 **Nouveau moteur de puzzle** (`families/cables.js`) : tracer des

@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v0.10.0";
+const CACHE_VERSION = "ninja-events-v0.11.0";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison. */
 const CORE_FILES = [
@@ -27,8 +27,10 @@ const CORE_FILES = [
   "./js/levels-index.js",
   "./js/levels/act1.js",
   "./js/levels/act2.js",
+  "./js/levels/act2-lights.js",
   "./js/families/cases.js",
   "./js/families/cables.js",
+  "./js/families/lights.js",
   "./js/progress.js",
   "./js/achievements.js",
   "./js/curtain.js",
@@ -48,6 +50,7 @@ const CORE_FILES = [
   "./assets/audio/applause.m4a",
   "./assets/audio/cable-step.m4a",
   "./assets/audio/cable-plug.m4a",
+  "./assets/audio/spot-turn.m4a",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
   "./assets/icons/icon-maskable-512.png"

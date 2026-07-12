@@ -65,7 +65,8 @@
 }
 
 .grid-cell, .grid-piece, .grid-target, .grid-wall, .grid-cat,
-.cable-socket, .cable-cell {
+.cable-socket, .cable-cell,
+.light-spot, .light-beam, .light-target, .light-forbid {
   position: absolute;
   left:   calc(var(--x) / var(--cols) * 100%);
   top:    calc(var(--y) / var(--rows) * 100%);
@@ -217,3 +218,101 @@
 .cable-cell.lk-l::before { left: -12%; }
 .cable-cell.lk-r::before { right: -12%; }
 .cable-cell.glow::before { box-shadow: 0 0 10px var(--cable); }
+
+/* --- Famille Projecteurs (GDD §5.3, « le focus ») --- */
+
+/* Le projecteur : corps rond + lentille orientée (data-dir 0→ 1↓ 2← 3↑) */
+.light-spot {
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.light-spot::before {              /* le corps */
+  content: "";
+  position: absolute;
+  inset: 16%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #4a5977, #3a4762);
+  border: 2px solid rgba(0, 0, 0, .35);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .4), inset 0 2px 0 rgba(255, 255, 255, .15);
+}
+.light-spot .lens {                /* la lentille, tournée par data-dir */
+  position: absolute;
+  inset: 0;
+  transition: transform var(--t-fast) ease-out;
+}
+.light-spot .lens::before {
+  content: "";
+  position: absolute;
+  top: 50%; right: 4%;
+  width: 26%; height: 34%;
+  transform: translateY(-50%);
+  background: var(--c-light);
+  border-radius: 20% 45% 45% 20%;
+  box-shadow: 0 0 10px rgba(245, 200, 110, .8);
+}
+.light-spot[data-dir="0"] .lens { transform: rotate(0deg); }
+.light-spot[data-dir="1"] .lens { transform: rotate(90deg); }
+.light-spot[data-dir="2"] .lens { transform: rotate(180deg); }
+.light-spot[data-dir="3"] .lens { transform: rotate(270deg); }
+.light-spot:active::before { filter: brightness(1.15); }
+.light-spot.win-pulse::before { border-color: var(--c-matcha);
+  box-shadow: 0 0 14px rgba(127, 166, 90, .8); }
+
+/* Le faisceau : nappe d'or translucide, lumière additive */
+.light-beam {
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(245, 200, 110, .30);
+  mix-blend-mode: screen;
+  border-radius: 12%;
+  animation: beam-on var(--t-med) ease-out;
+}
+@keyframes beam-on { from { opacity: 0; } to { opacity: 1; } }
+
+/* Marque de scène à éclairer : cercle au gaffeur */
+.light-target {
+  z-index: 2;
+  pointer-events: none;
+  border: 3px dashed var(--c-gaffer);
+  border-radius: 50%;
+  margin: 18%;
+  width:  calc(var(--w, 1) / var(--cols) * 100% - 36%);
+  height: calc(var(--h, 1) / var(--rows) * 100% - 36%);
+  opacity: .75;
+  transition: all var(--t-med) ease-out;
+}
+.light-target.lit {
+  border-style: solid;
+  border-color: var(--c-light);
+  background: radial-gradient(circle, rgba(245, 200, 110, .55), rgba(245, 200, 110, .1));
+  box-shadow: 0 0 16px rgba(245, 200, 110, .6);
+  opacity: 1;
+}
+.light-target.win-pulse { border-color: var(--c-matcha); }
+
+/* Couloir des kuroko : la lune — doit rester dans l'ombre */
+.light-forbid {
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(247, 241, 227, .55);
+  font-size: clamp(13px, 4vmin, 26px);
+  transition: all var(--t-med) ease-out;
+}
+.light-forbid.alert {
+  color: var(--c-curtain);
+  text-shadow: 0 0 12px rgba(201, 79, 79, .9);
+  animation: forbid-shake .4s ease-out;
+}
+@keyframes forbid-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6%); }
+  75% { transform: translateX(6%); }
+}
+.game-scene[data-motion="reduced"] .light-beam,
+.game-scene[data-motion="reduced"] .light-forbid.alert { animation: none !important; }
