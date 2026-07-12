@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.5.0 (Phase 2 — Reprise du plateau + le Chat)
+## Version actuelle : v0.5.1 (Phase 2 — le Chat, le vrai)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -107,6 +107,17 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.5.1 — Le Chat de la Régie, le vrai (juillet 2026)
+- 🐛 **Positionnement corrigé** : `.grid-cat` manquait dans la liste des
+  éléments positionnés du Scene Engine — le chat flottait en haut de la
+  grille au lieu de dormir sur sa case, et son songe partait tout seul.
+- 🐱 **Chat SVG dessiné dans le style du jeu** (fini l'emoji) : roulé en
+  boule couleur miel, oreilles, yeux fermés, rayures, queue qui frémit
+  toutes les 6 s, souffle, « z z » dorés. Toutes les parties sont nommées
+  (`.cat-body`, `.cat-tail`, `.cat-eyes`…) pour évoluer facilement —
+  un futur réveil ne demandera que quelques lignes de CSS.
+- `CACHE_VERSION` → v0.5.1.
 
 ### v0.5.0 — Phase 2, livraison finale : reprise du plateau + le Chat (juillet 2026)
 - 💾 **Interruptibilité totale (GDD §9.2)** : le plateau est photographié

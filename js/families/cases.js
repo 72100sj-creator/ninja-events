@@ -33,6 +33,39 @@ const FamilyCases = (() => {
     return piece.rot === 1 ? { w: s.h, h: s.w } : { ...s };
   }
 
+  /* ---------- Le Chat de la Régie (SVG, style flat du jeu) ----------
+     Parties nommées pour évoluer facilement : .cat-body (corps roulé),
+     .cat-tail (queue animée), .cat-head, .cat-ears, .cat-eyes (fermés),
+     .cat-stripes, .cat-dream (songe). Un futur réveil ne demandera que
+     du CSS (ex. remplacer les yeux fermés par des yeux ronds). */
+  const CAT_SVG = `
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse class="cat-shadow" cx="50" cy="88" rx="34" ry="6" fill="rgba(0,0,0,.28)"/>
+  <g class="cat-tail">
+    <path d="M76 74 q16 2 14 -14" fill="none" stroke="#a8794b"
+          stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <ellipse class="cat-body" cx="52" cy="68" rx="32" ry="21" fill="#c99a63"/>
+  <g class="cat-stripes" stroke="#a8794b" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M58 50 q6 6 2 13"/>
+    <path d="M70 55 q5 6 1 11"/>
+  </g>
+  <g class="cat-head">
+    <path class="cat-ears" d="M22 40 l6 -12 l9 8 z M46 34 l9 -8 l5 12 z" fill="#bd8a58"/>
+    <path d="M26 42 l3 -6 l4 4 z M48 37 l4 -4 l3 6 z" fill="#8a5f38"/>
+    <circle cx="38" cy="52" r="17" fill="#c99a63"/>
+    <g class="cat-eyes" stroke="#3d2b1c" stroke-width="3" stroke-linecap="round" fill="none">
+      <path d="M30 52 q4 4 8 0"/>
+      <path d="M42 52 q4 4 8 0"/>
+    </g>
+    <path class="cat-nose" d="M37 58 l4 0 l-2 3 z" fill="#8a5f38"/>
+  </g>
+  <g class="cat-dream" fill="#F5C86E" font-family="inherit" font-weight="bold">
+    <text x="66" y="26" font-size="15">z</text>
+    <text x="76" y="16" font-size="10">z</text>
+  </g>
+</svg>`;
+
   /* ---------- État du niveau en cours ---------- */
   let S = null;   // { level, gridEl, cols, rows, walls, pieces, targets,
                   //   moves, history, won, hooks }
@@ -252,7 +285,7 @@ const FamilyCases = (() => {
     // Le Chat de la Régie (modificateur « cat », GDD §5.1)
     if (level.cat) {
       const el = SceneEngine.place(gridEl, "grid-cat", level.cat[0], level.cat[1], 1, 1);
-      el.textContent = "🐱";
+      el.innerHTML = CAT_SVG;
       S.cat = { el, x: level.cat[0], y: level.cat[1] };
     }
 
