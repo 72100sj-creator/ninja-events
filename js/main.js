@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.14.0";
+const APP_VERSION = "v0.15.0";
 
 const App = (() => {
 
@@ -132,6 +132,9 @@ const App = (() => {
     GameAudio.setScene(actId);
 
     const grid = document.getElementById("puzzle-grid");
+    // Cycle de vie propre : l'ancien moteur rend la grille (écouteurs
+    // compris) avant que le nouveau ne s'installe (correctif audit F).
+    if (currentFamily && currentFamily.destroy) currentFamily.destroy(grid);
     grid.classList.remove("enter");
     void grid.offsetWidth;
     grid.classList.add("enter");

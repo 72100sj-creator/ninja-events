@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.14.0 (Route 1.0, Phases C+D — Accessibilité & Optimisation)
+## Version actuelle : v0.15.0 (Route 1.0, Phases E+F — Mode QA & Audit)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -51,7 +51,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ### Route vers la 1.0 (v0.12 → v0.16)
 Phase A contenu ✔ → B polish ✔ → C accessibilité ✔ → D optimisation ✔ →
-E mode QA → F audit qualité → G préparation 1.0 + Pass Directeur Technique.
+E mode QA ✔ → F audit qualité ✔ → G préparation 1.0 + Pass Directeur Technique.
 
 ---
 
@@ -121,6 +121,30 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.15.0 — Route 1.0, Phases E+F : Mode QA & Audit qualité (juillet 2026)
+**Mode QA (Phase E)** — invisible en usage normal, activé par `?debug=1` :
+- 🔧 Panneau de diagnostic : version, cache du service worker (nom +
+  nombre d'entrées), stockage utilisé/quota, taille de la sauvegarde,
+  **FPS en direct** (mesuré uniquement panneau ouvert), état hors ligne,
+  et **vérification de cohérence des données** (ids uniques, familles,
+  seuils, progression orpheline, éventails valides).
+- 📋 Bouton « Copier le rapport » pour les remontées de bêta-test.
+
+**Audit qualité (Phase F)** — scans automatisés (CSS mort, exports
+orphelins, doublons d'ids, cycle de vie) :
+- 🐛 **Bug réel corrigé** : `destroy()` n'était jamais appelé au
+  changement de niveau — les écouteurs tactiles des Câbles restaient
+  branchés sur la grille en passant à un autre puzzle (écouteurs
+  fantômes). `main.js` rend désormais proprement la grille à chaque
+  chargement. Correctif prouvé par banc d'essai.
+- 🧹 `SceneEngine.makeEl` redevient un outil interne (export orphelin).
+- ✔ Faux positifs documentés : classes `c0-c4` (construites dynamiquement),
+  `GameAudio.startLoop/stopLoop` et `Save.flush` (API publiques assumées).
+- Aucun doublon d'identifiant HTML, aucune autre fonction morte.
+- Fichiers modifiés : scene-debug.js (réécrit), main.js, scene-engine.js,
+  sw.js. **Moteurs gelés : intacts** (le correctif vit dans main.js).
+- Régressions : aucune détectée (bancs d'essai ✔).
 
 ### v0.14.0 — Route 1.0, Phases C+D : Accessibilité & Optimisation (juillet 2026)
 **Accessibilité (Phase C)**

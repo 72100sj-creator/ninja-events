@@ -64,5 +64,5 @@ const SceneEngine = (() => {
     return el;
   }
 
-  return { setupGrid, place, moveEl, makeEl };
+  return { setupGrid, place, moveEl };   // makeEl : outil interne
 })();
