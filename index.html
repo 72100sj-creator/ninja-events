@@ -202,6 +202,20 @@
             <option value="tritan">Tritanopie</option>
           </select>
         </label>
+        <div class="setting-row save-tools">
+          <button id="btn-export" class="btn">💾 Exporter</button>
+          <button id="btn-import" class="btn">📥 Importer</button>
+        </div>
+        <div id="save-panel" class="save-panel hidden">
+          <p id="save-panel-title" class="save-panel-title"></p>
+          <textarea id="save-code" rows="4" spellcheck="false"></textarea>
+          <div class="save-panel-actions">
+            <button id="btn-save-copy" class="btn hidden">Copier</button>
+            <button id="btn-save-apply" class="btn btn-primary hidden">Restaurer</button>
+            <button id="btn-save-close" class="btn">Fermer</button>
+          </div>
+          <p id="save-msg" class="muted save-msg" aria-live="polite"></p>
+        </div>
         <div class="setting-row danger-zone">
           <button id="btn-reset-save" class="btn btn-danger">Effacer la progression</button>
         </div>

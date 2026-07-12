@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.8.0";
+const APP_VERSION = "v0.9.0";
 
 const App = (() => {
 
@@ -229,10 +229,10 @@ const App = (() => {
     GameAudio.setVolumes({ music: s.music, sfx: s.sfx, ambient: s.ambient });
   }
 
-  function bindSettings() {
+  /** Remplit les champs des Réglages depuis la sauvegarde (rejouable). */
+  function syncSettingsInputs() {
     const s = Save.get().settings;
     const $ = id => document.getElementById(id);
-
     $("set-music").value = s.music;
     $("set-sfx").value = s.sfx;
     $("set-ambient").value = s.ambient;
@@ -240,6 +240,12 @@ const App = (() => {
     $("set-darkmode").value = s.darkMode;
     $("set-reducedmotion").checked = s.reducedMotion;
     $("set-colorblind").value = s.colorblind;
+  }
+
+  /** Lie les écouteurs des Réglages (à appeler UNE seule fois). */
+  function bindSettings() {
+    const $ = id => document.getElementById(id);
+    syncSettingsInputs();
 
     const bindings = {
       "set-music":        ["music",        el => Number(el.value)],
@@ -262,8 +268,67 @@ const App = (() => {
       if (confirm("Effacer toute la progression ?\nLe rideau retombera sur tout ce que tu as construit.")) {
         Save.reset();
         applySettings();
-        bindSettings();
+        syncSettingsInputs();
         renderDojoStats();
+      }
+    });
+
+    // ---- Export / import de sauvegarde (parade au risque iOS) ----
+    const panel = $("save-panel");
+    function openPanel(mode) {
+      panel.classList.remove("hidden");
+      $("save-msg").textContent = "";
+      const code = $("save-code");
+      if (mode === "export") {
+        $("save-panel-title").textContent =
+          "Ton code de sauvegarde — copie-le et garde-le précieusement :";
+        code.value = Save.exportCode();
+        code.readOnly = true;
+        $("btn-save-copy").classList.remove("hidden");
+        $("btn-save-apply").classList.add("hidden");
+      } else {
+        $("save-panel-title").textContent =
+          "Colle ici un code de sauvegarde :";
+        code.value = "";
+        code.readOnly = false;
+        $("btn-save-copy").classList.add("hidden");
+        $("btn-save-apply").classList.remove("hidden");
+        code.focus();
+      }
+    }
+    $("btn-export").addEventListener("click", () => openPanel("export"));
+    $("btn-import").addEventListener("click", () => openPanel("import"));
+    $("btn-save-close").addEventListener("click", () => panel.classList.add("hidden"));
+
+    $("btn-save-copy").addEventListener("click", () => {
+      const code = $("save-code");
+      const done = () => { $("save-msg").textContent = "Copié ! Range-le dans tes notes. 🏮"; };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code.value).then(done).catch(() => {
+          code.select(); document.execCommand("copy"); done();
+        });
+      } else {
+        code.select(); document.execCommand("copy"); done();
+      }
+    });
+
+    $("btn-save-apply").addEventListener("click", () => {
+      const raw = $("save-code").value;
+      if (!raw.trim()) return;
+      if (!confirm("Restaurer cette sauvegarde ?\nElle remplacera la progression actuelle.")) return;
+      try {
+        Save.importCode(raw);
+        applySettings();
+        syncSettingsInputs();
+        renderDojoStats();
+        $("save-msg").textContent = "Sauvegarde restaurée ! Bon retour en coulisses. 🥷";
+        $("btn-save-apply").classList.add("hidden");
+      } catch (e) {
+        const why = { format: "le format du code n'est pas reconnu",
+                      checksum: "le code semble incomplet ou altéré",
+                      contenu: "le contenu du code n'est pas une sauvegarde" }[e.message]
+                    || "le code n'a pas pu être lu";
+        $("save-msg").textContent = "Impossible de restaurer : " + why + ".";
       }
     });
 

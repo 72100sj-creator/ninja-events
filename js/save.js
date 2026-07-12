@@ -5,6 +5,9 @@
    - champ `version` + migrations automatiques ;
    - API simple : Save.get() / Save.update(fn) / Save.reset().
    Ne jamais modifier ce fichier sans justification explicite.
+   [v0.9.0] Ajout justifié : exportCode()/importCode() — parade au
+   risque n°1 du GDD §18 (iOS peut effacer le localStorage). Aucune
+   ligne de la logique existante n'est modifiée.
    ============================================================ */
 "use strict";
 
@@ -88,9 +91,48 @@ const Save = (() => {
     if (document.visibilityState === "hidden") flush();
   });
 
+  /* ---------- Export / import par code (v0.9.0) ----------
+     Format : NINJA-<base64 du JSON>-<somme de contrôle>
+     La somme de contrôle détecte les codes tronqués ou altérés. */
+
+  function checksum(str) {
+    let h = 7;
+    for (let i = 0; i < str.length; i++) {
+      h = (h * 31 + str.charCodeAt(i)) >>> 0;
+    }
+    return h.toString(36);
+  }
+
+  function exportCode() {
+    flush();
+    const json = JSON.stringify(data);
+    const b64 = btoa(unescape(encodeURIComponent(json)));
+    return "NINJA-" + b64 + "-" + checksum(b64);
+  }
+
+  function importCode(code) {
+    const m = String(code).trim().replace(/\s+/g, "")
+      .match(/^NINJA-([A-Za-z0-9+/=]+)-([a-z0-9]+)$/);
+    if (!m) throw new Error("format");
+    if (checksum(m[1]) !== m[2]) throw new Error("checksum");
+    const parsed = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+    if (!parsed || typeof parsed !== "object" || !parsed.settings || !parsed.stats) {
+      throw new Error("contenu");
+    }
+    data = migrate(parsed);
+    flush();
+    return data;
+  }
+
   return {
     /** Accès en lecture à l'état courant. */
     get() { return data; },
+
+    /** Code de sauvegarde à copier/conserver (v0.9.0). */
+    exportCode,
+
+    /** Restaure une sauvegarde depuis un code ; lève une erreur si invalide. */
+    importCode,
 
     /**
      * Modifier la sauvegarde : Save.update(s => { s.settings.music = 0.5; })

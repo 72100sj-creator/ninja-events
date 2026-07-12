@@ -286,3 +286,26 @@
 .toast.show { transform: translate(-50%, 0); }
 .toast-emoji { font-size: 1.4rem; }
 .game-scene[data-motion="reduced"] .toast { transition-duration: 1ms; }
+
+
+/* ============ EXPORT / IMPORT DE SAUVEGARDE ============ */
+.save-tools { justify-content: center; gap: 12px; background: none; }
+.save-panel {
+  background: rgba(247, 241, 227, .08);
+  border-radius: var(--radius-s);
+  padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.save-panel-title { font-weight: 700; font-size: .9rem; }
+#save-code {
+  width: 100%;
+  background: var(--c-washi); color: var(--c-ink);
+  border: none; border-radius: 10px;
+  padding: 10px;
+  font: 12px/1.4 monospace;
+  resize: vertical;
+  word-break: break-all;
+  user-select: text; -webkit-user-select: text;   /* copiable au doigt */
+}
+.save-panel-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.save-msg { text-align: center; min-height: 1.2em; }

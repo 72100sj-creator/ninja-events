@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.8.0 (Phase 3 — L'Acte I complet : 12 missions)
+## Version actuelle : v0.9.0 (Phase 3 — Export/import de sauvegarde)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -43,8 +43,10 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 - 🧩 **12 missions** pour l'Acte I, toutes vérifiées par le solveur
 
+- 💾 **Export/import de sauvegarde par code** (Réglages)
+
 ### Ce qui arrive ensuite
-La famille Câbles (Acte II), l'export/import de sauvegarde.
+La famille Câbles (Acte II).
 
 ---
 
@@ -114,6 +116,19 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.9.0 — Phase 3, livraison 3 : export/import de sauvegarde (juillet 2026)
+- 💾 Dans les Réglages : **Exporter** génère un code `NINJA-…` (toute la
+  progression, réglages et Éventails d'Or compris) avec somme de contrôle ;
+  **Importer** restaure depuis un code, avec confirmation et messages
+  d'erreur clairs (format inconnu / code tronqué / contenu invalide).
+- ⚠️ `save.js` (fichier critique) modifié avec justification : c'est la
+  parade au **risque n°1 du GDD §18** (iOS peut effacer le localStorage
+  d'une PWA délaissée ~7 jours). Deux fonctions ajoutées, zéro ligne de
+  la logique existante modifiée — vérifié par banc d'essai.
+- 🐛 Correction au passage : « Effacer la progression » re-liait les
+  écouteurs des Réglages à chaque usage (écritures en double).
+- `CACHE_VERSION` → v0.9.0.
 
 ### v0.8.0 — Phase 3, livraison 2 : l'Acte I complet (juillet 2026)
 - 🧩 **9 nouvelles missions** (A1-04 → A1-12) : Poussière d'or, Les
