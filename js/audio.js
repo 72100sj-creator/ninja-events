@@ -27,7 +27,9 @@ const GameAudio = (() => {
     "restart":        { file: "restart.m4a",        gain: 0.6  },
     "three-knocks":   { file: "three-knocks.m4a",   gain: 1.0  },
     "spotlight":      { file: "spotlight.m4a",      gain: 0.8  },
-    "applause":       { file: "applause.m4a",       gain: 0.95 }
+    "applause":       { file: "applause.m4a",       gain: 0.95 },
+    "cable-step":     { file: "cable-step.m4a",     gain: 0.45 },
+    "cable-plug":     { file: "cable-plug.m4a",     gain: 0.85 }
   };
   const MIN_REPLAY_MS = 70;   // anti-mitraillette (roulements rapides)
 

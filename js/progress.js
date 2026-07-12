@@ -29,10 +29,12 @@ const Progress = (() => {
     return index <= lastDone + FREEDOM_WINDOW;
   }
 
-  /** L'acte est-il accessible ? (Phase 1 : seul l'Acte I est ouvert.) */
+  /** L'acte est-il accessible ? Règle GDD §7.3 : la Générale de
+      l'acte précédent doit être terminée (1 éventail suffit). */
   function isActUnlocked(actId) {
-    // Phase 3 : condition « Générale de l'acte précédent terminée ».
-    return actId === "act1";
+    if (actId === "act1") return true;
+    if (actId === "act2") return isDone("A1-12");
+    return false;   // actes III+ : à venir
   }
 
   /**

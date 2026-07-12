@@ -64,7 +64,8 @@
   box-shadow: inset 0 0 30px rgba(0, 0, 0, .35);
 }
 
-.grid-cell, .grid-piece, .grid-target, .grid-wall, .grid-cat {
+.grid-cell, .grid-piece, .grid-target, .grid-wall, .grid-cat,
+.cable-socket, .cable-cell {
   position: absolute;
   left:   calc(var(--x) / var(--cols) * 100%);
   top:    calc(var(--y) / var(--rows) * 100%);
@@ -170,3 +171,49 @@
 }
 .game-scene[data-motion="reduced"] .grid-cat,
 .game-scene[data-motion="reduced"] .grid-cat::after { animation: none !important; }
+
+/* --- Famille Câbles (GDD §5.2) --- */
+/* Couleurs des câbles : redéfinies par les palettes daltonisme */
+.c0 { --cable: #C94F4F; }   /* rouge   ● */
+.c1 { --cable: #F5C86E; }   /* or      ■ */
+.c2 { --cable: #7FA65A; }   /* matcha  ▲ */
+.c3 { --cable: #5B8DBE; }   /* bleu    ◆ */
+.c4 { --cable: #9B6FB8; }   /* violet  ✚ */
+
+.cable-socket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cable);
+  border-radius: 26%;
+  margin: 6%;
+  width:  calc(var(--w, 1) / var(--cols) * 100% - 12%);
+  height: calc(var(--h, 1) / var(--rows) * 100% - 12%);
+  color: rgba(255, 255, 255, .92);
+  font-size: clamp(11px, 3.4vmin, 22px);
+  font-weight: 700;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .3);
+  z-index: 2;
+  transition: box-shadow var(--t-med) ease-out, filter var(--t-med) ease-out;
+}
+.cable-socket.lit {
+  filter: brightness(1.15);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .22), 0 0 14px var(--cable);
+}
+.cable-socket.win-pulse { box-shadow: 0 0 18px var(--cable), 0 0 6px #fff; }
+
+/* Maillon de câble : un galet central prolongé vers ses voisins */
+.cable-cell { pointer-events: none; z-index: 1; }
+.cable-cell::before {
+  content: "";
+  position: absolute;
+  inset: 31%;
+  background: var(--cable);
+  border-radius: 45%;
+  opacity: .95;
+}
+.cable-cell.lk-u::before { top: -12%; }
+.cable-cell.lk-d::before { bottom: -12%; }
+.cable-cell.lk-l::before { left: -12%; }
+.cable-cell.lk-r::before { right: -12%; }
+.cable-cell.glow::before { box-shadow: 0 0 10px var(--cable); }

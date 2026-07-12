@@ -46,3 +46,11 @@
 .game-scene[data-motion="reduced"] .title-dust i,
 .game-scene[data-motion="reduced"] .tap-hint { animation: none !important; }
 .game-scene[data-motion="reduced"] .curtain-panel { transition-duration: 1ms !important; }
+
+/* Câbles : ajustements daltonisme (les formes ● ■ ▲ ◆ ✚ restent) */
+.game-scene[data-colorblind="deutan"] .c0,
+.game-scene[data-colorblind="protan"] .c0 { --cable: #d1553a; }
+.game-scene[data-colorblind="deutan"] .c2,
+.game-scene[data-colorblind="protan"] .c2 { --cable: #4d9ec9; }
+.game-scene[data-colorblind="tritan"] .c1 { --cable: #f0a4b8; }
+.game-scene[data-colorblind="tritan"] .c3 { --cable: #3e7d6b; }

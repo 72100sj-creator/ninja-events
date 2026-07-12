@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.9.0 (Phase 3 — Export/import de sauvegarde)
+## Version actuelle : v0.10.0 (Phase 3 — La famille Câbles, Acte II)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -45,8 +45,10 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 - 💾 **Export/import de sauvegarde par code** (Réglages)
 
+- 🔌 **La famille Câbles** et l'ouverture de l'**Acte II** (8 missions)
+
 ### Ce qui arrive ensuite
-La famille Câbles (Acte II).
+Habillage complet de l'Acte II (musique, décors), puis l'Acte III.
 
 ---
 
@@ -116,6 +118,24 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.10.0 — Phase 3, livraison 4 : la famille Câbles + l'Acte II (juillet 2026)
+- 🔌 **Nouveau moteur de puzzle** (`families/cables.js`) : tracer des
+  câbles au doigt pour relier les paires de prises. Pas de croisement,
+  revenir sur ses pas efface, reprendre un câble le retaille. Score =
+  total de cases utilisées (moins = mieux).
+- ♿ Redondance couleur + forme (GDD §13) : chaque couleur de prise porte
+  son pictogramme (● ■ ▲ ◆ ✚) + palettes daltonisme ajustées.
+- 🎭 **L'Acte II (Théâtre Suzume) s'ouvre** après la Générale de l'Acte I
+  (règle GDD §7.3) — 8 missions, thème rouge et or appliqué à l'écran.
+- 🔧 **Solveur Câbles** : il a rejeté SIX designs impossibles avant
+  livraison (dont des croisements topologiquement irréalisables) ;
+  les 8 niveaux publiés sont prouvés, seuils dérivés du minimum.
+- 🔊 Deux sons : déroulé de câble (frottement feutré) et branchement
+  (clic + LED en ré-la, accordés avec le jeu).
+- Reprise du plateau, annulation, Recommencer, Éventails d'Or : tout
+  fonctionne pour la nouvelle famille (même API que Flight Cases).
+- `CACHE_VERSION` → v0.10.0. `save.js` et Flight Cases non touchés.
 
 ### v0.9.0 — Phase 3, livraison 3 : export/import de sauvegarde (juillet 2026)
 - 💾 Dans les Réglages : **Exporter** génère un code `NINJA-…` (toute la

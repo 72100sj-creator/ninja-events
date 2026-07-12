@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.9.0";
+const APP_VERSION = "v0.10.0";
 
 const App = (() => {
 
@@ -61,6 +61,7 @@ const App = (() => {
   // Rendu : Carnet de Régie (missions d'un acte)
   // ----------------------------------------------------------
   function renderNotebook() {
+    document.getElementById("app").dataset.theme = currentAct;
     const act = Levels.ACTS.find(a => a.id === currentAct);
     document.getElementById("notebook-title").textContent =
       `${act.emoji} ${act.name}`;
@@ -88,7 +89,10 @@ const App = (() => {
   // ----------------------------------------------------------
   // Mission : chargement d'un niveau dans son moteur
   // ----------------------------------------------------------
-  const FAMILIES = { cases: () => FamilyCases };   // extensible (Phase 2+)
+  const FAMILIES = {
+    cases:  () => FamilyCases,
+    cables: () => FamilyCables
+  };
 
   function openMission(level) {
     goto("mission", () => loadLevel(level));
@@ -104,6 +108,10 @@ const App = (() => {
 
     const cur = Save.get().current;
     const savedState = (cur.levelId === level.id && cur.state) ? cur.state : null;
+
+    // Ambiance visuelle de l'acte (rouge et or au Théâtre Suzume…)
+    document.getElementById("app").dataset.theme =
+      Levels.actOf(level.id) || currentAct;
 
     const grid = document.getElementById("puzzle-grid");
     currentFamily = (FAMILIES[level.family] || FAMILIES.cases)();
