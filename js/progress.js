@@ -34,7 +34,8 @@ const Progress = (() => {
   function isActUnlocked(actId) {
     if (actId === "act1") return true;
     if (actId === "act2") return isDone("A1-12");
-    return false;   // actes III+ : à venir
+    if (actId === "act3") return isDone("A2-16");
+    return false;   // actes IV+ : à venir
   }
 
   /**

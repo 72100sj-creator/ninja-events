@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.11.0 (Phase 3 — La famille Projecteurs)
+## Version actuelle : v0.12.0 (Route 1.0, Phase A — L'Acte III)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -47,10 +47,11 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 - 🔌 **La famille Câbles** et l'ouverture de l'**Acte II** (8 missions)
 - 💡 **La famille Projecteurs** : « le focus » — 8 missions de plus (Acte II = 16)
+- 🏮 **L'Acte III — Festival des Lanternes** : 12 missions, les trois familles entrelacées (40 niveaux au total)
 
-### Ce qui arrive ensuite
-Habillage complet de l'Acte II (musique, décors), la transformation des
-lieux, puis l'Acte III.
+### Route vers la 1.0 (v0.12 → v0.16)
+Phase A contenu ✔ → B polish → C accessibilité → D optimisation →
+E mode QA → F audit qualité → G préparation 1.0 + Pass Directeur Technique.
 
 ---
 
@@ -120,6 +121,21 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.12.0 — Route 1.0, Phase A : l'Acte III (juillet 2026)
+- 🏮 **Le Festival des Lanternes s'ouvre** après la Générale de l'Acte II :
+  12 missions où les trois familles s'entrelacent (4 Flight Cases,
+  4 Câbles, 4 Projecteurs, jamais deux fois la même d'affilée — GDD §7.2).
+- 🧩 Total du jeu : **40 niveaux**, tous prouvés par les trois solveurs.
+  Le solveur a encore rejeté 2 designs (une cible murée, des projecteurs
+  déjà gagnants à l'ouverture).
+- 🎨 Thème nuit bleue du festival appliqué automatiquement (déjà défini
+  dans themes.css depuis la v0.1.0 — zéro CSS ajouté).
+- 🔒 **Gameplay gelé** : aucun des trois moteurs n'a été modifié, aucune
+  ligne de code ajoutée hors données de niveaux + règle de déblocage.
+- Fichiers modifiés : levels/act3.js (nouveau), progress.js (1 ligne),
+  index.html, sw.js (cache v0.12.0), main.js (version), README.
+- Régressions : aucune détectée (moteurs intacts, données pures).
 
 ### v0.11.0 — Phase 3, livraison 5 : la famille Projecteurs (juillet 2026)
 - 💡 **Troisième moteur de puzzle** (`families/lights.js`) : un toucher =

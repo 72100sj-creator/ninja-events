@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v0.11.0";
+const CACHE_VERSION = "ninja-events-v0.12.0";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison. */
 const CORE_FILES = [
@@ -28,6 +28,7 @@ const CORE_FILES = [
   "./js/levels/act1.js",
   "./js/levels/act2.js",
   "./js/levels/act2-lights.js",
+  "./js/levels/act3.js",
   "./js/families/cases.js",
   "./js/families/cables.js",
   "./js/families/lights.js",
