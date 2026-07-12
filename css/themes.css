@@ -68,3 +68,10 @@
   opacity: calc(var(--warmth, 0) * 0.9);
   transition: opacity 800ms ease-out;
 }
+
+/* Mode « Gros éléments » (GDD §13) : tout grandit d'un cran */
+.game-scene[data-bigui="on"] { font-size: 113%; }
+.game-scene[data-bigui="on"] .btn      { min-height: 56px; }
+.game-scene[data-bigui="on"] .btn-icon { width: 56px; }
+.game-scene[data-bigui="on"] .mission-card,
+.game-scene[data-bigui="on"] .act-card { padding-top: 17px; padding-bottom: 17px; }

@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.13.0 (Route 1.0, Phase B — Polish)
+## Version actuelle : v0.14.0 (Route 1.0, Phases C+D — Accessibilité & Optimisation)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -50,7 +50,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 🏮 **L'Acte III — Festival des Lanternes** : 12 missions, les trois familles entrelacées (40 niveaux au total)
 
 ### Route vers la 1.0 (v0.12 → v0.16)
-Phase A contenu ✔ → B polish ✔ → C accessibilité → D optimisation →
+Phase A contenu ✔ → B polish ✔ → C accessibilité ✔ → D optimisation ✔ →
 E mode QA → F audit qualité → G préparation 1.0 + Pass Directeur Technique.
 
 ---
@@ -121,6 +121,30 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.14.0 — Route 1.0, Phases C+D : Accessibilité & Optimisation (juillet 2026)
+**Accessibilité (Phase C)**
+- 🔍 Nouveau réglage **« Gros éléments »** (GDD §13 basse vision) : textes
+  +13 %, boutons 56 px, cartes plus hautes. Stocké sans toucher `save.js`
+  (clé optionnelle, vérifiée persistante par banc d'essai).
+- 🎨 Contrastes relevés : textes secondaires (.muted, sous-titres d'actes,
+  descriptions et dates des succès) passés au-dessus du seuil AA.
+- ⌨️ **Focus visible** sur tous les boutons/champs (navigation clavier).
+- 🗣 Étiquettes `aria-label` sur les cartes d'actes et de missions
+  (état verrouillé + éventails annoncés).
+- ✔ Jeu 100 % jouable sans son et sans vibration (aucune info exclusive).
+
+**Optimisation (Phase D)**
+- 🎼 Les 6 boucles longues ré-encodées 64 → 48 kb/s (mono, contenu doux :
+  différence inaudible) : audio 2,8 → **2,2 MB**.
+- 📦 **Préchargement du service worker allégé** : les musiques/ambiances
+  des actes II-III ne sont plus préchargées — elles entrent dans le cache
+  à la première visite en ligne de l'acte. Cœur installable : **0,98 MB**
+  (budget GDD : 2,5 MB). Limite assumée : visiter un acte pour la
+  première fois hors ligne = jeu complet mais musique de l'acte absente.
+- 🧹 CSS mort purgé (.phase1-note, vestige de la v0.2.0).
+- Fichiers modifiés : base/ui/themes.css, index.html, main.js, sw.js.
+  **Moteurs gelés : intacts.** Régressions : aucune détectée.
 
 ### v0.13.0 — Route 1.0, Phase B : Polish (juillet 2026)
 - 🎼 **Chaque acte a désormais sa scène sonore** (GDD §12.2) :

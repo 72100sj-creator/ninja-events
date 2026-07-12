@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.13.0";
+const APP_VERSION = "v0.14.0";
 
 const App = (() => {
 
@@ -42,6 +42,8 @@ const App = (() => {
       const fans = unlocked ? Progress.fansOfAct(act.id) : 0;
       const card = document.createElement("button");
       card.className = "act-card" + (unlocked ? "" : " locked");
+      card.setAttribute("aria-label",
+        `Acte ${act.num}, ${act.name}` + (unlocked ? "" : ", verrouillé"));
       card.innerHTML =
         `<span class="act-emoji">${act.emoji}</span>` +
         `<span><span class="act-name">Acte ${act.num} — ${act.name}</span><br>` +
@@ -84,6 +86,9 @@ const App = (() => {
       const card = document.createElement("button");
       card.className = "mission-card" +
         (unlocked ? "" : " locked") + (fans > 0 ? " done" : "");
+      card.setAttribute("aria-label",
+        `Mission ${i + 1}, ${lvl.name.fr}, ${fans} éventail${fans > 1 ? "s" : ""} sur 3` +
+        (unlocked ? "" : ", verrouillée"));
       card.innerHTML =
         `<span class="m-num">${i + 1}</span>` +
         `<span class="m-name">${lvl.name.fr}</span>` +
@@ -249,6 +254,7 @@ const App = (() => {
 
     scene.dataset.motion = s.reducedMotion ? "reduced" : "full";
     scene.dataset.colorblind = s.colorblind;
+    scene.dataset.bigui = s.bigUI ? "on" : "off";   // clé optionnelle (anciens joueurs : off)
 
     GameAudio.setVolumes({ music: s.music, sfx: s.sfx, ambient: s.ambient });
   }
@@ -263,6 +269,7 @@ const App = (() => {
     $("set-haptics").checked = s.haptics;
     $("set-darkmode").value = s.darkMode;
     $("set-reducedmotion").checked = s.reducedMotion;
+    $("set-bigui").checked = Boolean(s.bigUI);
     $("set-colorblind").value = s.colorblind;
   }
 
@@ -278,6 +285,7 @@ const App = (() => {
       "set-haptics":      ["haptics",      el => el.checked],
       "set-darkmode":     ["darkMode",     el => el.value],
       "set-reducedmotion":["reducedMotion",el => el.checked],
+      "set-bigui":        ["bigUI",        el => el.checked],
       "set-colorblind":   ["colorblind",   el => el.value]
     };
     for (const [id, [key, read]] of Object.entries(bindings)) {

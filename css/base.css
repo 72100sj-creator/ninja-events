@@ -49,11 +49,16 @@ html, body {
 
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; border: none; background: none; }
+/* Focus visible partout (navigation clavier / lecteurs) */
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--c-light);
+  outline-offset: 2px;
+}
 
 h1, h2, h3 { font-weight: 700; letter-spacing: .5px; }
 
 /* --- Utilitaires --- */
-.muted  { opacity: .65; font-size: .85em; }
+.muted  { opacity: .8; font-size: .875em; }
 .hidden { display: none !important; }
 
 .scrollable {

@@ -8,9 +8,12 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v0.13.0";
+const CACHE_VERSION = "ninja-events-v0.14.0";
 
-/* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison. */
+/* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison.
+   NB : les musiques/ambiances des actes II-III ne sont PAS préchargées —
+   elles entrent dans le cache à la première visite en ligne de l'acte
+   (stratégie « réseau puis cache » du gestionnaire fetch ci-dessous). */
 const CORE_FILES = [
   "./",
   "./index.html",
@@ -37,10 +40,6 @@ const CORE_FILES = [
   "./js/curtain.js",
   "./js/main.js",
   "./assets/audio/music-act1.m4a",
-  "./assets/audio/music-act2.m4a",
-  "./assets/audio/music-act3.m4a",
-  "./assets/audio/ambient-theatre.m4a",
-  "./assets/audio/ambient-festival.m4a",
   "./assets/audio/ambient-backstage.m4a",
   "./assets/audio/tap.m4a",
   "./assets/audio/curtain-close.m4a",
