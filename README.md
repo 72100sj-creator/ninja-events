@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.5.1 (Phase 2 — le Chat, le vrai)
+## Version actuelle : v0.6.0 (Phase 2 complète — musique + ambiances)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -35,9 +35,11 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
   tout retrouver exactement en l'état (positions, coups, annulations)
 - 🐱 **Le Chat de la Régie** dort sur A1-03 — il bloque, frémit, ne bouge jamais
 
-### Ce qui arrive dans les prochaines livraisons
-La musique zen et les ambiances (curseurs déjà en place), puis la Phase 3
-(succès, statistiques, davantage de niveaux).
+- 🎼 **Musique zen de l'Acte I** (« Le vieux parquet », 72 s en boucle)
+  et **ambiance coulisses** (air de salle, craquements de parquet)
+
+### Ce qui arrive ensuite (Phase 3)
+Succès, statistiques, paramètres avancés, davantage de niveaux.
 
 ---
 
@@ -107,6 +109,22 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.6.0 — Phase 2, clôture : musique zen + ambiances (juillet 2026)
+- 🎼 **« Le vieux parquet »** : musique de l'Acte I composée sur mesure —
+  nappe ré-la-ré qui respire (cycle de 36 s), deux phrases de koto qui se
+  répondent, basse posée toutes les 18 s. 72 s **en boucle sans couture**
+  (la queue de réverbération est repliée au début du fichier).
+- 🌬 **Ambiance « Coulisses »** (44 s en boucle) : air de salle feutré,
+  souffle dans les cintres, 4 craquements de parquet, 2 tintements
+  lointains de lanterne (en ré, accordés avec tout le reste).
+- 🔊 `audio.js` : bus « Musique » et « Ambiances » avec fondus d'entrée
+  (3,5 s / 4,5 s) — les trois curseurs des Réglages sont maintenant TOUS
+  actifs en direct. `startLoop`/`stopLoop` exposés pour les changements
+  d'acte à venir.
+- Mixage GDD §12.2 : la musique reste un fond discret sous les effets.
+- Poids audio total : ~1,1 MB (budget : 4 MB).
+- `CACHE_VERSION` → v0.6.0. Moteur, sauvegarde, niveaux non touchés.
 
 ### v0.5.1 — Le Chat de la Régie, le vrai (juillet 2026)
 - 🐛 **Positionnement corrigé** : `.grid-cat` manquait dans la liste des

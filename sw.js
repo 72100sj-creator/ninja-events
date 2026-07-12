@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v0.5.1";
+const CACHE_VERSION = "ninja-events-v0.6.0";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison. */
 const CORE_FILES = [
@@ -30,6 +30,8 @@ const CORE_FILES = [
   "./js/progress.js",
   "./js/curtain.js",
   "./js/main.js",
+  "./assets/audio/music-act1.m4a",
+  "./assets/audio/ambient-backstage.m4a",
   "./assets/audio/tap.m4a",
   "./assets/audio/curtain-close.m4a",
   "./assets/audio/curtain-open.m4a",

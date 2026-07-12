@@ -7,7 +7,9 @@
    - variation de hauteur ±3 % : jamais deux sons identiques
      à l'oreille (GDD §12.4) ;
    - anti-mitraillette : un même son ne rejoue pas sous 70 ms.
-   La musique et les ambiances arriveront dans une livraison dédiée.
+   - musique et ambiance en boucle sans couture (queue de réverb
+     repliée au début du fichier), fondus d'entrée/sortie, curseurs
+     « Musique » et « Ambiances » appliqués en direct (GDD §12.2).
    ============================================================ */
 "use strict";
 
@@ -29,15 +31,47 @@ const GameAudio = (() => {
   };
   const MIN_REPLAY_MS = 70;   // anti-mitraillette (roulements rapides)
 
+  /* Boucles longues : une musique par acte, une ambiance par décor. */
+  const LOOPS = {
+    "music-act1":        { file: "music-act1.m4a",        gain: 0.9 },
+    "ambient-backstage": { file: "ambient-backstage.m4a", gain: 0.9 }
+  };
+
   let ctx = null;             // AudioContext (créé au premier geste)
   let sfxGain = null;         // bus « Effets »
+  let musicGain = null;       // bus « Musique »
+  let ambientGain = null;     // bus « Ambiances »
   const buffers = {};         // nom → AudioBuffer décodé
   const lastPlay = {};        // nom → timestamp du dernier départ
+  const playing = {};         // boucles en cours : nom → {src, g}
   const volumes = { music: 0.8, sfx: 1, ambient: 0.6 };
 
+  /** Démarre une boucle (musique ou ambiance) avec un fondu d'entrée. */
+  function startLoop(name, bus, fade = 2.5) {
+    if (!ctx || !buffers[name] || playing[name]) return;
+    const src = ctx.createBufferSource();
+    src.buffer = buffers[name];
+    src.loop = true;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(LOOPS[name].gain, ctx.currentTime + fade);
+    src.connect(g); g.connect(bus);
+    src.start();
+    playing[name] = { src, g };
+  }
+
+  /** Arrête une boucle en fondu (pour les futurs changements d'acte). */
+  function stopLoop(name, fade = 1.2) {
+    const p = playing[name];
+    if (!p || !ctx) return;
+    p.g.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + fade);
+    p.src.stop(ctx.currentTime + fade + 0.1);
+    delete playing[name];
+  }
+
   /** Charge et décode un fichier son (silencieux en cas d'échec). */
-  function loadSound(name) {
-    return fetch("assets/audio/" + SOUNDS[name].file)
+  function loadSound(name, table) {
+    return fetch("assets/audio/" + table[name].file)
       .then(r => r.arrayBuffer())
       .then(data => ctx.decodeAudioData(data))
       .then(buf => { buffers[name] = buf; })
@@ -54,7 +88,19 @@ const GameAudio = (() => {
         sfxGain = ctx.createGain();
         sfxGain.gain.value = volumes.sfx;
         sfxGain.connect(ctx.destination);
-        Object.keys(SOUNDS).forEach(loadSound);
+        musicGain = ctx.createGain();
+        musicGain.gain.value = volumes.music;
+        musicGain.connect(ctx.destination);
+        ambientGain = ctx.createGain();
+        ambientGain.gain.value = volumes.ambient;
+        ambientGain.connect(ctx.destination);
+
+        // Effets d'abord (légers), puis les boucles qui démarrent en fondu.
+        Object.keys(SOUNDS).forEach(n => loadSound(n, SOUNDS));
+        loadSound("music-act1", LOOPS)
+          .then(() => startLoop("music-act1", musicGain, 3.5));
+        loadSound("ambient-backstage", LOOPS)
+          .then(() => startLoop("ambient-backstage", ambientGain, 4.5));
 
         // iOS peut suspendre le contexte quand l'app passe en fond.
         document.addEventListener("visibilitychange", () => {
@@ -69,8 +115,13 @@ const GameAudio = (() => {
     /** Applique les volumes depuis les réglages (en direct). */
     setVolumes(v) {
       Object.assign(volumes, v);
-      if (sfxGain) sfxGain.gain.value = volumes.sfx;
+      if (sfxGain)     sfxGain.gain.value     = volumes.sfx;
+      if (musicGain)   musicGain.gain.value   = volumes.music;
+      if (ambientGain) ambientGain.gain.value = volumes.ambient;
     },
+
+    /** Pour les prochains actes : changer de musique/ambiance en fondu. */
+    startLoop, stopLoop,
 
     /** Joue un effet par nom logique, avec ±3 % de hauteur. */
     play(name) {
