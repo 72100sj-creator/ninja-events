@@ -109,6 +109,14 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.0.1 — Correctif : défilement des listes sur iPhone (juillet 2026)
+- 🐛 Impossible de faire défiler les listes (Carnet de Régie, Feuille de
+  Route, Réglages, Album) quand elles dépassaient l'écran : les enfants
+  flex `flex: 1` ont `min-height: auto` par défaut et grandissent au lieu
+  de défiler. Correctif : `min-height: 0` + `touch-action: pan-y` sur
+  `.scrollable` — les quatre listes du jeu sont couvertes d'un coup.
+- `CACHE_VERSION` → v1.0.1. Aucun autre fichier touché.
+
 ### v1.0.0 — 🏁 Version 1.0 (juillet 2026)
 **Phase G — Préparation 1.0**
 - ℹ️ Écran **À propos & crédits** (depuis les Réglages) : crédits,

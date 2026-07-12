@@ -65,4 +65,8 @@ h1, h2, h3 { font-weight: 700; letter-spacing: .5px; }
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  min-height: 0;          /* enfant flex : sans ça, il GRANDIT au lieu de
+                             défiler quand le contenu dépasse (bug iOS
+                             révélé par l'Acte I à 12 missions) */
+  touch-action: pan-y;    /* garantit le geste de défilement vertical */
 }
