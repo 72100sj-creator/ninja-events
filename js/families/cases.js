@@ -141,6 +141,7 @@ const FamilyCases = (() => {
     return {
       pieces: S.pieces.map(p => [p.x, p.y]),
       moves: S.moves,
+      undos: S.undos,
       history: S.history.map(h => ({ i: S.pieces.indexOf(h.p), x: h.x, y: h.y }))
     };
   }
@@ -226,7 +227,7 @@ const FamilyCases = (() => {
     GameAudio.haptic(25);
 
     setTimeout(() => {
-      if (S && S.hooks.onWin) S.hooks.onWin(S.moves);
+      if (S && S.hooks.onWin) S.hooks.onWin(S.moves, S.undos);
     }, 750);
   }
 
@@ -256,6 +257,7 @@ const FamilyCases = (() => {
       pieces: [],
       targets: [],
       moves: 0,
+      undos: 0,
       history: [],
       won: false
     };
@@ -300,6 +302,7 @@ const FamilyCases = (() => {
         }
       });
       S.moves = savedState.moves || 0;
+      S.undos = savedState.undos || 0;
       S.history = (savedState.history || [])
         .filter(h => S.pieces[h.i])
         .map(h => ({ p: S.pieces[h.i], x: h.x, y: h.y }));
@@ -317,6 +320,7 @@ const FamilyCases = (() => {
     step.p.x = step.x; step.p.y = step.y;
     SceneEngine.moveEl(step.p.el, step.x, step.y);
     S.moves = Math.max(0, S.moves - 1);
+    S.undos++;
     GameAudio.play("undo");
     updateTargets();
     notify();

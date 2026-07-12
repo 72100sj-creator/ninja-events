@@ -238,3 +238,51 @@
 }
 .v-fans span.earned:nth-child(2) { animation-delay: .18s; }
 .v-fans span.earned:nth-child(3) { animation-delay: .36s; }
+
+
+/* ============ LE GRAND ALBUM ============ */
+.album-list { flex: 1; display: flex; flex-direction: column; gap: 10px; padding-bottom: 4%; }
+.album-h { margin-top: 8px; color: var(--c-light); letter-spacing: 1px; }
+.album-stats { display: flex; flex-direction: column; gap: 6px; }
+.stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(247, 241, 227, .08);
+  border-radius: var(--radius-s);
+  padding: 12px 16px;
+  font-weight: 700;
+}
+.stat-row b { color: var(--c-light); font-size: 1.1rem; }
+.ach-count { text-align: right; margin: -4px 2px 2px; }
+.ach-card {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--c-washi); color: var(--c-ink);
+  border-radius: var(--radius-s);
+  padding: 11px 14px;
+  box-shadow: var(--shadow);
+}
+.ach-card.locked { opacity: .45; filter: grayscale(.9); box-shadow: none; }
+.ach-emoji { font-size: 1.7rem; }
+.ach-body { flex: 1; line-height: 1.25; }
+.ach-desc { font-size: .82rem; opacity: .7; }
+.ach-date { font-size: .75rem; opacity: .55; white-space: nowrap; }
+
+/* ============ TOAST « Éventail d'Or » ============ */
+.toast {
+  position: absolute;
+  top: calc(3% + env(safe-area-inset-top, 0px));
+  left: 50%;
+  z-index: 60;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--c-washi); color: var(--c-ink);
+  border-radius: 999px;
+  padding: 10px 20px;
+  box-shadow: var(--shadow);
+  font-size: .95rem;
+  max-width: 88%;
+  transform: translate(-50%, -180%);
+  transition: transform 450ms cubic-bezier(.22, 1.2, .36, 1);
+  pointer-events: none;
+}
+.toast.show { transform: translate(-50%, 0); }
+.toast-emoji { font-size: 1.4rem; }
+.game-scene[data-motion="reduced"] .toast { transition-duration: 1ms; }

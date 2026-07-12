@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.6.0";
+const APP_VERSION = "v0.7.0";
 
 const App = (() => {
 
@@ -108,7 +108,7 @@ const App = (() => {
     const grid = document.getElementById("puzzle-grid");
     currentFamily = (FAMILIES[level.family] || FAMILIES.cases)();
     currentFamily.init(level, grid, {
-      onWin: (moves) => onVictory(level, moves),
+      onWin: (moves, undos) => onVictory(level, moves, undos),
       onChange: (st) => {
         document.getElementById("btn-undo").disabled = !st.canUndo;
         document.getElementById("btn-restart").disabled = !st.canUndo;
@@ -133,15 +133,22 @@ const App = (() => {
   // ----------------------------------------------------------
   // Victoire : éventails, enregistrement, panneau de fin
   // ----------------------------------------------------------
-  function onVictory(level, moves) {
+  function onVictory(level, moves, undos = 0) {
     // « Skippable dès la deuxième victoire » (GDD §11.5) : on regarde
     // AVANT d'enregistrer si le joueur a déjà vu la séquence.
-    const alreadySeen = Progress.isDone(level.id) ||
-                        Save.get().stats.totalLevels > 0;
+    const wasReplay = Progress.isDone(level.id);
+    const alreadySeen = wasReplay || Save.get().stats.totalLevels > 0;
 
     const fans = Progress.fansFor(level, moves);
     Progress.completeLevel(level.id, fans, moves);
-    Save.update(s => { s.current.levelId = null; s.current.state = null; });
+    Save.update(s => {
+      s.current.levelId = null;
+      s.current.state = null;
+      s.stats.totalMoves = (s.stats.totalMoves || 0) + moves;   // pour l'Album
+    });
+
+    // Les Éventails d'Or (les toasts s'affichent par-dessus la séquence)
+    Achievements.onVictory({ level, moves, fans, undos, wasReplay });
 
     // Remplissage du panneau (affiché à la FIN de la séquence Rideau)
     document.getElementById("victory-name").textContent = level.name.fr;
@@ -168,6 +175,40 @@ const App = (() => {
     const list = Levels.ofAct(currentAct);
     const i = list.findIndex(l => l.id === level.id);
     return (i >= 0 && i + 1 < list.length) ? list[i + 1] : null;
+  }
+
+  // ----------------------------------------------------------
+  // Le Grand Album : statistiques + Éventails d'Or
+  // ----------------------------------------------------------
+  function renderAlbum() {
+    const s = Save.get();
+    const perfect = Object.values(s.progress).filter(p => p.fans === 3).length;
+
+    const rows = [
+      ["🎭", "Spectacles terminés", s.stats.totalLevels],
+      ["🪭", "Éventails gagnés", s.stats.totalFans],
+      ["🌸", "Spectacles parfaits (3 🪭)", perfect],
+      ["👣", "Coups joués", s.stats.totalMoves || 0]
+    ];
+    document.getElementById("album-stats").innerHTML = rows.map(
+      ([e, label, val]) =>
+        `<div class="stat-row"><span>${e} ${label}</span><b>${val}</b></div>`
+    ).join("");
+
+    const list = Achievements.all();
+    const got = list.filter(a => a.unlockedAt).length;
+    document.getElementById("album-achievements").innerHTML =
+      `<p class="muted ach-count">${got} / ${list.length} débloqués</p>` +
+      list.map(a => {
+        const date = a.unlockedAt
+          ? new Date(a.unlockedAt).toLocaleDateString("fr-FR")
+          : "";
+        return `<div class="ach-card${a.unlockedAt ? "" : " locked"}">
+          <span class="ach-emoji">${a.emoji}</span>
+          <span class="ach-body"><b>${a.name}</b><br><span class="ach-desc">${a.desc}</span></span>
+          <span class="ach-date">${date}</span>
+        </div>`;
+      }).join("");
   }
 
   // ----------------------------------------------------------
@@ -264,7 +305,8 @@ const App = (() => {
     document.querySelectorAll("[data-goto]").forEach(btn => {
       btn.addEventListener("click", () => {
         const target = btn.dataset.goto;
-        const prepare = { map: renderMap, notebook: renderNotebook, dojo: renderDojoStats }[target];
+        const prepare = { map: renderMap, notebook: renderNotebook,
+                          dojo: renderDojoStats, album: renderAlbum }[target];
         goto(target, prepare);
       });
     });
@@ -275,6 +317,7 @@ const App = (() => {
       const level = cur.levelId && Levels.byId(cur.levelId);
       if (!level) return;
       currentAct = Levels.actOf(level.id) || currentAct;
+      Achievements.onEvent("resume");
       openMission(level);
     });
 

@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.6.0 (Phase 2 complète — musique + ambiances)
+## Version actuelle : v0.7.0 (Phase 3 — Le Grand Album)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -38,8 +38,11 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 🎼 **Musique zen de l'Acte I** (« Le vieux parquet », 72 s en boucle)
   et **ambiance coulisses** (air de salle, craquements de parquet)
 
-### Ce qui arrive ensuite (Phase 3)
-Succès, statistiques, paramètres avancés, davantage de niveaux.
+- 📖 **Le Grand Album** : statistiques de la tournée + 10 Éventails d'Or
+  (succès bienveillants), toasts de déblocage en jeu
+
+### Ce qui arrive ensuite (Phase 3, suite)
+Davantage de niveaux pour l'Acte I, puis la famille Câbles.
 
 ---
 
@@ -109,6 +112,22 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.7.0 — Phase 3, livraison 1 : Le Grand Album (juillet 2026)
+- 📖 Nouvel écran **Le Grand Album** (depuis le Dojo) : statistiques de la
+  tournée (spectacles, éventails, parfaits, coups joués) et la collection
+  des Éventails d'Or.
+- 🪭 **10 Éventails d'Or** (GDD §17.4), bienveillants et sans grind :
+  « Les trois coups », « Le Chat a dormi sur ta solution »,
+  « Zéro annulation », « Pas un coup de plus », « Salle comble »,
+  « Le spectacle de minuit », « Le rappel », « Cinq minutes de plus »…
+- 🔔 Bandeau washi de déblocage (file d'attente, carillon, vibration),
+  visible même pendant la séquence Rideau.
+- Le moteur compte désormais les annulations par partie (transmises à la
+  victoire, sauvegardées avec le plateau en cours).
+- `save.js` **non modifié** : les succès vivent dans `unlocks.achievements`,
+  créé paresseusement.
+- `CACHE_VERSION` → v0.7.0.
 
 ### v0.6.0 — Phase 2, clôture : musique zen + ambiances (juillet 2026)
 - 🎼 **« Le vieux parquet »** : musique de l'Acte I composée sur mesure —

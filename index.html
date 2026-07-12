@@ -69,6 +69,7 @@
       <nav class="dojo-menu">
         <button id="btn-resume" class="btn btn-primary btn-big hidden">🎬&nbsp; Reprendre</button>
         <button class="btn btn-primary btn-big" data-goto="map">🎭&nbsp; Jouer</button>
+        <button class="btn" data-goto="album">📖&nbsp; Le Grand Album</button>
         <button class="btn" data-goto="settings">🏮&nbsp; Réglages</button>
       </nav>
       <footer class="dojo-footer">
@@ -143,6 +144,20 @@
       </div>
     </section>
 
+    <!-- ============ ÉCRAN : LE GRAND ALBUM ============ -->
+    <section id="screen-album" class="screen">
+      <header class="screen-header">
+        <button class="btn btn-icon" data-goto="dojo" aria-label="Retour au Dojo">←</button>
+        <h2>Le Grand Album</h2>
+      </header>
+      <div class="album-list scrollable">
+        <h3 class="album-h">📊 La tournée</h3>
+        <div id="album-stats" class="album-stats"></div>
+        <h3 class="album-h">🪭 Éventails d'Or</h3>
+        <div id="album-achievements" class="album-achievements"></div>
+      </div>
+    </section>
+
     <!-- ============ ÉCRAN : RÉGLAGES ============ -->
     <section id="screen-settings" class="screen">
       <header class="screen-header">
@@ -194,6 +209,12 @@
       </div>
     </section>
 
+    <!-- Bandeau de succès (Éventail d'Or débloqué) -->
+    <div id="toast" class="toast hidden" role="status">
+      <span id="toast-emoji" class="toast-emoji"></span>
+      <span id="toast-text"></span>
+    </div>
+
     <!-- ============ LE RIDEAU (transition entre écrans) ============ -->
     <div id="curtain" class="curtain" aria-hidden="true">
       <div class="curtain-panel left"></div>
@@ -211,6 +232,7 @@
   <script src="js/levels/act1.js"></script>
   <script src="js/families/cases.js"></script>
   <script src="js/progress.js"></script>
+  <script src="js/achievements.js"></script>
   <script src="js/curtain.js"></script>
   <script src="js/main.js"></script>
 </body>
