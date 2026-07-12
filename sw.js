@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v0.15.0";
+const CACHE_VERSION = "ninja-events-v1.0.0";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison.
    NB : les musiques/ambiances des actes II-III ne sont PAS préchargées —
@@ -83,6 +83,13 @@ self.addEventListener("activate", (event) => {
 /* Requêtes : cache d'abord, réseau en secours (puis mise en cache). */
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  // Navigation (même avec ?debug=1) : toujours servir la coquille.
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      caches.match("./index.html").then(c => c || fetch(event.request))
+    );
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;

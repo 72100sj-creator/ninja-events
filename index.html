@@ -220,10 +220,45 @@
           </div>
           <p id="save-msg" class="muted save-msg" aria-live="polite"></p>
         </div>
+        <label class="setting-row">
+          <span>ℹ️ À propos & crédits</span>
+          <button class="btn" data-goto="about">Ouvrir</button>
+        </label>
         <div class="setting-row danger-zone">
           <button id="btn-reset-save" class="btn btn-danger">Effacer la progression</button>
         </div>
         <p class="muted version-line">Ninja Events <span id="app-version"></span> — hors ligne ✔</p>
+      </div>
+    </section>
+
+    <!-- ============ ÉCRAN : À PROPOS ============ -->
+    <section id="screen-about" class="screen">
+      <header class="screen-header">
+        <button class="btn btn-icon" data-goto="settings" aria-label="Retour aux réglages">←</button>
+        <h2>À propos</h2>
+      </header>
+      <div class="about-list scrollable">
+        <div class="about-logo" aria-hidden="true">🏮</div>
+        <h3 class="about-title">NINJA <span>EVENTS</span></h3>
+        <p class="muted about-version">Version <span id="about-version"></span></p>
+
+        <p class="about-text">Un jeu de puzzles zen où un jeune ninja devenu
+        régisseur prépare des spectacles — et quand tout est prêt, le rideau
+        s'ouvre.</p>
+
+        <div class="about-credits">
+          <p><b>Direction &amp; game design</b><br>Seb</p>
+          <p><b>Développement</b><br>Seb &amp; Claude (Anthropic)</p>
+          <p><b>Musiques &amp; sons</b><br>Synthèse originale — aucune banque de sons</p>
+          <p><b>Univers</b><br>La famille Ninja : Papa Ninja · Morning Ninja · Ninja Stones · Ninja Events</p>
+        </div>
+
+        <p class="about-text about-quote">« Personne ne voit le ninja.
+        Personne ne voit le régisseur.<br>Et pourtant, sans eux, rien
+        n'existe. »</p>
+
+        <p class="muted about-legal">© 2026 Seb — Tous droits réservés.<br>
+        Sans publicité. Sans suivi. Vos données restent sur votre appareil.</p>
       </div>
     </section>
 

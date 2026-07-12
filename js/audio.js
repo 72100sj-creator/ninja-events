@@ -158,6 +158,14 @@ const GameAudio = (() => {
 
     /** Fondu enchaîné vers la scène sonore d'un acte. */
     setScene,
+
+    /** La musique s'incline (GDD §12.2) pendant le Rideau de victoire. */
+    duck(on) {
+      if (!ctx || !musicGain) return;
+      const target = on ? volumes.music * 0.22 : volumes.music;
+      musicGain.gain.linearRampToValueAtTime(
+        Math.max(0.0001, target), ctx.currentTime + 0.7);
+    },
     startLoop, stopLoop,
 
     /** Joue un effet par nom logique, avec ±3 % de hauteur. */

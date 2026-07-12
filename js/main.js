@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.15.0";
+const APP_VERSION = "v1.0.0";
 
 const App = (() => {
 
@@ -37,9 +37,17 @@ const App = (() => {
     const list = document.getElementById("map-list");
     list.innerHTML = "";
 
+    let hintGiven = false;
     for (const act of Levels.ACTS) {
       const unlocked = Progress.isActUnlocked(act.id);
       const fans = unlocked ? Progress.fansOfAct(act.id) : 0;
+      // Le PREMIER acte verrouillé explique comment lever son rideau.
+      let sub = act.sub;
+      if (!unlocked) {
+        sub = hintGiven ? "Le rideau est encore baissé…"
+                        : "Termine la Générale de l'acte précédent pour lever le rideau";
+        hintGiven = true;
+      }
       const card = document.createElement("button");
       card.className = "act-card" + (unlocked ? "" : " locked");
       card.setAttribute("aria-label",
@@ -47,7 +55,7 @@ const App = (() => {
       card.innerHTML =
         `<span class="act-emoji">${act.emoji}</span>` +
         `<span><span class="act-name">Acte ${act.num} — ${act.name}</span><br>` +
-        `<span class="act-sub">${unlocked ? act.sub : "Le rideau est encore baissé…"}</span></span>` +
+        `<span class="act-sub">${sub}</span></span>` +
         (fans > 0 ? `<span class="act-fans">🪭 ${fans}</span>` : "");
       if (unlocked) {
         card.addEventListener("click", () => {
@@ -392,6 +400,7 @@ const App = (() => {
   // ----------------------------------------------------------
   function boot() {
     document.getElementById("app-version").textContent = APP_VERSION;
+    document.getElementById("about-version").textContent = APP_VERSION;
     applySettings();
     bindSettings();
     renderDojoStats();

@@ -303,3 +303,19 @@
 }
 .save-panel-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .save-msg { text-align: center; min-height: 1.2em; }
+
+
+/* ============ À PROPOS ============ */
+.about-list { flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 14px; text-align: center; padding-bottom: 6%; }
+.about-logo { font-size: 3rem; filter: drop-shadow(0 0 16px rgba(245,200,110,.7));
+  animation: sway 4.5s ease-in-out infinite; transform-origin: top center; }
+.about-title { font-size: 1.6rem; letter-spacing: 3px; }
+.about-title span { color: var(--c-light); }
+.about-version { margin-top: -8px; }
+.about-text { max-width: 30ch; line-height: 1.55; }
+.about-credits { display: flex; flex-direction: column; gap: 10px;
+  background: rgba(247, 241, 227, .08); border-radius: var(--radius);
+  padding: 16px 22px; line-height: 1.45; }
+.about-quote { font-style: italic; color: var(--c-light); }
+.about-legal { line-height: 1.6; }

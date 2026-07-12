@@ -95,6 +95,7 @@ const Curtain = (() => {
   function playVictory({ skippable = false, onDone = () => {} } = {}) {
     const rideau = document.getElementById("rideau");
     finishFn = onDone;
+    GameAudio.duck(true);   // la musique laisse la place au spectacle
 
     // Animations réduites : simple fondu, pas de séquence.
     if (reducedMotion()) {
@@ -128,6 +129,7 @@ const Curtain = (() => {
   function resetVictory() {
     clearTimers();
     finishFn = null;
+    GameAudio.duck(false);   // la musique revient
     const rideau = document.getElementById("rideau");
     if (rideau) rideau.className = "rideau hidden";
   }

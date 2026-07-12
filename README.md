@@ -1,59 +1,46 @@
 # 🥷🎭 Ninja Events
 
-> Prépare le spectacle. Ouvre le rideau. Savoure les applaudissements.
+> **Prépare le spectacle. Ouvre le rideau. Savoure les applaudissements.**
 
-PWA de puzzle zen — HTML / CSS / JavaScript vanilla, sans framework, sans build.
-Document de référence : `GDD-Ninja-Events.md` (v1.1).
+Un jeu de puzzles zen où un jeune ninja devenu régisseur technique prépare
+des spectacles en coulisses. Poussez les flight cases, branchez les câbles,
+réglez les projecteurs — et quand tout est prêt, le rideau s'ouvre, les
+lumières s'allument une à une et le public applaudit.
 
----
-
-## Version actuelle : v0.15.0 (Route 1.0, Phases E+F — Mode QA & Audit)
-
-### Ce qui fonctionne
-- 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
-- 🏮 **Le Dojo** (accueil avec Yuki animé)
-- 🗺 **La Feuille de Route** (les 5 actes — seul l'Acte I est ouvert)
-- 📓 **Le Carnet de Régie** (liste des missions, éventails, fenêtre de liberté)
-- 🧩 **Écran Mission** avec moteur d'affichage (grille, murs, gaffeur, flight cases)
-- 🎬 **Transitions rideau** entre tous les écrans
-- ⚙️ **Réglages complets** (volumes, vibrations, mode sombre, daltonisme, animations réduites)
-- 💾 **Sauvegarde locale** continue (localStorage, versionnée, migrations prévues)
-- 📱 **PWA hors ligne** (service worker cache-first, installable iOS/Android/Desktop)
-
-- 🕹 **Gameplay Flight Cases** : glisser les caisses au doigt, collisions, victoire
-- 🪭 **Éventails gagnés** (1 à 3 selon le nombre de coups), enregistrés dans la sauvegarde
-- ↩ **Annulation illimitée** et ⟳ recommencer
-
-- 🎬 **La Séquence Rideau** (GDD §11.5) : noir de salle, trois coups,
-  ouverture du rideau sur le plateau du joueur, projecteurs un à un,
-  public en contre-jour, pétales — skippable dès la deuxième victoire
-
-- 🔊 **11 effets sonores** synthétisés sur mesure (~78 KB) : trois coups,
-  rideau, roulements, carillon du gaffeur, applaudissements…
-
-- 💾 **Reprise du plateau en cours** : fermer l'app en pleine partie,
-  tout retrouver exactement en l'état (positions, coups, annulations)
-- 🐱 **Le Chat de la Régie** dort sur A1-03 — il bloque, frémit, ne bouge jamais
-
-- 🎼 **Musique zen de l'Acte I** (« Le vieux parquet », 72 s en boucle)
-  et **ambiance coulisses** (air de salle, craquements de parquet)
-
-- 📖 **Le Grand Album** : statistiques de la tournée + 10 Éventails d'Or
-  (succès bienveillants), toasts de déblocage en jeu
-
-- 🧩 **12 missions** pour l'Acte I, toutes vérifiées par le solveur
-
-- 💾 **Export/import de sauvegarde par code** (Réglages)
-
-- 🔌 **La famille Câbles** et l'ouverture de l'**Acte II** (8 missions)
-- 💡 **La famille Projecteurs** : « le focus » — 8 missions de plus (Acte II = 16)
-- 🏮 **L'Acte III — Festival des Lanternes** : 12 missions, les trois familles entrelacées (40 niveaux au total)
-
-### Route vers la 1.0 (v0.12 → v0.16)
-Phase A contenu ✔ → B polish ✔ → C accessibilité ✔ → D optimisation ✔ →
-E mode QA ✔ → F audit qualité ✔ → G préparation 1.0 + Pass Directeur Technique.
+**PWA 100 % hors ligne** · HTML/CSS/JavaScript vanilla · zéro framework,
+zéro build, zéro dépendance, zéro publicité, zéro suivi.
 
 ---
+
+## Version 1.0.0 🏁
+
+- 🧩 **40 missions faites main** sur 3 actes (Salle Municipale, Théâtre
+  Suzume, Festival des Lanternes), **toutes prouvées solvables** par des
+  solveurs dédiés, avec seuils d'éventails dérivés des optima calculés
+- 🎮 **3 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
+  Projecteurs (orienter la lumière sans éclairer les kuroko)
+- 🎬 **La Séquence Rideau** : noir de salle, trois coups, ouverture sur
+  VOTRE plateau, projecteurs en cascade, public, pétales
+- 🎼 **Une scène sonore par acte** (musiques et ambiances synthétisées
+  sur mesure, fondu enchaîné, gamme unique de ré pentatonique)
+- 💾 Sauvegarde continue (reprise exacte, annulations comprises) +
+  **export/import par code** (parade à l'effacement iOS)
+- 🪭 Grand Album : statistiques + 10 Éventails d'Or bienveillants
+- ♿ Accessibilité : daltonisme (couleur **et** forme), mode sombre,
+  gros éléments, animations réduites, focus clavier, jouable sans son
+- 📦 Cœur installable : **< 1 MB** · projet complet : 2,4 MB
+
+## Jouer
+
+En ligne : ouvrir la page GitHub Pages du dépôt.
+Sur iPhone : Safari → Partager → **« Sur l'écran d'accueil »**.
+Sur Android : Chrome propose l'installation automatiquement.
+Après la première visite, le jeu fonctionne **entièrement hors ligne**.
+
+## Documents
+
+- `docs/GDD-Ninja-Events.md` — le Game Design Document (référence absolue)
+- `LICENSE.txt` — © 2026 Seb, tous droits réservés
 
 ## Structure du projet
 
@@ -121,6 +108,24 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v1.0.0 — 🏁 Version 1.0 (juillet 2026)
+**Phase G — Préparation 1.0**
+- ℹ️ Écran **À propos & crédits** (depuis les Réglages) : crédits,
+  citation du Maître, mentions légales, promesse « sans pub, sans suivi ».
+- 📄 `LICENSE.txt` (© 2026 Seb, tous droits réservés — modifiable).
+- 📘 README GitHub définitif (présentation, installation, documents).
+- 📱 Manifest final : `id`, `categories` (games/puzzle).
+- 🔢 Version unifiée v1.0.0 partout (app, cache, À propos, Réglages).
+
+**Pass Directeur Technique** — trois finitions relevées et corrigées :
+- 🗺 Le premier acte verrouillé explique désormais COMMENT lever son
+  rideau (« Termine la Générale de l'acte précédent »).
+- 🎼 **La musique s'incline** (–78 %) pendant la Séquence Rideau et
+  revient ensuite — les applaudissements ont la scène pour eux (GDD §12.2).
+- 🌐 Service worker : repli de navigation — toute URL du jeu (même avec
+  `?debug=1`) sert la coquille en cache hors ligne.
+- Moteurs gelés : **intacts depuis la v0.11.0**. Régressions : aucune.
 
 ### v0.15.0 — Route 1.0, Phases E+F : Mode QA & Audit qualité (juillet 2026)
 **Mode QA (Phase E)** — invisible en usage normal, activé par `?debug=1` :
