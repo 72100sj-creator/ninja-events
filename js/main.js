@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v0.12.0";
+const APP_VERSION = "v0.13.0";
 
 const App = (() => {
 
@@ -53,6 +53,8 @@ const App = (() => {
           goto("notebook", renderNotebook);
         });
       }
+      card.style.animationDelay = (list.children.length * 45) + "ms";
+      card.classList.add("card-in");
       list.appendChild(card);
     }
   }
@@ -62,6 +64,13 @@ const App = (() => {
   // ----------------------------------------------------------
   function renderNotebook() {
     document.getElementById("app").dataset.theme = currentAct;
+    GameAudio.setScene(currentAct);
+
+    // La salle reprend vie : chaleur proportionnelle à la progression (§7.4)
+    const listAll = Levels.ofAct(currentAct);
+    const done = listAll.filter(l => Progress.isDone(l.id)).length;
+    document.getElementById("screen-notebook").style
+      .setProperty("--warmth", listAll.length ? done / listAll.length : 0);
     const act = Levels.ACTS.find(a => a.id === currentAct);
     document.getElementById("notebook-title").textContent =
       `${act.emoji} ${act.name}`;
@@ -82,6 +91,8 @@ const App = (() => {
       if (unlocked) {
         card.addEventListener("click", () => openMission(lvl));
       }
+      card.style.animationDelay = (Math.min(i, 12) * 40) + "ms";
+      card.classList.add("card-in");
       list.appendChild(card);
     });
   }
@@ -110,11 +121,15 @@ const App = (() => {
     const cur = Save.get().current;
     const savedState = (cur.levelId === level.id && cur.state) ? cur.state : null;
 
-    // Ambiance visuelle de l'acte (rouge et or au Théâtre Suzume…)
-    document.getElementById("app").dataset.theme =
-      Levels.actOf(level.id) || currentAct;
+    // Ambiance visuelle ET sonore de l'acte
+    const actId = Levels.actOf(level.id) || currentAct;
+    document.getElementById("app").dataset.theme = actId;
+    GameAudio.setScene(actId);
 
     const grid = document.getElementById("puzzle-grid");
+    grid.classList.remove("enter");
+    void grid.offsetWidth;
+    grid.classList.add("enter");
     currentFamily = (FAMILIES[level.family] || FAMILIES.cases)();
     currentFamily.init(level, grid, {
       onWin: (moves, undos) => onVictory(level, moves, undos),
@@ -381,6 +396,7 @@ const App = (() => {
         const target = btn.dataset.goto;
         const prepare = { map: renderMap, notebook: renderNotebook,
                           dojo: renderDojoStats, album: renderAlbum }[target];
+        if (target === "dojo" || target === "map") GameAudio.setScene("act1");
         goto(target, prepare);
       });
     });

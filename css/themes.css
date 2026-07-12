@@ -54,3 +54,17 @@
 .game-scene[data-colorblind="protan"] .c2 { --cable: #4d9ec9; }
 .game-scene[data-colorblind="tritan"] .c1 { --cable: #f0a4b8; }
 .game-scene[data-colorblind="tritan"] .c3 { --cable: #3e7d6b; }
+
+/* La salle reprend vie (§7.4 allégé) : lueur chaude proportionnelle
+   à la progression de l'acte (--warmth posé par main.js, 0 → 1). */
+#screen-notebook { position: relative; }
+#screen-notebook::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%,
+    rgba(245, 200, 110, .30), transparent 65%);
+  opacity: calc(var(--warmth, 0) * 0.9);
+  transition: opacity 800ms ease-out;
+}

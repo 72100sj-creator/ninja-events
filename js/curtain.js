@@ -113,6 +113,7 @@ const Curtain = (() => {
       timers.push(setTimeout(() => {
         rideau.classList.add(step.cls);
         if (step.sfx) GameAudio.play(step.sfx);
+        if (step.cls === "p-knocks") GameAudio.haptic([25, 455, 25, 455, 25]);
       }, step.at));
     });
     timers.push(setTimeout(finish, TOTAL));

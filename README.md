@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.12.0 (Route 1.0, Phase A — L'Acte III)
+## Version actuelle : v0.13.0 (Route 1.0, Phase B — Polish)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -50,7 +50,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 🏮 **L'Acte III — Festival des Lanternes** : 12 missions, les trois familles entrelacées (40 niveaux au total)
 
 ### Route vers la 1.0 (v0.12 → v0.16)
-Phase A contenu ✔ → B polish → C accessibilité → D optimisation →
+Phase A contenu ✔ → B polish ✔ → C accessibilité → D optimisation →
 E mode QA → F audit qualité → G préparation 1.0 + Pass Directeur Technique.
 
 ---
@@ -121,6 +121,25 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.13.0 — Route 1.0, Phase B : Polish (juillet 2026)
+- 🎼 **Chaque acte a désormais sa scène sonore** (GDD §12.2) :
+  « Les dorures » (Acte II — koto grave, taiko feutré, tintements de
+  lustre) et « Hanabi » (Acte III — marimba lumineux, grillons, brise).
+  4 nouvelles boucles sans couture (~1,7 MB ; audio total 2,8/4 MB).
+- 🔀 **Fondu enchaîné automatique** : entrer dans un acte fond la
+  musique et l'ambiance vers les siennes (2,5 s) ; retour au Dojo =
+  retour aux coulisses. Vérifié par banc d'essai (4 points).
+- 📳 **Les trois coups vibrent dans la main** (motif toc…toc…toc calé
+  sur la séquence), si les vibrations sont activées.
+- ✨ Micro-animations : cartes de la Feuille de Route et du Carnet en
+  cascade, entrée en scène du plateau (fondu + zoom léger).
+- 🏮 **La salle reprend vie** (§7.4 allégé) : le Carnet de Régie se
+  réchauffe d'une lueur dorée proportionnelle aux missions terminées.
+- Toutes ces animations respectent « Réduire les animations ».
+- Fichiers modifiés : audio.js, main.js, curtain.js (3 lignes),
+  animations.css, themes.css, sw.js, +4 sons. **Moteurs gelés : intacts.**
+- Régressions : aucune détectée (bancs d'essai audio + syntaxe + cache ✔).
 
 ### v0.12.0 — Route 1.0, Phase A : l'Acte III (juillet 2026)
 - 🏮 **Le Festival des Lanternes s'ouvre** après la Générale de l'Acte II :

@@ -37,8 +37,23 @@ const GameAudio = (() => {
   /* Boucles longues : une musique par acte, une ambiance par décor. */
   const LOOPS = {
     "music-act1":        { file: "music-act1.m4a",        gain: 0.9 },
-    "ambient-backstage": { file: "ambient-backstage.m4a", gain: 0.9 }
+    "ambient-backstage": { file: "ambient-backstage.m4a", gain: 0.9 },
+    "music-act2":        { file: "music-act2.m4a",        gain: 0.9 },
+    "ambient-theatre":   { file: "ambient-theatre.m4a",   gain: 0.9 },
+    "music-act3":        { file: "music-act3.m4a",        gain: 0.9 },
+    "ambient-festival":  { file: "ambient-festival.m4a",  gain: 0.85 }
   };
+
+  /* Scène sonore par acte (GDD §12.2 : une pièce par acte). */
+  const SCENES = {
+    act1: { music: "music-act1", ambient: "ambient-backstage" },
+    act2: { music: "music-act2", ambient: "ambient-theatre" },
+    act3: { music: "music-act3", ambient: "ambient-festival" },
+    act4: { music: "music-act1", ambient: "ambient-backstage" },   // à venir
+    act5: { music: "music-act1", ambient: "ambient-backstage" }    // à venir
+  };
+  let currentScene = null;
+  let pendingScene = "act1";
 
   let ctx = null;             // AudioContext (créé au premier geste)
   let sfxGain = null;         // bus « Effets »
@@ -61,6 +76,27 @@ const GameAudio = (() => {
     src.connect(g); g.connect(bus);
     src.start();
     playing[name] = { src, g };
+  }
+
+  /**
+   * Fondu enchaîné vers la scène sonore d'un acte (musique + ambiance).
+   * Appelable avant le déblocage audio : la scène est alors mémorisée
+   * et démarrera au premier toucher.
+   */
+  function setScene(actId, first = false) {
+    const sc = SCENES[actId] || SCENES.act1;
+    if (!ctx) { pendingScene = actId; return; }
+    if (currentScene === actId) return;
+    const prev = SCENES[currentScene] || {};
+    currentScene = actId;
+    [["music", musicGain, first ? 3.5 : 2.5],
+     ["ambient", ambientGain, first ? 4.5 : 3.5]].forEach(([kind, bus, fade]) => {
+      if (prev[kind] && prev[kind] !== sc[kind]) stopLoop(prev[kind], 1.6);
+      if (buffers[sc[kind]]) startLoop(sc[kind], bus, fade);
+      else loadSound(sc[kind], LOOPS).then(() => {
+        if (currentScene === actId) startLoop(sc[kind], bus, fade);
+      });
+    });
   }
 
   /** Arrête une boucle en fondu (pour les futurs changements d'acte). */
@@ -98,12 +134,9 @@ const GameAudio = (() => {
         ambientGain.gain.value = volumes.ambient;
         ambientGain.connect(ctx.destination);
 
-        // Effets d'abord (légers), puis les boucles qui démarrent en fondu.
+        // Effets d'abord (légers), puis la scène sonore en fondu.
         Object.keys(SOUNDS).forEach(n => loadSound(n, SOUNDS));
-        loadSound("music-act1", LOOPS)
-          .then(() => startLoop("music-act1", musicGain, 3.5));
-        loadSound("ambient-backstage", LOOPS)
-          .then(() => startLoop("ambient-backstage", ambientGain, 4.5));
+        setScene(pendingScene || "act1", true);
 
         // iOS peut suspendre le contexte quand l'app passe en fond.
         document.addEventListener("visibilitychange", () => {
@@ -123,7 +156,8 @@ const GameAudio = (() => {
       if (ambientGain) ambientGain.gain.value = volumes.ambient;
     },
 
-    /** Pour les prochains actes : changer de musique/ambiance en fondu. */
+    /** Fondu enchaîné vers la scène sonore d'un acte. */
+    setScene,
     startLoop, stopLoop,
 
     /** Joue un effet par nom logique, avec ±3 % de hauteur. */
@@ -143,10 +177,10 @@ const GameAudio = (() => {
       src.start();
     },
 
-    /** Micro-vibration (si activée dans les réglages et supportée). */
-    haptic(ms = 10) {
+    /** Micro-vibration : durée en ms OU motif [on, off, on…]. */
+    haptic(msOrPattern = 10) {
       const s = Save.get().settings;
-      if (s.haptics && navigator.vibrate) navigator.vibrate(ms);
+      if (s.haptics && navigator.vibrate) navigator.vibrate(msOrPattern);
     }
   };
 })();
