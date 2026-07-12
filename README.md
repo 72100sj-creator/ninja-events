@@ -7,7 +7,7 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 
 ---
 
-## Version actuelle : v0.7.0 (Phase 3 — Le Grand Album)
+## Version actuelle : v0.8.0 (Phase 3 — L'Acte I complet : 12 missions)
 
 ### Ce qui fonctionne
 - 🎭 **Écran titre** (rideau fermé, poussière dorée, « toucher pour entrer »)
@@ -41,8 +41,10 @@ Document de référence : `GDD-Ninja-Events.md` (v1.1).
 - 📖 **Le Grand Album** : statistiques de la tournée + 10 Éventails d'Or
   (succès bienveillants), toasts de déblocage en jeu
 
-### Ce qui arrive ensuite (Phase 3, suite)
-Davantage de niveaux pour l'Acte I, puis la famille Câbles.
+- 🧩 **12 missions** pour l'Acte I, toutes vérifiées par le solveur
+
+### Ce qui arrive ensuite
+La famille Câbles (Acte II), l'export/import de sauvegarde.
 
 ---
 
@@ -112,6 +114,24 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v0.8.0 — Phase 3, livraison 2 : l'Acte I complet (juillet 2026)
+- 🧩 **9 nouvelles missions** (A1-04 → A1-12) : Poussière d'or, Les
+  coulisses étroites, Les Frères Ampli font la paix, Le pilier têtu,
+  La ronde des lanternes, Tanuki est encore en retard, L'entrée du
+  magicien, Le nœud du régisseur, La générale du parquet (avec le Chat).
+  Courbe en vagues (GDD §8.2) : leçon → défi → respiration.
+- 🔧 **Nouvel outil interne : le solveur** (prévu au GDD §18, risque n°2).
+  Il reproduit exactement les règles du moteur et prouve par recherche
+  exhaustive que chaque niveau est solvable + calcule l'optimum.
+- 🐛 Il a immédiatement attrapé **deux seuils impossibles** livrés en
+  v0.1.0 : A1-02 exigeait 9 coups pour 3 éventails (optimum réel : 11)
+  et A1-03 en exigeait 12 (optimum réel : 13). Personne n'aurait jamais
+  pu les obtenir. Tous les seuils dérivent désormais des optima prouvés
+  (notés en commentaire dans `act1.js`).
+- Il a aussi rejeté un niveau candidat « résolu d'avance » (la première
+  Ronde des lanternes) avant qu'il n'atteigne le jeu.
+- `CACHE_VERSION` → v0.8.0. Moteur, sauvegarde, audio non touchés.
 
 ### v0.7.0 — Phase 3, livraison 1 : Le Grand Album (juillet 2026)
 - 📖 Nouvel écran **Le Grand Album** (depuis le Dojo) : statistiques de la
