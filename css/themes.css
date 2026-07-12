@@ -57,7 +57,9 @@
 
 /* La salle reprend vie (§7.4 allégé) : lueur chaude proportionnelle
    à la progression de l'acte (--warmth posé par main.js, 0 → 1). */
-#screen-notebook { position: relative; }
+/* (Le .screen est déjà positionné en absolu : surtout ne pas le
+   repositionner — un `position: relative` ici lui ferait perdre sa
+   hauteur pleine scène et casserait le défilement. Bug v1.0.1.) */
 #screen-notebook::before {
   content: "";
   position: absolute;

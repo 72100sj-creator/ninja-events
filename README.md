@@ -109,6 +109,16 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.0.2 — Correctif : défilement du Carnet de Régie (juillet 2026)
+- 🐛 Le Carnet de Régie (et lui seul) restait fixe : la lueur de chaleur
+  ajoutée en v0.13.0 imposait `position: relative` à l'écran, lui faisant
+  perdre sa hauteur pleine scène — il grandissait avec son contenu au
+  lieu de défiler. La ligne fautive est supprimée (l'écran était déjà
+  positionné, la lueur n'en avait pas besoin) et un commentaire
+  d'avertissement est laissé dans le CSS.
+- Vérifié : aucun autre écran ne subit d'override de position.
+- `CACHE_VERSION` → v1.0.2.
+
 ### v1.0.1 — Correctif : défilement des listes sur iPhone (juillet 2026)
 - 🐛 Impossible de faire défiler les listes (Carnet de Régie, Feuille de
   Route, Réglages, Album) quand elles dépassaient l'écran : les enfants
