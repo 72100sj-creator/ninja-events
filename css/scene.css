@@ -278,21 +278,29 @@
 
 /* Maillon de câble : un galet central prolongé vers ses voisins */
 .cable-cell { pointer-events: none; z-index: 1; }
-.cable-cell::before {
+.cable-cell::before,
+.cable-cell::after {
   content: "";
   position: absolute;
-  inset: 36%;              /* câble plus fin (v1.3.2, retour joueur) */
-  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(0,0,0,.2) 85%),
-              var(--cable);
+  inset: 36%;              /* câble fin (v1.3.2) */
+  background: var(--cable);
   border-radius: 45%;
-  box-shadow: 0 0 0 1.5px rgba(10, 14, 22, .4);         /* gaine */
   opacity: .97;
 }
-.cable-cell.lk-u::before { top: -14%; }
-.cable-cell.lk-d::before { bottom: -14%; }
+/* ::before = tronçon HORIZONTAL · ::after = tronçon VERTICAL.
+   Un coude affiche les deux → vrai L fin, arrondi au pli (v1.3.3). */
+.cable-cell::after { display: none; }
+.cable-cell.lk-u::after,
+.cable-cell.lk-d::after { display: block; }
+.cable-cell.lk-u::after { top: -14%; }
+.cable-cell.lk-d::after { bottom: -14%; }
 .cable-cell.lk-l::before { left: -14%; }
 .cable-cell.lk-r::before { right: -14%; }
-.cable-cell.glow::before { box-shadow: 0 0 10px var(--cable); }
+/* Case purement verticale : pas de barre horizontale parasite */
+.cable-cell.lk-u:not(.lk-l):not(.lk-r)::before,
+.cable-cell.lk-d:not(.lk-l):not(.lk-r)::before { display: none; }
+.cable-cell.glow::before,
+.cable-cell.glow::after { box-shadow: 0 0 10px var(--cable); }
 
 /* --- Famille Projecteurs (GDD §5.3, « le focus ») --- */
 
@@ -447,4 +455,13 @@
     linear-gradient(180deg, rgba(255, 255, 255, .26), rgba(255, 255, 255, 0) 42%,
                     rgba(0, 0, 0, .22) 88%);
   background-color: var(--cable);
+  box-shadow: 0 0 0 1.5px rgba(10, 14, 22, .4);
+}
+.cable-cell::after {
+  background-image:
+    linear-gradient(90deg, transparent 44%, rgba(0, 0, 0, .16) 49% 51%, transparent 56%),
+    linear-gradient(90deg, rgba(255, 255, 255, .26), rgba(255, 255, 255, 0) 42%,
+                    rgba(0, 0, 0, .22) 88%);
+  background-color: var(--cable);
+  box-shadow: 0 0 0 1.5px rgba(10, 14, 22, .4);
 }

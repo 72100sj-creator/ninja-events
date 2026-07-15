@@ -110,6 +110,14 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.3.3 — Correctif : virages de câbles fins (juillet 2026)
+- 🔌 Les coudes formaient un gros pavé (la barre unique s'étirait dans
+  les deux directions). Désormais **deux tronçons par case** — horizontal
+  (::before) et vertical (::after) — qui composent un vrai **L fin**,
+  arrondi au pli, gaine caoutchouc sur chacun (couture dans le sens de
+  la longueur). Les cases purement verticales n'affichent plus de barre
+  horizontale parasite. `CACHE_VERSION` → v1.3.3.
+
 ### v1.3.2 — Retouche : câbles plus fins (juillet 2026)
 - 🔌 Gaine affinée (38 % → 28 % de la case), prolongements ajustés pour
   des jonctions parfaitement continues. `CACHE_VERSION` → v1.3.2.
