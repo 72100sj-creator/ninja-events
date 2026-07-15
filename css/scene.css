@@ -88,45 +88,75 @@
 
 /* Marque au gaffeur (destination) — jaune, pointillés, coins ronds */
 .grid-target {
-  border: 3px dashed var(--c-gaffer);
+  border: 2.5px dashed var(--c-gaffer);
   border-radius: 10%;
-  opacity: .8;
+  background: radial-gradient(circle, rgba(242, 212, 55, .10), transparent 70%);
   margin: 1%;
   width:  calc(var(--w, 1) / var(--cols) * 100% - 2%);
   height: calc(var(--h, 1) / var(--rows) * 100% - 2%);
+  animation: target-breathe 3s ease-in-out infinite;
+}
+@keyframes target-breathe {
+  0%, 100% { opacity: .62; }
+  50%      { opacity: .95; }
 }
 
 /* Mur / pilier de salle */
 .grid-wall {
-  background: var(--c-night-2);
-  border-radius: 14%;
-  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .3);
+  background: repeating-linear-gradient(0deg,
+    #2A2F3B 0 26%, #232833 26% 33%);
+  border: 1px solid #171C26;
+  border-radius: 12%;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .05),
+              inset 0 -4px 0 rgba(0, 0, 0, .35),
+              0 3px 6px rgba(0, 0, 0, .3);
 }
 
 /* Flight case (rendu Phase 1 : statique) */
 .grid-piece {
-  background: linear-gradient(180deg, #5b6b8a, #4a5977);
+  background: linear-gradient(180deg, #3E4A61, #2F3A4F);
   border: 2px solid rgba(0, 0, 0, .35);
-  border-radius: 12%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, .35), inset 0 2px 0 rgba(255,255,255,.15);
+  border-radius: 10%;
+  box-shadow: inset 0 0 0 2px rgba(190, 202, 220, .26),   /* cornière alu */
+              inset 0 2px 0 rgba(255, 255, 255, .16),
+              0 4px 9px rgba(0, 0, 0, .4);
   padding: 4%;
   transition: transform var(--t-fast) ease-out;
 }
-/* Coins métalliques stylisés */
+/* Coins boules de flight case (quarts de cercle aux quatre angles) */
+.grid-piece::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 0 0,       #A9B4C6 0 13%, transparent 14%),
+    radial-gradient(circle at 100% 0,    #A9B4C6 0 13%, transparent 14%),
+    radial-gradient(circle at 0 100%,    #8C97AB 0 13%, transparent 14%),
+    radial-gradient(circle at 100% 100%, #8C97AB 0 13%, transparent 14%);
+  pointer-events: none;
+}
+/* Couvercle en creux + poignée coquille */
 .grid-piece::after {
   content: "";
   position: absolute;
-  inset: 8%;
-  border: 2px solid rgba(245, 200, 110, .35);
-  border-radius: 10%;
+  inset: 15%;
+  border: 2px solid rgba(0, 0, 0, .28);
+  border-radius: 9%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+  background: radial-gradient(ellipse 52% 52% at center,
+    #161C28 58%, rgba(22, 28, 40, 0) 60%) center / 52% 26% no-repeat;
+  pointer-events: none;
 }
 
 /* Marque au gaffeur satisfaite : la bonne caisse est dessus (GDD §5.1) */
 .grid-target.lit {
   border-style: solid;
   border-color: var(--c-matcha);
+  background: radial-gradient(circle, rgba(143, 191, 106, .18), transparent 75%);
   opacity: 1;
-  box-shadow: 0 0 12px rgba(127, 166, 90, .5);
+  animation: none;
+  box-shadow: 0 0 14px rgba(143, 191, 106, .55);
   transition: box-shadow var(--t-med) ease-out;
 }
 
@@ -135,8 +165,11 @@
 .grid-piece.dragging {
   z-index: 5;
   cursor: grabbing;
-  filter: brightness(1.12);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, .45), inset 0 2px 0 rgba(255,255,255,.15);
+  transform: scale(1.045);
+  filter: brightness(1.14);
+  box-shadow: inset 0 0 0 2px rgba(240, 180, 92, .55),    /* cornière ambrée */
+              inset 0 2px 0 rgba(255, 255, 255, .16),
+              0 10px 20px rgba(0, 0, 0, .5);
 }
 
 /* --- Le Chat de la Régie : dort sur sa case, imperturbable ---
@@ -192,7 +225,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cable);
+  background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(0,0,0,.14)),
+              var(--cable);
   border-radius: 26%;
   margin: 6%;
   width:  calc(var(--w, 1) / var(--cols) * 100% - 12%);
@@ -200,7 +234,9 @@
   color: rgba(255, 255, 255, .92);
   font-size: clamp(11px, 3.4vmin, 22px);
   font-weight: 700;
-  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .3);
+  box-shadow: inset 0 0 0 3px rgba(11, 16, 27, .5),    /* le boîtier */
+              inset 0 -4px 0 rgba(0, 0, 0, .22),
+              0 2px 7px rgba(0, 0, 0, .35);
   z-index: 2;
   transition: box-shadow var(--t-med) ease-out, filter var(--t-med) ease-out;
 }
@@ -216,9 +252,11 @@
   content: "";
   position: absolute;
   inset: 31%;
-  background: var(--cable);
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(0,0,0,.2) 85%),
+              var(--cable);
   border-radius: 45%;
-  opacity: .95;
+  box-shadow: 0 0 0 1.5px rgba(10, 14, 22, .4);         /* gaine */
+  opacity: .97;
 }
 .cable-cell.lk-u::before { top: -12%; }
 .cable-cell.lk-d::before { bottom: -12%; }
@@ -323,3 +361,13 @@
 }
 .game-scene[data-motion="reduced"] .light-beam,
 .game-scene[data-motion="reduced"] .light-forbid.alert { animation: none !important; }
+
+/* --- Le Chat, accordé à La Régie (surcharges CSS, cases.js intact) --- */
+.grid-cat { filter: drop-shadow(0 4px 7px rgba(0, 0, 0, .45)); }
+.grid-cat .cat-dream {
+  fill: var(--c-amber);
+  filter: drop-shadow(0 0 3px rgba(240, 180, 92, .7));
+}
+
+/* Animations réduites : plateaux au repos */
+.game-scene[data-motion="reduced"] .grid-target { animation: none !important; }

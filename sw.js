@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v1.1.2";
+const CACHE_VERSION = "ninja-events-v1.2.0";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison.
    NB : les musiques/ambiances des actes II-III ne sont PAS préchargées —
@@ -32,6 +32,8 @@ const CORE_FILES = [
   "./js/levels/act2.js",
   "./js/levels/act2-lights.js",
   "./js/levels/act3.js",
+  "./js/levels/act4.js",
+  "./js/levels/act5.js",
   "./js/families/cases.js",
   "./js/families/cables.js",
   "./js/families/lights.js",

@@ -53,69 +53,80 @@
         <h2 class="wood-sign">Le Dojo</h2>
       </header>
       <div class="dojo-yuki" aria-hidden="true">
-        <!-- Yuki v2, le jeune régisseur — flat design, parties nommées
-             (.yuki-tails, .yuki-glow…) pour évoluer facilement -->
-        <svg viewBox="0 0 140 160" class="yuki bob">
-          <ellipse class="yuki-shadow" cx="68" cy="149" rx="38" ry="7" fill="rgba(0,0,0,.3)"/>
-
-          <!-- pans du bandeau (flottent derrière la tête) -->
-          <g class="yuki-tails">
-            <path d="M99 39 q16 -2 22 -13" stroke="var(--c-curtain)" stroke-width="5.5"
-                  stroke-linecap="round" fill="none"/>
-            <path d="M99 42 q18 7 27 1" stroke="var(--c-curtain-2)" stroke-width="5.5"
-                  stroke-linecap="round" fill="none"/>
+        <!-- Yuki v3 : méditation du régisseur — lotus d'or, projecteurs,
+             yeux clos apaisés. Parties nommées pour évoluer. -->
+        <svg viewBox="0 0 160 175" class="yuki bob">
+          <!-- projecteurs de régie dans les coins -->
+          <g class="yuki-beams" opacity=".9">
+            <polygon points="16,16 66,78 34,90" fill="var(--c-amber)" opacity=".07"/>
+            <polygon points="144,16 94,78 126,90" fill="var(--c-amber)" opacity=".07"/>
+            <g transform="rotate(32 16 13)">
+              <rect x="6" y="7" width="20" height="12" rx="4" fill="#1A1F2B"/>
+              <circle cx="22" cy="13" r="4" fill="var(--c-amber)"/>
+            </g>
+            <g transform="rotate(-32 144 13)">
+              <rect x="134" y="7" width="20" height="12" rx="4" fill="#1A1F2B"/>
+              <circle cx="138" cy="13" r="4" fill="var(--c-amber)"/>
+            </g>
           </g>
 
-          <!-- pieds -->
-          <rect class="yuki-feet" x="50" y="136" width="17" height="11" rx="5.5" fill="#191D26"/>
-          <rect class="yuki-feet" x="75" y="136" width="17" height="11" rx="5.5" fill="#191D26"/>
+          <ellipse class="yuki-shadow" cx="80" cy="168" rx="44" ry="6" fill="rgba(0,0,0,.3)"/>
 
-          <!-- corps + relief discret -->
-          <ellipse class="yuki-body" cx="70" cy="104" rx="35" ry="37" fill="var(--c-ink)"/>
-          <ellipse cx="70" cy="99" rx="23" ry="26" fill="#2B303C" opacity=".55"/>
-
-          <!-- bras gauche posé -->
-          <rect class="yuki-arm" x="29" y="90" width="14" height="32" rx="7"
-                fill="var(--c-ink)" transform="rotate(14 36 96)"/>
-          <!-- bras droit levé vers la lanterne -->
-          <rect class="yuki-arm" x="97" y="76" width="14" height="32" rx="7"
-                fill="var(--c-ink)" transform="rotate(-42 104 82)"/>
-          <circle class="yuki-hand" cx="117" cy="77" r="6" fill="var(--c-ink)"/>
-
-          <!-- ceinture obi ambrée -->
-          <rect class="yuki-obi" x="37" y="108" width="66" height="10" rx="5" fill="#C98A3A"/>
-          <circle class="yuki-obi-knot" cx="99" cy="113" r="6" fill="var(--c-amber)"/>
-
-          <!-- lanterne (écho de l'icône) -->
-          <line x1="116" y1="74" x2="126" y2="57" stroke="#7A5A34"
-                stroke-width="3.5" stroke-linecap="round"/>
-          <g class="yuki-glow">
-            <circle cx="127" cy="76" r="23" fill="var(--c-amber)" opacity=".12"/>
-            <circle cx="127" cy="76" r="15" fill="var(--c-amber)" opacity=".15"/>
+          <!-- le lotus d'or (flotte + respire) -->
+          <g class="yuki-lotus">
+            <g class="yuki-glow">
+              <circle cx="80" cy="27" r="24" fill="var(--c-amber)" opacity=".12"/>
+              <circle cx="80" cy="27" r="15" fill="var(--c-amber)" opacity=".16"/>
+            </g>
+            <g transform="translate(80 41)" stroke="#C98A3A" stroke-width="1">
+              <path transform="rotate(-55) scale(.72)" fill="var(--c-amber)" opacity=".85"
+                    d="M0 0 C -7 -10 -6 -22 0 -28 C 6 -22 7 -10 0 0 Z"/>
+              <path transform="rotate(55) scale(.72)" fill="var(--c-amber)" opacity=".85"
+                    d="M0 0 C -7 -10 -6 -22 0 -28 C 6 -22 7 -10 0 0 Z"/>
+              <path transform="rotate(-27) scale(.92)" fill="var(--c-amber)"
+                    d="M0 0 C -7 -10 -6 -22 0 -28 C 6 -22 7 -10 0 0 Z"/>
+              <path transform="rotate(27) scale(.92)" fill="var(--c-amber)"
+                    d="M0 0 C -7 -10 -6 -22 0 -28 C 6 -22 7 -10 0 0 Z"/>
+              <path fill="#F6DFA8"
+                    d="M0 0 C -7 -10 -6 -22 0 -28 C 6 -22 7 -10 0 0 Z"/>
+            </g>
           </g>
-          <rect x="122" y="59" width="10" height="5" rx="2" fill="#33281E"/>
-          <ellipse class="yuki-lantern" cx="127" cy="76" rx="11" ry="13" fill="var(--c-amber)"/>
-          <ellipse cx="127" cy="75" rx="6" ry="8" fill="#F8E6BE"/>
-          <path d="M120 68 q7 8 0 16 M134 68 q-7 8 0 16" stroke="#C98A3A"
-                stroke-width="1.4" fill="none"/>
-          <line x1="116" y1="76" x2="138" y2="76" stroke="#C98A3A" stroke-width="1.4"/>
-          <rect x="122" y="88" width="10" height="4" rx="2" fill="#33281E"/>
 
-          <!-- tête, visage, bandeau -->
-          <circle class="yuki-head" cx="66" cy="52" r="31" fill="var(--c-ink)"/>
-          <rect class="yuki-face" x="40" y="42" width="52" height="19" rx="9.5" fill="#F3DCB8"/>
-          <rect class="yuki-band" x="37" y="35" width="58" height="9" rx="4.5" fill="var(--c-curtain)"/>
-          <circle cx="96" cy="40" r="4.5" fill="var(--c-curtain-2)"/>
-
-          <!-- yeux vivants + joues -->
-          <g class="yuki-eyes">
-            <ellipse cx="55" cy="51.5" rx="3.6" ry="5" fill="#23262E"/>
-            <ellipse cx="77" cy="51.5" rx="3.6" ry="5" fill="#23262E"/>
-            <circle cx="56.4" cy="49.4" r="1.4" fill="#fff"/>
-            <circle cx="78.4" cy="49.4" r="1.4" fill="#fff"/>
+          <!-- jambes en lotus, torse, bras, obi, mains en mudra -->
+          <ellipse class="yuki-legs" cx="80" cy="155" rx="42" ry="12" fill="var(--c-ink)"/>
+          <rect x="84" y="150" width="19" height="8" rx="4" fill="#191D26"
+                transform="rotate(-13 93 154)"/>
+          <rect x="58" y="150" width="19" height="8" rx="4" fill="#191D26"
+                transform="rotate(13 67 154)"/>
+          <path class="yuki-torso" fill="var(--c-ink)"
+                d="M52 114 Q80 107 108 114 L114 146 Q80 157 46 146 Z"/>
+          <path class="yuki-collar" d="M69 114 L80 133 L91 114" fill="none"
+                stroke="#2B303C" stroke-width="4.5" stroke-linecap="round"/>
+          <rect class="yuki-arm" x="35" y="117" width="13" height="31" rx="6.5"
+                fill="var(--c-ink)" transform="rotate(17 41 122)"/>
+          <rect class="yuki-arm" x="112" y="117" width="13" height="31" rx="6.5"
+                fill="var(--c-ink)" transform="rotate(-17 119 122)"/>
+          <rect class="yuki-obi" x="50" y="138" width="60" height="9" rx="4.5" fill="#C98A3A"/>
+          <circle cx="80" cy="142" r="5" fill="var(--c-amber)"/>
+          <g class="yuki-hands">
+            <circle cx="38" cy="148" r="6.5" fill="#F3DCB8"/>
+            <circle cx="122" cy="148" r="6.5" fill="#F3DCB8"/>
+            <circle cx="35.5" cy="146" r="2" fill="none" stroke="#D9A05B" stroke-width="1.4"/>
+            <circle cx="124.5" cy="146" r="2" fill="none" stroke="#D9A05B" stroke-width="1.4"/>
           </g>
-          <circle cx="47.5" cy="56.5" r="3" fill="#E8A87C" opacity=".45"/>
-          <circle cx="84.5" cy="56.5" r="3" fill="#E8A87C" opacity=".45"/>
+
+          <!-- tête : capuche, bande de peau, sourcils, yeux clos, masque -->
+          <circle class="yuki-head" cx="80" cy="84" r="33" fill="var(--c-ink)"/>
+          <rect class="yuki-face" x="52" y="68" width="56" height="21" rx="10" fill="#F3DCB8"/>
+          <path d="M49 71 Q80 61 111 71" fill="none" stroke="#2B303C" stroke-width="4"/>
+          <g class="yuki-eyes" stroke="#23262E" fill="none" stroke-linecap="round">
+            <path d="M60 73 q7 -4 14 0" stroke-width="2.3"/>
+            <path d="M86 73 q7 -4 14 0" stroke-width="2.3"/>
+            <path d="M61 81 q6 5 12 0" stroke-width="3"/>
+            <path d="M87 81 q6 5 12 0" stroke-width="3"/>
+          </g>
+          <path class="yuki-mask" fill="var(--c-ink)"
+                d="M50 88 Q80 97 110 88 Q112 106 80 117 Q48 106 50 88 Z"/>
         </svg>
       </div>
       <nav class="dojo-menu">
@@ -338,6 +349,8 @@
   <script src="js/levels/act2.js"></script>
   <script src="js/levels/act2-lights.js"></script>
   <script src="js/levels/act3.js"></script>
+  <script src="js/levels/act4.js"></script>
+  <script src="js/levels/act5.js"></script>
   <script src="js/families/cases.js"></script>
   <script src="js/families/cables.js"></script>
   <script src="js/families/lights.js"></script>

@@ -50,7 +50,7 @@ const GameAudio = (() => {
     act2: { music: "music-act2", ambient: "ambient-theatre" },
     act3: { music: "music-act3", ambient: "ambient-festival" },
     act4: { music: "music-act1", ambient: "ambient-backstage" },   // à venir
-    act5: { music: "music-act1", ambient: "ambient-backstage" }    // à venir
+    act5: { music: "music-act2", ambient: "ambient-theatre" }      // le grand soir
   };
   let currentScene = null;
   let pendingScene = "act1";

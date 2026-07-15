@@ -35,7 +35,9 @@ const Progress = (() => {
     if (actId === "act1") return true;
     if (actId === "act2") return isDone("A1-12");
     if (actId === "act3") return isDone("A2-16");
-    return false;   // actes IV+ : à venir
+    if (actId === "act4") return isDone("A3-12");
+    if (actId === "act5") return isDone("A4-12");
+    return false;
   }
 
   /**

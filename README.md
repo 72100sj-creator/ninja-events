@@ -14,9 +14,10 @@ zéro build, zéro dépendance, zéro publicité, zéro suivi.
 
 ## Version 1.0.0 🏁
 
-- 🧩 **40 missions faites main** sur 3 actes (Salle Municipale, Théâtre
-  Suzume, Festival des Lanternes), **toutes prouvées solvables** par des
-  solveurs dédiés, avec seuils d'éventails dérivés des optima calculés
+- 🧩 **64 missions faites main** sur 5 actes (Salle Municipale, Théâtre
+  Suzume, Festival des Lanternes, Grande Tournée, Concert Géant),
+  **toutes prouvées solvables** par des solveurs dédiés, avec seuils
+  d'éventails dérivés des optima calculés
 - 🎮 **3 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
   Projecteurs (orienter la lumière sans éclairer les kuroko)
 - 🎬 **La Séquence Rideau** : noir de salle, trois coups, ouverture sur
@@ -108,6 +109,56 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v1.2.0 — 🚚🎆 Les Actes IV et V : la fin du voyage (juillet 2026)
+- 🚚 **Acte IV — La Grande Tournée** (12 missions) : quais de chargement,
+  multipaires, tunnels de service… jusqu'à « La générale de tournée ».
+- 🎆 **Acte V — Le Concert Géant** (12 missions) : montage à l'aube, façade
+  son, la poursuite sur la star… et le final absolu : **« La Première »**
+  (7 projecteurs, 3 kuroko, l'optimum prouvé à 11 touchers).
+- 🧩 Le jeu passe à **64 niveaux**, trois familles entrelacées partout.
+  Les solveurs ont rejeté 9 designs défectueux avant livraison (cible
+  posée sur un mur, lune sur l'unique ligne de visée, goulots de câbles).
+- 🔓 Déblocages : Acte IV après la Générale des Lanternes, Acte V après
+  la Générale de tournée. 🎼 Le Concert reprend la scène sonore du
+  théâtre ; la Tournée garde les coulisses (musiques dédiées : v1.3).
+- Moteurs gelés : **intacts**. Fichiers : levels/act4.js + act5.js
+  (nouveaux), progress.js (2 lignes), audio.js (1 ligne), index.html,
+  sw.js → v1.2.0. Régressions : aucune détectée.
+
+### v1.1.5 — Les plateaux Premium (juillet 2026)
+100 % CSS (`scene.css`) — les trois moteurs gelés n'ont pas été ouverts.
+- 📦 **Vraies flight cases** : caisse sombre à cornières alu, **coins
+  boules aux quatre angles**, couvercle en creux avec poignée coquille ;
+  en cours de glisser, la caisse se soulève (ombre longue) et sa
+  cornière **s'allume en ambre**.
+- 🟨 **Marques au gaffeur qui respirent** (pulsation 3 s) avec un léger
+  halo ; satisfaites, elles s'embrasent en vert matcha.
+- 🪵 **Murs → praticables** : planches de bois sombre avec relief.
+- 🔌 **Prises de scène** : boîtier sombre autour de la couleur, reflet
+  du dessus ; **câbles gainés caoutchouc** (reflet + liseré sombre).
+- 🐱 Le Chat harmonisé : ombre portée plus douce, songe « z z » en
+  ambre lumineux — par surcharges CSS uniquement (`cases.js` intact).
+- La pulsation des marques respecte « Réduire les animations ».
+- `CACHE_VERSION` → v1.1.5. Régressions : aucune (aucun JS touché).
+
+### v1.1.4 — Retouche : Yuki sans oreilles (juillet 2026)
+- 🥷 Les oreilles disparaissent (Dojo + icônes) : la capuche du kuroko
+  couvre tout, silhouette plus pure. `CACHE_VERSION` → v1.1.4.
+
+### v1.1.3 — La Méditation : Yuki v3 + icônes assorties (juillet 2026)
+- 🧘 **Yuki v3 au Dojo**, inspiré d'une référence fournie : en position
+  du lotus, yeux clos apaisés et sourcils sereins, masque de kuroko,
+  kimono à col croisé, obi ambré noué, mains en mudra — et **un lotus
+  d'or qui flotte au-dessus de lui** (halo qui respire, flottement de
+  4,5 s), éclairé par **deux petits projecteurs de régie** dans les
+  coins. Le pilier « Calme » du GDD, incarné.
+- 🏮 **Icônes redessinées à l'identique** (192, 512, maskable) : la tête
+  de Yuki en méditation sous le lotus d'or, rideau et galon en haut,
+  filet ambré en cadre.
+- Toutes les parties restent nommées ; animations coupées par
+  « Réduire les animations ». `CACHE_VERSION` → v1.1.3.
+- ⚠️ iOS : supprimer/réinstaller l'icône d'accueil pour voir la nouvelle.
 
 ### v1.1.2 — Yuki v2 sur l'écran du Dojo (juillet 2026)
 - 🥷 Yuki redessiné dans le style flat du jeu : bandeau rouge aux pans

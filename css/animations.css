@@ -356,18 +356,15 @@
 .game-scene[data-motion="reduced"] .victory-panel::after { animation: none !important; }
 
 /* --- Yuki v2 : vie discrète --- */
-.yuki-tails {
-  transform-origin: 97px 40px;
-  animation: yuki-flutter 3.8s ease-in-out infinite;
-}
-@keyframes yuki-flutter {
-  0%, 100% { transform: rotate(0deg); }
-  50%      { transform: rotate(6deg); }
+.yuki-lotus { animation: lotus-float 4.5s ease-in-out infinite; }
+@keyframes lotus-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
 }
 .yuki-glow { animation: lantern-breathe 3s ease-in-out infinite; }
 @keyframes lantern-breathe {
   0%, 100% { opacity: .7; }
   50%      { opacity: 1; }
 }
-.game-scene[data-motion="reduced"] .yuki-tails,
+.game-scene[data-motion="reduced"] .yuki-lotus,
 .game-scene[data-motion="reduced"] .yuki-glow { animation: none !important; }
