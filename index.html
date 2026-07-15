@@ -53,17 +53,69 @@
         <h2 class="wood-sign">Le Dojo</h2>
       </header>
       <div class="dojo-yuki" aria-hidden="true">
-        <!-- Yuki, le kuroko — SVG simple, animé par CSS (bob doux) -->
-        <svg viewBox="0 0 120 140" class="yuki bob">
-          <ellipse cx="60" cy="132" rx="34" ry="7" fill="rgba(0,0,0,.25)"/>
-          <circle cx="60" cy="78" r="38" fill="var(--c-ink)"/>
-          <circle cx="60" cy="46" r="30" fill="var(--c-ink)"/>
-          <rect x="32" y="38" width="56" height="16" rx="8" fill="var(--c-curtain)"/>
-          <circle cx="48" cy="46" r="4.5" fill="#fff"/>
-          <circle cx="72" cy="46" r="4.5" fill="#fff"/>
-          <circle cx="49.5" cy="47" r="2" fill="var(--c-ink)"/>
-          <circle cx="73.5" cy="47" r="2" fill="var(--c-ink)"/>
-          <path d="M88 44 q14 -6 18 -16" stroke="var(--c-curtain)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <!-- Yuki v2, le jeune régisseur — flat design, parties nommées
+             (.yuki-tails, .yuki-glow…) pour évoluer facilement -->
+        <svg viewBox="0 0 140 160" class="yuki bob">
+          <ellipse class="yuki-shadow" cx="68" cy="149" rx="38" ry="7" fill="rgba(0,0,0,.3)"/>
+
+          <!-- pans du bandeau (flottent derrière la tête) -->
+          <g class="yuki-tails">
+            <path d="M99 39 q16 -2 22 -13" stroke="var(--c-curtain)" stroke-width="5.5"
+                  stroke-linecap="round" fill="none"/>
+            <path d="M99 42 q18 7 27 1" stroke="var(--c-curtain-2)" stroke-width="5.5"
+                  stroke-linecap="round" fill="none"/>
+          </g>
+
+          <!-- pieds -->
+          <rect class="yuki-feet" x="50" y="136" width="17" height="11" rx="5.5" fill="#191D26"/>
+          <rect class="yuki-feet" x="75" y="136" width="17" height="11" rx="5.5" fill="#191D26"/>
+
+          <!-- corps + relief discret -->
+          <ellipse class="yuki-body" cx="70" cy="104" rx="35" ry="37" fill="var(--c-ink)"/>
+          <ellipse cx="70" cy="99" rx="23" ry="26" fill="#2B303C" opacity=".55"/>
+
+          <!-- bras gauche posé -->
+          <rect class="yuki-arm" x="29" y="90" width="14" height="32" rx="7"
+                fill="var(--c-ink)" transform="rotate(14 36 96)"/>
+          <!-- bras droit levé vers la lanterne -->
+          <rect class="yuki-arm" x="97" y="76" width="14" height="32" rx="7"
+                fill="var(--c-ink)" transform="rotate(-42 104 82)"/>
+          <circle class="yuki-hand" cx="117" cy="77" r="6" fill="var(--c-ink)"/>
+
+          <!-- ceinture obi ambrée -->
+          <rect class="yuki-obi" x="37" y="108" width="66" height="10" rx="5" fill="#C98A3A"/>
+          <circle class="yuki-obi-knot" cx="99" cy="113" r="6" fill="var(--c-amber)"/>
+
+          <!-- lanterne (écho de l'icône) -->
+          <line x1="116" y1="74" x2="126" y2="57" stroke="#7A5A34"
+                stroke-width="3.5" stroke-linecap="round"/>
+          <g class="yuki-glow">
+            <circle cx="127" cy="76" r="23" fill="var(--c-amber)" opacity=".12"/>
+            <circle cx="127" cy="76" r="15" fill="var(--c-amber)" opacity=".15"/>
+          </g>
+          <rect x="122" y="59" width="10" height="5" rx="2" fill="#33281E"/>
+          <ellipse class="yuki-lantern" cx="127" cy="76" rx="11" ry="13" fill="var(--c-amber)"/>
+          <ellipse cx="127" cy="75" rx="6" ry="8" fill="#F8E6BE"/>
+          <path d="M120 68 q7 8 0 16 M134 68 q-7 8 0 16" stroke="#C98A3A"
+                stroke-width="1.4" fill="none"/>
+          <line x1="116" y1="76" x2="138" y2="76" stroke="#C98A3A" stroke-width="1.4"/>
+          <rect x="122" y="88" width="10" height="4" rx="2" fill="#33281E"/>
+
+          <!-- tête, visage, bandeau -->
+          <circle class="yuki-head" cx="66" cy="52" r="31" fill="var(--c-ink)"/>
+          <rect class="yuki-face" x="40" y="42" width="52" height="19" rx="9.5" fill="#F3DCB8"/>
+          <rect class="yuki-band" x="37" y="35" width="58" height="9" rx="4.5" fill="var(--c-curtain)"/>
+          <circle cx="96" cy="40" r="4.5" fill="var(--c-curtain-2)"/>
+
+          <!-- yeux vivants + joues -->
+          <g class="yuki-eyes">
+            <ellipse cx="55" cy="51.5" rx="3.6" ry="5" fill="#23262E"/>
+            <ellipse cx="77" cy="51.5" rx="3.6" ry="5" fill="#23262E"/>
+            <circle cx="56.4" cy="49.4" r="1.4" fill="#fff"/>
+            <circle cx="78.4" cy="49.4" r="1.4" fill="#fff"/>
+          </g>
+          <circle cx="47.5" cy="56.5" r="3" fill="#E8A87C" opacity=".45"/>
+          <circle cx="84.5" cy="56.5" r="3" fill="#E8A87C" opacity=".45"/>
         </svg>
       </div>
       <nav class="dojo-menu">

@@ -108,7 +108,7 @@
   filter: drop-shadow(0 0 12px rgba(245, 200, 110, .7));
 }
 .dojo-yuki { flex: 1; display: flex; align-items: center; justify-content: center; }
-.dojo-yuki .yuki { width: min(46%, 220px); }
+.dojo-yuki .yuki { width: min(54%, 250px); filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); }
 .dojo-menu {
   display: flex; flex-direction: column; gap: 14px;
   align-items: stretch;

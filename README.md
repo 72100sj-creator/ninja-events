@@ -109,6 +109,15 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.1.2 — Yuki v2 sur l'écran du Dojo (juillet 2026)
+- 🥷 Yuki redessiné dans le style flat du jeu : bandeau rouge aux pans
+  flottants (animés), yeux vivants avec reflets et joues, ceinture obi
+  ambrée nouée, bras articulés, et **une lanterne allumée à la main**
+  (écho de l'icône) dont le halo respire doucement.
+- Parties nommées (.yuki-tails, .yuki-glow, .yuki-obi…) pour évoluer
+  facilement ; animations coupées par « Réduire les animations ».
+- `CACHE_VERSION` → v1.1.2.
+
 ### v1.1.1 — Icônes officielles « La Régie » (juillet 2026)
 - 🏮 Les trois icônes (192, 512, maskable 512) redessinées dans
   l'identité v1.1 : lanterne ambrée au cœur crème suspendue sous le
