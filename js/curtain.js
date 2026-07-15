@@ -61,7 +61,9 @@ const Curtain = (() => {
     { at: 2800, cls: "p-spots",    sfx: "spotlight" },      // projecteurs 1 à 1
     { at: 3700, cls: "p-audience", sfx: "applause" }        // public + pétales
   ];
-  const TOTAL = 5800;   // fin de séquence → panneau de victoire
+  const TOTAL = 8600;   // fin de séquence → panneau de victoire
+                        // (v1.6.1 : ~5 s pour admirer la scène vivante ;
+                        //  le toucher pour passer reste instantané)
 
   let timers = [];
   let finishFn = null;

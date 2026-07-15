@@ -110,6 +110,14 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.6.1 — Réglages de projectionniste (juillet 2026)
+- 🔦 Gobo **deux fois plus discret** (opacité .07 → .035) et taches plus
+  espacées (180 px) — une caresse de lumière, plus un motif.
+- ⏱ Le panneau de victoire apparaît à **8,6 s** au lieu de 5,8 s :
+  ~5 secondes pleines pour profiter de la scène vivante (décor, fumée,
+  poursuite, public). Le toucher pour passer reste instantané.
+- `CACHE_VERSION` → v1.6.1.
+
 ### v1.6.0 — DA Premium, étape 6/6 : la lumière personnage (juillet 2026)
 - 🌇 **Contre-jour** : une lueur d'horizon ambrée se lève derrière
   chaque décor (les silhouettes se détachent en ombres chinoises).

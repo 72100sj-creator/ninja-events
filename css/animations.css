@@ -508,8 +508,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(255, 240, 210, .07) 0 16%, transparent 19%);
-  background-size: 110px 110px;
+  background: radial-gradient(circle, rgba(255, 240, 210, .035) 0 13%, transparent 16%);
+  background-size: 180px 180px;
   mix-blend-mode: screen;
   opacity: 0;
   pointer-events: none;
@@ -520,7 +520,7 @@
   transition: opacity 2000ms ease-out 900ms;
 }
 @keyframes gobo-drift {
-  to { background-position: 110px 66px; }
+  to { background-position: 180px 108px; }
 }
 
 /* La salle applaudit : les têtes se balancent en rythme */
