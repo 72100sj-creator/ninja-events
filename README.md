@@ -110,6 +110,19 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.3.4 — DA Premium, étape 3/6 : les projecteurs (juillet 2026)
+100 % CSS (~1,5 KB de SVG) — `lights.js` intact.
+- 💡 **Vrai PAR LED** : la **platine de montage reste fixe** (plaque
+  métal, 4 vis, LED témoin) et **tout l'appareil pivote** — poignée
+  arrière striée, corps métallique à **ailettes de refroidissement**,
+  reflet du dessus, **lentille fresnel** (anneaux concentriques, verre
+  ambré, éclat spéculaire) avec halo discret.
+- ✨ **Poussière dans les faisceaux** : particules qui dérivent
+  lentement (8 s, dérive coupée par « Réduire les animations »),
+  cœur de faisceau plus lumineux, apparition progressive conservée.
+- 🟢 La LED témoin de chaque platine passe au **vert** à la victoire.
+- `CACHE_VERSION` → v1.3.4. Régressions : aucune (présentation pure).
+
 ### v1.3.3 — Correctif : virages de câbles fins (juillet 2026)
 - 🔌 Les coudes formaient un gros pavé (la barre unique s'étirait dans
   les deux directions). Désormais **deux tronçons par case** — horizontal
