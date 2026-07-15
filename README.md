@@ -110,6 +110,19 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.4.0 — DA Premium, étape 4/6 : Yuki mascotte vivante (juillet 2026)
+- 🥷 **Mini-Yuki accompagne chaque mission** (coin bas-gauche, discret) :
+  il **respire**, **cligne des yeux** toutes les ~5 s, penche la tête.
+- 🎭 **4 humeurs pilotées par le jeu** : 🙂 réflexion en travaillant ·
+  😮 surprise amusée quand on annule (900 ms) · 😅 une goutte perle dès
+  qu'on dépasse le seuil 3 éventails · 🥳 à la victoire : yeux fermés de
+  bonheur, **applaudissements** (mains qui claquent), étincelle, petits
+  bonds — pendant toute la séquence Rideau.
+- Toutes les expressions sont dessinées dans un seul SVG (~1,5 KB),
+  `data-mood` choisit ; « Réduire les animations » fige tout.
+- Branché sur les événements existants de main.js — **moteurs intacts**.
+- `CACHE_VERSION` → v1.4.0. Régressions : aucune détectée.
+
 ### v1.3.4 — DA Premium, étape 3/6 : les projecteurs (juillet 2026)
 100 % CSS (~1,5 KB de SVG) — `lights.js` intact.
 - 💡 **Vrai PAR LED** : la **platine de montage reste fixe** (plaque

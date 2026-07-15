@@ -368,3 +368,62 @@
 }
 .game-scene[data-motion="reduced"] .yuki-lotus,
 .game-scene[data-motion="reduced"] .yuki-glow { animation: none !important; }
+
+/* ============ MINI-YUKI : la mascotte des missions ============ */
+.yuki-mini {
+  position: absolute;
+  left: 3%;
+  bottom: calc(4% + 68px);
+  width: 62px;
+  z-index: 6;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .4));
+  animation: ym-breathe 3.4s ease-in-out infinite;
+}
+@keyframes ym-breathe {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-2px) rotate(-1.5deg); }
+}
+/* Matrice des humeurs : tout est dessiné, data-mood choisit */
+.yuki-mini .ym-eyes-happy, .yuki-mini .ym-eyes-surprise,
+.yuki-mini .ym-brows-up, .yuki-mini .ym-sweat,
+.yuki-mini .ym-hands { display: none; }
+.yuki-mini[data-mood="surprise"] .ym-eyes-open,
+.yuki-mini[data-mood="surprise"] .ym-brows,
+.yuki-mini[data-mood="party"] .ym-eyes-open { display: none; }
+.yuki-mini[data-mood="surprise"] .ym-eyes-surprise,
+.yuki-mini[data-mood="surprise"] .ym-brows-up { display: block; }
+.yuki-mini[data-mood="sweat"] .ym-sweat { display: block; }
+.yuki-mini[data-mood="party"] .ym-eyes-happy,
+.yuki-mini[data-mood="party"] .ym-hands { display: block; }
+/* Clignement des yeux (toutes les ~5 s) */
+.yuki-mini .ym-eyes-open { transform-origin: 48px 47.5px; animation: ym-blink 5.2s infinite; }
+@keyframes ym-blink {
+  0%, 94.5%, 100% { transform: scaleY(1); }
+  96.5%           { transform: scaleY(.08); }
+}
+/* Goutte de sueur qui perle */
+.yuki-mini .ym-sweat { animation: ym-drip 1.7s ease-in infinite; }
+@keyframes ym-drip {
+  0%   { transform: translateY(0);   opacity: 0; }
+  25%  { opacity: .95; }
+  100% { transform: translateY(9px); opacity: 0; }
+}
+/* Applaudissements + étincelle de fête */
+.yuki-mini[data-mood="party"] { animation: ym-bounce .55s ease-in-out infinite; }
+@keyframes ym-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+.yuki-mini .ym-hand-l { animation: ym-clap-l .4s ease-in-out infinite alternate; }
+.yuki-mini .ym-hand-r { animation: ym-clap-r .4s ease-in-out infinite alternate; }
+@keyframes ym-clap-l { from { transform: translate(0, 0); } to { transform: translate(14px, -6px); } }
+@keyframes ym-clap-r { from { transform: translate(0, 0); } to { transform: translate(-14px, -6px); } }
+.yuki-mini .ym-spark { transform-origin: 45px 13px; animation: ym-spark 1.1s ease-in-out infinite; }
+@keyframes ym-spark {
+  0%, 100% { opacity: 0; transform: scale(.5) rotate(0deg); }
+  50%      { opacity: 1; transform: scale(1.15) rotate(24deg); }
+}
+/* Animations réduites : Yuki pose, immobile mais expressif */
+.game-scene[data-motion="reduced"] .yuki-mini,
+.game-scene[data-motion="reduced"] .yuki-mini * { animation: none !important; }

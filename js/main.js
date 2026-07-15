@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.3.4";
+const APP_VERSION = "v1.4.0";
 
 const App = (() => {
 
@@ -113,6 +113,29 @@ const App = (() => {
   // ----------------------------------------------------------
   // Mission : chargement d'un niveau dans son moteur
   // ----------------------------------------------------------
+  // ----------------------------------------------------------
+  // Mini-Yuki : humeurs de la mascotte (think · surprise · sweat · party)
+  // ----------------------------------------------------------
+  let moodTimer = null;
+  let moodPar = Infinity;   // seuil 3 éventails du niveau en cours
+  let moodMoves = 0;
+
+  function baseMood() { return moodMoves > moodPar ? "sweat" : "think"; }
+
+  function setMood(mood, transientMs) {
+    const y = document.getElementById("yuki-mini");
+    if (!y) return;
+    clearTimeout(moodTimer);
+    moodTimer = null;
+    y.dataset.mood = mood;
+    if (transientMs) {
+      moodTimer = setTimeout(() => {
+        moodTimer = null;
+        y.dataset.mood = baseMood();
+      }, transientMs);
+    }
+  }
+
   const FAMILIES = {
     cases:  () => FamilyCases,
     cables: () => FamilyCables,
@@ -143,6 +166,9 @@ const App = (() => {
     // Cycle de vie propre : l'ancien moteur rend la grille (écouteurs
     // compris) avant que le nouveau ne s'installe (correctif audit F).
     if (currentFamily && currentFamily.destroy) currentFamily.destroy(grid);
+    moodPar = (level.par && level.par.moves3fans) || Infinity;
+    moodMoves = 0;
+    setMood("think");
     grid.classList.remove("enter");
     void grid.offsetWidth;
     grid.classList.add("enter");
@@ -152,6 +178,9 @@ const App = (() => {
       onChange: (st) => {
         document.getElementById("btn-undo").disabled = !st.canUndo;
         document.getElementById("btn-restart").disabled = !st.canUndo;
+        moodMoves = st.moves || 0;
+        const y = document.getElementById("yuki-mini");
+        if (y && y.dataset.mood !== "party" && !moodTimer) setMood(baseMood());
       },
       // Sauvegarde continue du plateau, coup après coup.
       onState: (state) => Save.update(s => {
@@ -186,6 +215,9 @@ const App = (() => {
       s.current.state = null;
       s.stats.totalMoves = (s.stats.totalMoves || 0) + moves;   // pour l'Album
     });
+
+    // Yuki exulte pendant toute la séquence
+    setMood("party");
 
     // Les Éventails d'Or (les toasts s'affichent par-dessus la séquence)
     Achievements.onVictory({ level, moves, fans, undos, wasReplay });
@@ -433,7 +465,9 @@ const App = (() => {
 
     // HUD de mission
     document.getElementById("btn-undo")
-      .addEventListener("click", () => currentFamily && currentFamily.undo());
+      .addEventListener("click", () => {
+        if (currentFamily) { currentFamily.undo(); setMood("surprise", 900); }
+      });
     document.getElementById("btn-restart")
       .addEventListener("click", () => currentFamily && currentFamily.restart());
 
