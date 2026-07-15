@@ -304,3 +304,53 @@
 }
 .game-scene[data-motion="reduced"] .card-in,
 .game-scene[data-motion="reduced"] .puzzle-grid.enter { animation: none !important; }
+
+/* ============ PREMIUM v1.1 : micro-animations ============ */
+
+/* Chaque écran entre en fondu + léger glissement (260 ms) */
+.screen.is-active { animation: screen-in 260ms ease-out; }
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* La touche « Reprendre » : LED ambrée qui respire */
+#btn-resume {
+  border-color: rgba(240, 180, 92, .45);
+  animation: led-breathe 2.6s ease-in-out infinite;
+}
+@keyframes led-breathe {
+  0%, 100% { box-shadow: var(--bevel), 0 6px 14px rgba(0, 0, 0, .35); }
+  50%      { box-shadow: var(--bevel), 0 6px 14px rgba(0, 0, 0, .35),
+                         0 0 16px rgba(240, 180, 92, .38); }
+}
+
+/* Victoire plus spectaculaire : le panneau monte en scène + éclat d'or */
+.victory-panel {
+  animation: panel-rise 460ms cubic-bezier(.22, 1.25, .34, 1) both;
+  position: relative;
+}
+@keyframes panel-rise {
+  from { opacity: 0; transform: translateY(26px) scale(.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.victory-panel::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid rgba(240, 180, 92, .0);
+  pointer-events: none;
+  animation: gold-flash 900ms ease-out 150ms;
+}
+@keyframes gold-flash {
+  0%   { border-color: rgba(240, 180, 92, 0);   box-shadow: 0 0 0 rgba(240,180,92,0); }
+  35%  { border-color: rgba(240, 180, 92, .85); box-shadow: 0 0 26px rgba(240,180,92,.55); }
+  100% { border-color: rgba(240, 180, 92, 0);   box-shadow: 0 0 0 rgba(240,180,92,0); }
+}
+
+/* Animations réduites : tout s'efface */
+.game-scene[data-motion="reduced"] .screen.is-active,
+.game-scene[data-motion="reduced"] #btn-resume,
+.game-scene[data-motion="reduced"] .victory-panel,
+.game-scene[data-motion="reduced"] .victory-panel::after { animation: none !important; }

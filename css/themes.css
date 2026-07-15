@@ -5,11 +5,17 @@
    ============================================================ */
 
 /* --- Ambiances par acte (dominantes, GDD §11.2) --- */
-.game-scene[data-theme="act1"] { --c-night: #2B3A55; --c-night-2: #22304a; } /* Salle : bois, poussière dorée */
-.game-scene[data-theme="act2"] { --c-night: #46283a; --c-night-2: #38202e; } /* Théâtre : rouge et or */
-.game-scene[data-theme="act3"] { --c-night: #1e2f4f; --c-night-2: #182741; } /* Festival : nuit bleue */
-.game-scene[data-theme="act4"] { --c-night: #37404d; --c-night-2: #2b333e; } /* Tournée : gris routes */
-.game-scene[data-theme="act5"] { --c-night: #35284f; --c-night-2: #2a2040; } /* Concert : violet nuit */
+/* Chaque acte teinte la régie ET ses panneaux (profondeur v1.1) */
+.game-scene[data-theme="act1"] { --c-night: #141B29; --c-night-2: #0E1420;
+  --c-panel: #1E2838; --c-panel-2: #26324a; }                /* Salle : nuit chaude */
+.game-scene[data-theme="act2"] { --c-night: #241521; --c-night-2: #190E17;
+  --c-panel: #33202e; --c-panel-2: #3f2939; }                /* Théâtre : pourpre et or */
+.game-scene[data-theme="act3"] { --c-night: #10192E; --c-night-2: #0B1222;
+  --c-panel: #1a2540; --c-panel-2: #22304f; }                /* Festival : nuit bleue */
+.game-scene[data-theme="act4"] { --c-night: #23282f; --c-night-2: #191d23;
+  --c-panel: #2d333c; --c-panel-2: #373e49; }                /* Tournée : gris routes */
+.game-scene[data-theme="act5"] { --c-night: #201736; --c-night-2: #171028;
+  --c-panel: #2c2148; --c-panel-2: #372a58; }                /* Concert : violet nuit */
 
 /* --- Mode sombre (menus : washi jour → washi nuit) --- */
 /* Appliqué par main.js via data-dark="on|off" selon le réglage

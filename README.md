@@ -109,6 +109,31 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.1.0 — 🎛 Premium Edition : « La Régie » (juillet 2026)
+Refonte esthétique complète, 100 % CSS — **aucune ligne des trois
+moteurs ni du JavaScript de jeu modifiée** (seul le numéro de version).
+- 🎛 **Nouvelle identité « console lumière »** : panneaux anthracite
+  biseautés, texte crème chaud, filets ambrés, halo de lampe de pupitre
+  et vignette sur la scène, châssis autour du plateau de jeu.
+- 💡 **LED de voies** : les numéros de mission s'affichent en LED ambrée
+  (verte quand le spectacle est joué) ; boutons = touches de pupitre qui
+  s'allument à l'appui ; codes de sauvegarde sur **afficheur console**
+  (ambre sur noir) ; touche « Reprendre » qui respire.
+- 🎭 Le rouge rideau est réservé aux moments de scène (Jouer, victoire,
+  titre) — et le panneau de victoire reste en papier washi éclairé :
+  le contraste régie sombre / scène en lumière devient la signature.
+- 🌗 Thèmes d'actes réaccordés en profondeur (panneaux compris) :
+  nuit chaude, pourpre et or, nuit bleue.
+- ✨ Animations discrètes : entrée en fondu de chaque écran (260 ms),
+  montée en scène du panneau de victoire + éclat d'or, pression des
+  touches — toutes désactivées par « Réduire les animations ».
+- 📜 Défilement re-vérifié systématiquement : aucun override de
+  position sur les écrans, marges basses avec zone sûre iOS,
+  barre de défilement discrète sur bureau.
+- Lisibilité : hiérarchie renforcée (titres, filets, texte secondaire
+  en crème atténué), nombres tabulaires façon afficheur.
+- `CACHE_VERSION` → v1.1.0. Régressions : aucune détectée.
+
 ### v1.0.2 — Correctif : défilement du Carnet de Régie (juillet 2026)
 - 🐛 Le Carnet de Régie (et lui seul) restait fixe : la lueur de chaleur
   ajoutée en v0.13.0 imposait `position: relative` à l'écran, lui faisant

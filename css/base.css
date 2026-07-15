@@ -4,23 +4,30 @@
    ============================================================ */
 
 :root {
-  /* --- Palette cœur (chaleur backstage) --- */
-  --c-night:   #2B3A55;  /* fond coulisses */
-  --c-night-2: #22304a;  /* variante plus sombre */
+  /* --- Palette « La Régie » (console lumière, v1.1) --- */
+  --c-night:   #141B29;  /* la régie éteinte */
+  --c-night-2: #0E1420;  /* recoins */
+  --c-panel:   #1E2838;  /* panneau de console */
+  --c-panel-2: #26324a;  /* panneau en relief */
+  --c-amber:   #F0B45C;  /* LED ambrée — l'accent maître */
   --c-wood:    #D9A05B;  /* bois de scène */
-  --c-curtain: #C94F4F;  /* rideau / accents */
+  --c-curtain: #C94F4F;  /* rouge rideau */
   --c-curtain-2:#a93f3f; /* plis du rideau */
-  --c-light:   #F5C86E;  /* lumière or doux */
+  --c-light:   #F0B45C;  /* lumière chaude (alias ambre) */
   --c-gaffer:  #F2D437;  /* gaffeur / signalétique */
-  --c-matcha:  #7FA65A;  /* validation */
-  --c-ink:     #22252B;  /* Yuki / encre */
-  --c-washi:   #F7F1E3;  /* papier UI */
-  --c-washi-2: #efe6d0;  /* papier ombré */
+  --c-matcha:  #8FBF6A;  /* LED verte — spectacle joué */
+  --c-ink:     #20242C;  /* encre (panneaux clairs) */
+  --c-washi:   #F5EFE2;  /* papier — réservé aux moments de scène */
+  --c-washi-2: #ece4d0;
+  --c-text:    #EFE9DA;  /* texte crème chaud */
+  --c-text-dim: rgba(239, 233, 218, .62);
+  --c-line:    rgba(240, 180, 92, .16);   /* filets ambrés */
 
   /* --- UI --- */
-  --radius: 18px;
+  --radius: 16px;
   --radius-s: 12px;
-  --shadow: 0 4px 14px rgba(0, 0, 0, .25);
+  --shadow: 0 10px 26px rgba(0, 0, 0, .38);
+  --bevel: inset 0 1px 0 rgba(255, 255, 255, .06);
   --tap-min: 48px;        /* cible tactile minimale (GDD §9.1) */
   --font: "Nunito", "Quicksand", ui-rounded, "Hiragino Maru Gothic ProN",
           system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -39,7 +46,7 @@ html, body {
   overflow: hidden;               /* la scène gère tout */
   background: #141b2a;            /* letterbox autour de la scène */
   font-family: var(--font);
-  color: var(--c-washi);
+  color: var(--c-text);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;     /* supprime le délai de double-tap */
@@ -55,7 +62,9 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   outline-offset: 2px;
 }
 
-h1, h2, h3 { font-weight: 700; letter-spacing: .5px; }
+h1, h2, h3 { font-weight: 800; letter-spacing: .6px; }
+/* Nombres alignés façon afficheur (compteurs, coups, dates) */
+b, .m-num, .stat-row b { font-variant-numeric: tabular-nums; }
 
 /* --- Utilitaires --- */
 .muted  { opacity: .8; font-size: .875em; }
@@ -69,4 +78,11 @@ h1, h2, h3 { font-weight: 700; letter-spacing: .5px; }
                              défiler quand le contenu dépasse (bug iOS
                              révélé par l'Acte I à 12 missions) */
   touch-action: pan-y;    /* garantit le geste de défilement vertical */
+  padding-bottom: max(5%, env(safe-area-inset-bottom, 0px));
+}
+/* Défilement discret (bureau) */
+.scrollable::-webkit-scrollbar { width: 5px; }
+.scrollable::-webkit-scrollbar-thumb {
+  background: rgba(240, 180, 92, .22);
+  border-radius: 99px;
 }
