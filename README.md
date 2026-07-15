@@ -110,6 +110,20 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.3.0 — DA Premium, étape 1/6 : les flight cases (juillet 2026)
+100 % CSS (illustrations SVG vectorielles intégrées en data-URI) —
+moteurs gelés intacts, aucun fichier ajouté, ~2 KB de CSS.
+- 📦 **Caisses de tournée détaillées** : rangées de **rivets** sur les
+  quatre cornières (taille fixe : le matériel reste crédible sur toutes
+  les tailles de caisses), coins boules à double anneau avec point de
+  lumière, **loquet papillon** en haut, **poignée coquille** métallique
+  encastrée, **autocollant de tournée** (lanterne sur pastille rouge,
+  légèrement penché) et **étiquette de transport** (fragile ✕) sur le
+  couvercle, micro-rayures d'usure.
+- 🟨 **Marques au gaffeur refaites en vrais coins de ruban** (spike
+  marks, 8 bandes aux angles) — satisfaites, le ruban vire au matcha.
+- `CACHE_VERSION` → v1.3.0. Régressions : aucune (présentation pure).
+
 ### v1.2.0 — 🚚🎆 Les Actes IV et V : la fin du voyage (juillet 2026)
 - 🚚 **Acte IV — La Grande Tournée** (12 missions) : quais de chargement,
   multipaires, tunnels de service… jusqu'à « La générale de tournée ».

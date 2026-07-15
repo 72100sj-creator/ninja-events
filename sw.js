@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v1.2.0";
+const CACHE_VERSION = "ninja-events-v1.3.0";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison.
    NB : les musiques/ambiances des actes II-III ne sont PAS préchargées —

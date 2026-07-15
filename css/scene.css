@@ -88,9 +88,22 @@
 
 /* Marque au gaffeur (destination) — jaune, pointillés, coins ronds */
 .grid-target {
-  border: 2.5px dashed var(--c-gaffer);
-  border-radius: 10%;
-  background: radial-gradient(circle, rgba(242, 212, 55, .10), transparent 70%);
+  --tape: var(--c-gaffer);
+  border: none;
+  border-radius: 8%;
+  background-image:
+    linear-gradient(var(--tape), var(--tape)), linear-gradient(var(--tape), var(--tape)),
+    linear-gradient(var(--tape), var(--tape)), linear-gradient(var(--tape), var(--tape)),
+    linear-gradient(var(--tape), var(--tape)), linear-gradient(var(--tape), var(--tape)),
+    linear-gradient(var(--tape), var(--tape)), linear-gradient(var(--tape), var(--tape)),
+    radial-gradient(circle, rgba(242, 212, 55, .10), transparent 70%);
+  background-repeat: no-repeat;
+  background-position:
+    left top, left top, right top, right top,
+    left bottom, left bottom, right bottom, right bottom, center;
+  background-size:
+    26% 4px, 4px 26%, 26% 4px, 4px 26%,
+    26% 4px, 4px 26%, 26% 4px, 4px 26%, 100% 100%;
   margin: 1%;
   width:  calc(var(--w, 1) / var(--cols) * 100% - 2%);
   height: calc(var(--h, 1) / var(--rows) * 100% - 2%);
@@ -114,29 +127,42 @@
 
 /* Flight case (rendu Phase 1 : statique) */
 .grid-piece {
-  background: linear-gradient(180deg, #3E4A61, #2F3A4F);
-  border: 2px solid rgba(0, 0, 0, .35);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 84'%3E%3Cg stroke='%23FFFFFF' stroke-linecap='round' fill='none'%3E%3Cpath d='M12 30 L34 24' stroke-width='1' opacity='.05'/%3E%3Cpath d='M50 62 L72 58' stroke-width='1.4' opacity='.04'/%3E%3Cpath d='M60 14 L70 20' stroke-width='.8' opacity='.06'/%3E%3C/g%3E%3Cpath d='M18 66 q6 -3 12 0' stroke='%23000000' stroke-width='2' fill='none' opacity='.08'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, #41516C, #2E3A50);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y, repeat, no-repeat;
+  background-position: left 4px top 2px, left 4px bottom 2px,
+                       left 2px top 4px, right 2px top 4px, 0 0, 0 0;
+  background-size: 9px 9px, 9px 9px, 9px 9px, 9px 9px, 84px 84px, 100% 100%;
+  border: 1px solid #10151F;
   border-radius: 10%;
-  box-shadow: inset 0 0 0 2px rgba(190, 202, 220, .26),   /* cornière alu */
-              inset 0 2px 0 rgba(255, 255, 255, .16),
-              0 4px 9px rgba(0, 0, 0, .4);
+  box-shadow: inset 0 0 0 3px rgba(190, 202, 220, .30),   /* cornières alu */
+              inset 0 0 0 4px rgba(0, 0, 0, .25),
+              inset 0 2px 0 rgba(255, 255, 255, .14),
+              0 5px 10px rgba(0, 0, 0, .42);
   padding: 4%;
-  transition: transform var(--t-fast) ease-out;
+  transition: transform var(--t-fast) ease-out, box-shadow var(--t-fast) ease-out;
 }
-/* Coins boules de flight case (quarts de cercle aux quatre angles) */
+/* Coins boules + loquet papillon en haut */
 .grid-piece::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background:
-    radial-gradient(circle at 0 0,       #A9B4C6 0 13%, transparent 14%),
-    radial-gradient(circle at 100% 0,    #A9B4C6 0 13%, transparent 14%),
-    radial-gradient(circle at 0 100%,    #8C97AB 0 13%, transparent 14%),
-    radial-gradient(circle at 100% 100%, #8C97AB 0 13%, transparent 14%);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 14'%3E%3Crect x='1' y='1' width='18' height='12' rx='2' fill='%239AA6B8'/%3E%3Crect x='1' y='1' width='18' height='12' rx='2' fill='none' stroke='%23414B5D' stroke-width='.8'/%3E%3Ccircle cx='10' cy='7' r='4.2' fill='%23707C90'/%3E%3Crect x='8.9' y='3.2' width='2.2' height='7.6' rx='1.1' fill='%23D6DEE9'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 16% 16%, #E3E9F2 0 4%, transparent 5%),
+    radial-gradient(circle at 0 0,       #AEB9CB 0 13%, #78829a 13% 15%, transparent 16%),
+    radial-gradient(circle at 100% 0,    #AEB9CB 0 13%, #78829a 13% 15%, transparent 16%),
+    radial-gradient(circle at 0 100%,    #909BAF 0 13%, #5f6a80 13% 15%, transparent 16%),
+    radial-gradient(circle at 100% 100%, #909BAF 0 13%, #5f6a80 13% 15%, transparent 16%);
+  background-repeat: no-repeat;
+  background-position: center top 5%, 0 0, 0 0, 0 0, 0 0, 0 0;
+  background-size: 20% auto, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   pointer-events: none;
 }
-/* Couvercle en creux + poignée coquille */
+/* Couvercle : poignée coquille, autocollant de tournée, étiquette */
 .grid-piece::after {
   content: "";
   position: absolute;
@@ -144,16 +170,16 @@
   border: 2px solid rgba(0, 0, 0, .28);
   border-radius: 9%;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
-  background: radial-gradient(ellipse 52% 52% at center,
-    #161C28 58%, rgba(22, 28, 40, 0) 60%) center / 52% 26% no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 12'%3E%3Crect x='.8' y='.8' width='28.4' height='10.4' rx='5.2' fill='%238E99AC'/%3E%3Crect x='.8' y='.8' width='28.4' height='10.4' rx='5.2' fill='none' stroke='%23394356' stroke-width='.7'/%3E%3Crect x='2.6' y='2.6' width='24.8' height='6.8' rx='3.4' fill='%23141A26'/%3E%3Crect x='4.5' y='7' width='21' height='1.8' rx='.9' fill='%232B3447'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg transform='rotate(8 10 10)'%3E%3Ccircle cx='10' cy='10' r='8.6' fill='%23C94F4F'/%3E%3Ccircle cx='10' cy='10' r='8.6' fill='none' stroke='%23F5EFE2' stroke-width='1.3'/%3E%3Cpath d='M10 4.6c-2.6 0-4.1 2.2-4.1 5.1 0 3.2 1.7 5.8 4.1 5.8s4.1-2.6 4.1-5.8C14.1 6.8 12.6 4.6 10 4.6z' fill='%23F0B45C'/%3E%3Cpath d='M6.4 9.7h7.2' stroke='%23C98A3A' stroke-width='.9'/%3E%3Crect x='8.9' y='2.6' width='2.2' height='2' rx='.6' fill='%2333281E'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 16'%3E%3Cg transform='rotate(-5 15 8)'%3E%3Crect x='2' y='2.5' width='26' height='11' rx='1.4' fill='%23F5EFE2'/%3E%3Crect x='2' y='2.5' width='26' height='11' rx='1.4' fill='none' stroke='%23B9AE95' stroke-width='.6'/%3E%3Crect x='4' y='4.6' width='11' height='1.7' fill='%23343B49'/%3E%3Crect x='4' y='7.3' width='15' height='1.1' fill='%238A93A5'/%3E%3Crect x='4' y='9.4' width='9' height='1.1' fill='%238A93A5'/%3E%3Crect x='21.5' y='4.6' width='4.6' height='6' fill='none' stroke='%23C94F4F' stroke-width='.9'/%3E%3Cpath d='M22.5 6l2.6 3.2M25.1 6l-2.6 3.2' stroke='%23C94F4F' stroke-width='.7'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center 42%, right 6% top 8%, left 6% bottom 7%;
+  background-size: 46% auto, 24% auto, 40% auto;
   pointer-events: none;
 }
 
 /* Marque au gaffeur satisfaite : la bonne caisse est dessus (GDD §5.1) */
 .grid-target.lit {
-  border-style: solid;
-  border-color: var(--c-matcha);
-  background: radial-gradient(circle, rgba(143, 191, 106, .18), transparent 75%);
+  --tape: var(--c-matcha);
   opacity: 1;
   animation: none;
   box-shadow: 0 0 14px rgba(143, 191, 106, .55);
