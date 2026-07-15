@@ -110,6 +110,24 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.3.2 — Retouche : câbles plus fins (juillet 2026)
+- 🔌 Gaine affinée (38 % → 28 % de la case), prolongements ajustés pour
+  des jonctions parfaitement continues. `CACHE_VERSION` → v1.3.2.
+
+### v1.3.1 — DA Premium, étape 2/6 : les câbles (juillet 2026)
+100 % CSS (~2 KB de SVG en data-URI) — `cables.js` intact.
+- 🔌 **Chaque couleur devient un vrai connecteur de scène**, monté sur
+  sa platine châssis (4 vis, biseau) : rouge ● = **XLR** (3 broches,
+  détrompeur) · or ■ = **PowerCON** (bague crantée, ergot) · matcha ▲ =
+  **Speakon** (verrous latéraux, flèche de rotation) · bleu ◆ = **DMX
+  5 broches** · violet ✚ = **multibroche à leviers**. L'insert coloré
+  reste sous l'anneau, le pictogramme d'accessibilité par-dessus.
+- 💡 **LED d'état** sur chaque platine : ambre en attente, **verte une
+  fois patchée** — la satisfaction du branchement se voit.
+- 🐍 Câbles en **gaine caoutchouc moulée** : couture centrale, double
+  reflet, liseré sombre conservé.
+- `CACHE_VERSION` → v1.3.1. Régressions : aucune (présentation pure).
+
 ### v1.3.0 — DA Premium, étape 1/6 : les flight cases (juillet 2026)
 100 % CSS (illustrations SVG vectorielles intégrées en data-URI) —
 moteurs gelés intacts, aucun fichier ajouté, ~2 KB de CSS.
