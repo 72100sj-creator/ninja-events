@@ -109,6 +109,17 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.1.1 — Icônes officielles « La Régie » (juillet 2026)
+- 🏮 Les trois icônes (192, 512, maskable 512) redessinées dans
+  l'identité v1.1 : lanterne ambrée au cœur crème suspendue sous le
+  rideau rouge à galon d'or, halo de lampe de pupitre, fond console
+  en dégradé nuit, filet ambré en cadre. Motif centré dans la zone
+  sûre pour la version maskable (Android).
+- Mêmes noms de fichiers : manifest, index.html et service worker
+  inchangés hors `CACHE_VERSION` → v1.1.1.
+- ⚠️ iOS met l'icône d'accueil en cache : après mise à jour, supprimer
+  puis réinstaller « Sur l'écran d'accueil » pour voir la nouvelle.
+
 ### v1.1.0 — 🎛 Premium Edition : « La Régie » (juillet 2026)
 Refonte esthétique complète, 100 % CSS — **aucune ligne des trois
 moteurs ni du JavaScript de jeu modifiée** (seul le numéro de version).
