@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.4.0";
+const APP_VERSION = "v1.6.0";
 
 const App = (() => {
 
@@ -216,8 +216,13 @@ const App = (() => {
       s.stats.totalMoves = (s.stats.totalMoves || 0) + moves;   // pour l'Album
     });
 
-    // Yuki exulte pendant toute la séquence
+    // Yuki exulte pendant toute la séquence, le décor de l'acte s'installe
     setMood("party");
+    document.getElementById("stage-set").dataset.act =
+      Levels.actOf(level.id) || "act1";
+    // Confettis : réservés aux Générales (dernier spectacle de l'acte)
+    const GALAS = ["A1-12", "A2-16", "A3-12", "A4-12", "A5-12"];
+    document.getElementById("rideau").classList.toggle("gala", GALAS.includes(level.id));
 
     // Les Éventails d'Or (les toasts s'affichent par-dessus la séquence)
     Achievements.onVictory({ level, moves, fans, undos, wasReplay });

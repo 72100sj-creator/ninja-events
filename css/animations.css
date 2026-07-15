@@ -427,3 +427,144 @@
 /* Animations réduites : Yuki pose, immobile mais expressif */
 .game-scene[data-motion="reduced"] .yuki-mini,
 .game-scene[data-motion="reduced"] .yuki-mini * { animation: none !important; }
+
+/* ============ ÉTAPE 5 DA : LA SCÈNE PREND VIE ============ */
+/* Le décor s'installe derrière le rideau, révélé à l'ouverture. */
+.stage-set {
+  position: absolute;
+  left: 0; right: 0; bottom: 14%;
+  height: 34%;
+  z-index: 1;                     /* au-dessus du noir, sous les faisceaux */
+  background-image: var(--set-img),
+    radial-gradient(62% 95% at 50% 102%, rgba(240, 180, 92, .20), transparent 72%);
+  background-position: center bottom, center bottom;
+  background-repeat: no-repeat;
+  background-size: contain, 100% 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+.rideau.p-open .stage-set {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1300ms ease-out 500ms, transform 1300ms ease-out 500ms;
+}
+.stage-set[data-act="act1"] { --set-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 140' preserveAspectRatio='xMidYMax meet'%3E%3Cg stroke='none'%3E%0A%3Crect x='30' y='108' width='120' height='22' rx='3' fill='#2B303C'/%3E%3Crect x='30' y='104' width='120' height='6' rx='3' fill='#39415a'/%3E%0A%3Crect x='200' y='96' width='130' height='34' rx='3' fill='#2B303C'/%3E%3Crect x='200' y='92' width='130' height='6' rx='3' fill='#39415a'/%3E%0A%3Crect x='58' y='72' width='52' height='8' rx='2' fill='#20242C'/%3E%3Crect x='62' y='80' width='6' height='26' fill='#20242C'/%3E%3Crect x='98' y='80' width='6' height='26' fill='#20242C'/%3E%0A%3Cpath d='M232 70 h34 v22 h-34z M232 70 q-10 2 -10 14 v14 h10z M266 70 q10 2 10 14 v14 h-10z' fill='#20242C'/%3E%3Crect x='236' y='92' width='26' height='6' fill='#2B303C'/%3E%0A%3Cellipse cx='150' cy='60' rx='9' ry='12' fill='#F0B45C'/%3E%3Cellipse cx='150' cy='58' rx='4.5' ry='7' fill='#F8E6BE'/%3E%3Crect x='146' y='45' width='8' height='4' rx='1.5' fill='#33281E'/%3E%0A%3C/g%3E%3C/svg%3E"); }
+.stage-set[data-act="act2"] { --set-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 140' preserveAspectRatio='xMidYMax meet'%3E%0A%3Cpath d='M0 0 h44 q-8 70 0 140 h-44z' fill='#8f3a3a'/%3E%3Cpath d='M360 0 h-44 q8 70 0 140 h44z' fill='#8f3a3a'/%3E%0A%3Cpath d='M14 0 q6 70 0 140 M30 0 q-5 70 0 140 M346 0 q-6 70 0 140 M330 0 q5 70 0 140' stroke='#742e2e' stroke-width='4' fill='none'/%3E%0A%3Cpath d='M150 66 h40 v26 h-40z M150 66 q-12 0 -12 16 v22 h12z M190 66 q12 0 12 16 v22 h-12z' fill='#20242C'/%3E%0A%3Crect x='156' y='92' width='28' height='8' fill='#2B303C'/%3E%3Crect x='158' y='100' width='5' height='16' fill='#20242C'/%3E%3Crect x='178' y='100' width='5' height='16' fill='#20242C'/%3E%0A%3Cellipse cx='248' cy='78' rx='20' ry='4' fill='#20242C'/%3E%3Crect x='245' y='80' width='6' height='32' fill='#20242C'/%3E%3Cellipse cx='248' cy='114' rx='12' ry='3.5' fill='#20242C'/%3E%0A%3Cellipse cx='248' cy='70' rx='7' ry='9' fill='#F0B45C' opacity='.9'/%3E%0A%3Crect x='0' y='128' width='360' height='12' fill='#181d2a'/%3E%3C/svg%3E"); }
+.stage-set[data-act="act3"] { --set-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 140' preserveAspectRatio='xMidYMax meet'%3E%0A%3Cpath d='M40 130 L52 38 L64 130 M44 108 h16 M46 84 h12 M48 60 h8' stroke='#5A6478' stroke-width='4' fill='none'/%3E%0A%3Cpath d='M296 130 L308 38 L320 130 M300 108 h16 M302 84 h12 M304 60 h8' stroke='#5A6478' stroke-width='4' fill='none'/%3E%0A%3Cpath d='M52 44 Q180 92 308 44' stroke='#3a3325' stroke-width='2.5' fill='none'/%3E%0A%3Cpath d='M52 58 Q180 108 308 58' stroke='#3a3325' stroke-width='2.5' fill='none'/%3E%0A%3Crect x='140' y='70' width='80' height='46' rx='4' fill='#10151F' stroke='#5A6478' stroke-width='3'/%3E%0A%3Crect x='148' y='78' width='26' height='12' fill='#C98A3A' opacity='.8'/%3E%3Crect x='180' y='78' width='30' height='8' fill='#7fa0c9' opacity='.7'/%3E%3Crect x='148' y='96' width='62' height='10' fill='#F0B45C' opacity='.55'/%3E%0A%3Cpath d='M70 30 l12 0 l-6 12z M100 34 l12 0 l-6 12z M250 34 l12 0 l-6 12z M280 30 l12 0 l-6 12z' fill='#8f3a3a'/%3E%0A%3Crect x='0' y='128' width='360' height='12' fill='#181d2a'/%3E%3C/svg%3E"); }
+.stage-set[data-act="act4"] { --set-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 140' preserveAspectRatio='xMidYMax meet'%3E%0A%3Cg fill='#333E52' stroke='#8C97AB' stroke-width='2.5'%3E%0A%3Crect x='52' y='92' width='74' height='38' rx='4'/%3E%3Crect x='60' y='54' width='58' height='34' rx='4'/%3E%3Crect x='210' y='84' width='96' height='46' rx='4'/%3E%0A%3C/g%3E%0A%3Cpath d='M60 110 h58 M68 71 h42 M226 106 h64' stroke='#1a2130' stroke-width='6'/%3E%0A%3Ccircle cx='168' cy='104' r='24' fill='#2B303C' stroke='#5A6478' stroke-width='4'/%3E%3Ccircle cx='168' cy='104' r='8' fill='#10151F'/%3E%0A%3Cpath d='M168 104 m-24 0 a24 24 0 0 1 48 0' fill='none' stroke='#C98A3A' stroke-width='4'/%3E%0A%3Ccircle cx='84' cy='97' r='4' fill='#8f3a3a'/%3E%3Ccircle cx='250' cy='90' r='4' fill='#F0B45C'/%3E%0A%3Crect x='0' y='128' width='360' height='12' fill='#181d2a'/%3E%3C/svg%3E"); }
+.stage-set[data-act="act5"] { --set-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 140' preserveAspectRatio='xMidYMax meet'%3E%0A%3Ccircle cx='180' cy='96' r='22' fill='#20242C' stroke='#5A6478' stroke-width='3'/%3E%3Ccircle cx='180' cy='96' r='8' fill='#3a4358'/%3E%0A%3Cellipse cx='150' cy='64' rx='13' ry='4' fill='#B9A468'/%3E%3Cpath d='M150 66 v40' stroke='#2B303C' stroke-width='3'/%3E%0A%3Cellipse cx='212' cy='58' rx='11' ry='3.5' fill='#B9A468'/%3E%3Cpath d='M212 60 v46' stroke='#2B303C' stroke-width='3'/%3E%0A%3Crect x='36' y='72' width='44' height='28' rx='3' fill='#20242C' stroke='#3c465e' stroke-width='2'/%3E%3Crect x='36' y='102' width='44' height='28' rx='3' fill='#20242C' stroke='#3c465e' stroke-width='2'/%3E%0A%3Ccircle cx='58' cy='86' r='9' fill='#10151F'/%3E%3Ccircle cx='58' cy='116' r='9' fill='#10151F'/%3E%0A%3Crect x='268' y='78' width='62' height='10' rx='2' fill='#20242C' transform='rotate(-4 299 83)'/%3E%3Cpath d='M282 88 l-6 42 M316 86 l6 44' stroke='#2B303C' stroke-width='4'/%3E%0A%3Cpath d='M96 130 l16 -34 M112 130 l-4 -34' stroke='#2B303C' stroke-width='3.5'/%3E%3Ccircle cx='109' cy='92' r='4.5' fill='#20242C'/%3E%0A%3Cpath d='M120 116 l26 14 h-26z M240 116 l-26 14 h26z' fill='#2B303C'/%3E%0A%3Crect x='0' y='128' width='360' height='12' fill='#181d2a'/%3E%3C/svg%3E"); }
+
+/* La vie du décor : fumée qui dérive + poursuite qui balaye (dès p-spots) */
+.stage-set::before {              /* nappe de fumée */
+  content: "";
+  position: absolute;
+  inset: 30% -10% 0 -10%;
+  background: radial-gradient(ellipse 40% 60% at 30% 80%, rgba(240,220,190,.10), transparent 70%),
+              radial-gradient(ellipse 50% 55% at 70% 85%, rgba(240,220,190,.08), transparent 70%);
+  opacity: 0;
+  filter: blur(2px);
+}
+.rideau.p-spots .stage-set::before {
+  opacity: 1;
+  animation: smoke-drift 9s ease-in-out infinite alternate;
+  transition: opacity 1800ms ease-out;
+}
+@keyframes smoke-drift {
+  from { transform: translateX(-2.5%); }
+  to   { transform: translateX(2.5%); }
+}
+.stage-set::after {               /* la poursuite qui balaye lentement */
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: 30%; height: 300%;
+  transform-origin: bottom center;
+  background: linear-gradient(180deg, rgba(240,180,92,0), rgba(240,180,92,.14) 55%, rgba(255,235,200,.20));
+  clip-path: polygon(38% 100%, 62% 100%, 100% 0, 0 0);
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+.rideau.p-spots .stage-set::after {
+  opacity: 1;
+  animation: sweep 7.5s ease-in-out infinite alternate;
+  transition: opacity 1200ms ease-out 600ms;
+}
+@keyframes sweep {
+  from { transform: translateX(-50%) rotate(-10deg); }
+  to   { transform: translateX(-50%) rotate(10deg); }
+}
+.game-scene[data-motion="reduced"] .stage-set,
+.game-scene[data-motion="reduced"] .stage-set::before,
+.game-scene[data-motion="reduced"] .stage-set::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ============ ÉTAPE 6 DA : LA LUMIÈRE PERSONNAGE ============ */
+
+/* Gobo discret : taches de lumière qui dérivent très lentement */
+.r-spots::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 240, 210, .07) 0 16%, transparent 19%);
+  background-size: 110px 110px;
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+}
+.rideau.p-spots .r-spots::after {
+  opacity: 1;
+  animation: gobo-drift 22s linear infinite;
+  transition: opacity 2000ms ease-out 900ms;
+}
+@keyframes gobo-drift {
+  to { background-position: 110px 66px; }
+}
+
+/* La salle applaudit : les têtes se balancent en rythme */
+.rideau.p-audience .r-audience i {
+  animation: aud-bob 850ms ease-in-out infinite alternate;
+}
+.rideau.p-audience .r-audience i:nth-child(2n)  { animation-delay: 160ms; }
+.rideau.p-audience .r-audience i:nth-child(3n)  { animation-delay: 320ms; }
+.rideau.p-audience .r-audience i:nth-child(5n)  { animation-duration: 760ms; }
+@keyframes aud-bob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-3.5px); }
+}
+
+/* ============ CONFETTIS DES GÉNÉRALES ============ */
+.r-confetti { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+.r-confetti i {
+  position: absolute;
+  top: -4%;
+  width: 8px; height: 13px;
+  border-radius: 2px;
+  opacity: 0;
+}
+/* Ils ne tombent QUE si le rideau porte .gala, à partir des projecteurs */
+.rideau.gala.p-spots .r-confetti i { animation: conf-fall 3s ease-in forwards; }
+.r-confetti i:nth-child(1)  { left: 8%;  background: var(--c-amber);   animation-delay: .10s; }
+.r-confetti i:nth-child(2)  { left: 16%; background: var(--c-curtain); animation-delay: .55s; }
+.r-confetti i:nth-child(3)  { left: 26%; background: var(--c-matcha);  animation-delay: .25s; }
+.r-confetti i:nth-child(4)  { left: 34%; background: var(--c-washi);   animation-delay: .70s; }
+.r-confetti i:nth-child(5)  { left: 43%; background: var(--c-amber);   animation-delay: .40s; }
+.r-confetti i:nth-child(6)  { left: 51%; background: var(--c-curtain); animation-delay: .05s; }
+.r-confetti i:nth-child(7)  { left: 58%; background: var(--c-matcha);  animation-delay: .62s; }
+.r-confetti i:nth-child(8)  { left: 66%; background: var(--c-washi);   animation-delay: .30s; }
+.r-confetti i:nth-child(9)  { left: 74%; background: var(--c-amber);   animation-delay: .78s; }
+.r-confetti i:nth-child(10) { left: 82%; background: var(--c-curtain); animation-delay: .18s; }
+.r-confetti i:nth-child(11) { left: 90%; background: var(--c-matcha);  animation-delay: .48s; }
+.r-confetti i:nth-child(12) { left: 96%; background: var(--c-amber);   animation-delay: .88s; }
+@keyframes conf-fall {
+  0%   { opacity: 0; transform: translateY(0) rotate(0turn); }
+  8%   { opacity: 1; }
+  100% { opacity: 0; transform: translateY(105vh) rotate(1.6turn) translateX(18px); }
+}
+
+/* Animations réduites : lumière posée, salle sage, pas de confettis */
+.game-scene[data-motion="reduced"] .r-spots::after,
+.game-scene[data-motion="reduced"] .r-audience i,
+.game-scene[data-motion="reduced"] .r-confetti i { animation: none !important; }

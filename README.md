@@ -110,6 +110,39 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.6.0 — DA Premium, étape 6/6 : la lumière personnage (juillet 2026)
+- 🌇 **Contre-jour** : une lueur d'horizon ambrée se lève derrière
+  chaque décor (les silhouettes se détachent en ombres chinoises).
+- 🔦 **Gobo discret** : des taches de lumière dérivent très lentement
+  (22 s) sur la scène pendant la séquence — la lumière devient un
+  personnage.
+- 👏 **La salle applaudit vraiment** : les têtes du public se balancent
+  en rythme (décalées, cadences variées), synchronisées avec le son
+  d'applaudissements existant.
+- 🎊 **Confettis réservés aux Générales** (A1-12, A2-16, A3-12, A4-12,
+  A5-12) : douze brins aux couleurs du jeu tombent en tournoyant, une
+  seule pluie, élégante — jamais sur les niveaux ordinaires.
+- Le tout coupé par « Réduire les animations ». Moteurs et curtain.js
+  **intacts** (2 lignes dans main.js). `CACHE_VERSION` → v1.6.0.
+
+**🎨 La phase Direction Artistique Premium est complète (6/6).**
+
+### v1.5.0 — DA Premium, étape 5/6 : la scène prend vie (juillet 2026)
+- 🎭 **Le rideau s'ouvre… et le décor de l'acte est installé** (silhouettes
+  SVG rétro-éclairées, ~6 KB pour les cinq) :
+  · Salle Municipale : praticables, table, fauteuil, la lanterne posée
+  · Théâtre : pendrillons rouges, fauteuil, guéridon à la lanterne
+  · Festival : totems alu, deux guirlandes, écran LED, fanions
+  · Tournée : pile de flight-cases, enrouleur de câble géant
+  · Concert : batterie, amplis empilés, cymbales, clavier, micro, retours
+- ✨ **Et la scène respire** dès les projecteurs : nappe de **fumée** qui
+  dérive (9 s), **poursuite qui balaye lentement** le plateau (7,5 s) —
+  révélées en fondu pendant la séquence, coupées par « Réduire les
+  animations ».
+- Implémentation : 1 div dans le rideau + 1 ligne dans main.js (le décor
+  suit l'acte du niveau gagné) — `curtain.js` et moteurs **intacts**.
+- `CACHE_VERSION` → v1.5.0. Régressions : aucune détectée.
+
 ### v1.4.0 — DA Premium, étape 4/6 : Yuki mascotte vivante (juillet 2026)
 - 🥷 **Mini-Yuki accompagne chaque mission** (coin bas-gauche, discret) :
   il **respire**, **cligne des yeux** toutes les ~5 s, penche la tête.
