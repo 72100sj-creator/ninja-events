@@ -373,3 +373,31 @@
   padding: 16px 22px; line-height: 1.45; }
 .about-quote { font-style: italic; color: var(--c-light); }
 .about-legal { line-height: 1.6; }
+
+/* ============ ÉTAPE F : LA TROUPE DANS L'ALBUM ============ */
+.troupe-count { padding: 0 2px 6px; }
+.troupe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.t-card {
+  background: linear-gradient(180deg, var(--c-panel-2), var(--c-panel));
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: var(--radius-s);
+  padding: 10px 6px 8px;
+  text-align: center;
+  box-shadow: var(--bevel), 0 5px 14px rgba(0, 0, 0, .28);
+}
+.t-portrait {
+  display: block;
+  width: 68%;
+  max-width: 74px;
+  margin: 0 auto 6px;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .35));
+}
+.t-cap b { display: block; font-size: .88rem; }
+.t-cap span { font-size: .72rem; color: var(--c-text-dim); }
+/* Pas encore rencontré : silhouette mystère */
+.t-card.locked .t-portrait { filter: brightness(0) saturate(0); opacity: .32; }
+.t-card.locked { border-style: dashed; }

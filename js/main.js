@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.11.0";
+const APP_VERSION = "v1.12.0";
 
 const App = (() => {
 
@@ -277,6 +277,51 @@ const App = (() => {
       ([e, label, val]) =>
         `<div class="stat-row"><span>${e} ${label}</span><b>${val}</b></div>`
     ).join("");
+
+    // --- La Troupe : chaque artiste rencontré s'installe dans l'Album.
+    // « Rencontré » = au moins un spectacle joué dans son lieu.
+    // Les portraits sont CLONÉS depuis la troupe du rideau (zéro doublon SVG).
+    const TROUPE = [
+      ["p-benevole",    "La Bénévole",         "Salle Municipale",       "act1"],
+      ["p-gardien",     "Le Gardien",          "Salle Municipale",       "act1"],
+      ["p-comedienne",  "La Comédienne",       "Théâtre Suzume",         "act2"],
+      ["p-metteur",     "Le Metteur en scène", "Théâtre Suzume",         "act2"],
+      ["p-habilleuse",  "L'Habilleuse",        "Théâtre Suzume",         "act2"],
+      ["p-jongleuse",   "La Jongleuse",        "Festival des Lanternes", "act3"],
+      ["p-danseuse",    "La Danseuse étoile",  "Festival des Lanternes", "act3"],
+      ["p-machiniste1", "Le Machiniste",       "La Grande Tournée",      "act4"],
+      ["p-machiniste2", "La Machiniste",       "La Grande Tournée",      "act4"],
+      ["p-chanteuse",   "La Chanteuse",        "Le Concert Géant",       "act5"],
+      ["p-guitariste",  "Le Guitariste",       "Le Concert Géant",       "act5"],
+      ["p-batteur",     "Le Batteur",          "Le Concert Géant",       "act5"]
+    ];
+    const actMet = {};
+    ["act1", "act2", "act3", "act4", "act5"].forEach(a => {
+      actMet[a] = Levels.ofAct(a).some(l => Progress.isDone(l.id));
+    });
+    const wrap = document.getElementById("album-troupe");
+    wrap.innerHTML = "";
+    let metCount = 0;
+    TROUPE.forEach(([cls, nom, lieu, act]) => {
+      const known = actMet[act];
+      if (known) metCount++;
+      const card = document.createElement("div");
+      card.className = "t-card" + (known ? "" : " locked");
+      const src = document.querySelector(".troupe ." + cls);
+      if (src) {
+        const svg = src.cloneNode(true);
+        svg.setAttribute("class", "t-portrait");
+        card.appendChild(svg);
+      }
+      const cap = document.createElement("div");
+      cap.className = "t-cap";
+      cap.innerHTML = `<b>${known ? nom : "? ? ?"}</b><span>${lieu}</span>`;
+      card.appendChild(cap);
+      wrap.appendChild(card);
+    });
+    document.querySelectorAll(".troupe-count").forEach(n => n.remove());
+    wrap.insertAdjacentHTML("beforebegin",
+      `<p class="muted troupe-count">${metCount} / ${TROUPE.length} rencontrés</p>`);
 
     const list = Achievements.all();
     const got = list.filter(a => a.unlockedAt).length;

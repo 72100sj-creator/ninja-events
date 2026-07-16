@@ -110,6 +110,31 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.12.0 — Univers, étape F : la Troupe dans l'Album (juillet 2026)
+- 📖 **Nouvelle section « 🎭 La Troupe » dans le Grand Album** : les 12
+  artistes en portraits (grille de cartes), avec nom et lieu. Un
+  artiste est **rencontré** dès qu'un spectacle de son lieu est joué ;
+  avant, il apparaît en **silhouette mystère « ? ? ? »** — la
+  collection qui donne envie du lieu suivant. Compteur « x / 12 ».
+- ♻️ Zéro duplication : les portraits sont **clonés** depuis la troupe
+  du rideau au moment de l'affichage.
+- `CACHE_VERSION` → v1.12.0.
+
+**🎭 La phase 2 « Enrichissement de l'univers » est complète (A-F).**
+
+### v1.11.0 — Univers, étape E : les livrées par lieu (juillet 2026)
+100 % CSS (refactor en variables par thème) — moteurs intacts.
+- 🎨 **Le matériel se teinte selon le lieu** : caisses **velours
+  bordeaux à cornières laiton** au Théâtre · **bleu de nuit festive,
+  alu clair** au Festival · **road-cases noir profond, acier** en
+  Tournée · **anodisé violet nuit, chrome** au Concert. Les faisceaux
+  prennent une nuance propre à chaque salle ; murs et platines suivent.
+- ♿ Les couleurs **sémantiques** (paires de câbles c0-c4, gaffeur
+  jaune, matcha de validation) ne changent jamais — l'accessibilité
+  couleur+forme du GDD §13 est préservée partout.
+- L'Acte I garde la livrée d'origine (valeurs par défaut des
+  variables). `CACHE_VERSION` → v1.11.0.
+
 ### v1.10.0 — Univers, étape D : les Rappels (+20 niveaux) (juillet 2026)
 - 🧩 **4 missions « Rappel » par acte** (84 niveaux au total), placées
   après chaque Générale — le déblocage séquentiel existant les ouvre
