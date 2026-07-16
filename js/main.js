@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.8.2";
+const APP_VERSION = "v1.11.0";
 
 const App = (() => {
 
@@ -226,6 +226,9 @@ const App = (() => {
     // Confettis : réservés aux Générales (dernier spectacle de l'acte)
     const GALAS = ["A1-12", "A2-16", "A3-12", "A4-12", "A5-12"];
     document.getElementById("rideau").classList.toggle("gala", GALAS.includes(level.id));
+    // Mise en scène : 3 variantes par acte, choisies par le niveau (stable)
+    const vSum = level.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+    document.getElementById("rideau").dataset.variant = "v" + (vSum % 3 + 1);
 
     // Les Éventails d'Or (les toasts s'affichent par-dessus la séquence)
     Achievements.onVictory({ level, moves, fans, undos, wasReplay });

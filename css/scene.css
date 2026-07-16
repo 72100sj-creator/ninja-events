@@ -117,7 +117,7 @@
 /* Mur / pilier de salle */
 .grid-wall {
   background: repeating-linear-gradient(0deg,
-    #2A2F3B 0 26%, #232833 26% 33%);
+    var(--wall-a, #2A2F3B) 0 26%, var(--wall-b, #232833) 26% 33%);
   border: 1px solid #171C26;
   border-radius: 12%;
   box-shadow: inset 0 2px 0 rgba(255, 255, 255, .05),
@@ -130,7 +130,7 @@
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='2.1' fill='%23CBD4E2'/%3E%3Ccircle cx='5' cy='5' r='2.1' fill='none' stroke='%23566074' stroke-width='.8'/%3E%3Ccircle cx='4.3' cy='4.3' r='.7' fill='%23FFFFFF' opacity='.85'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 84'%3E%3Cg stroke='%23FFFFFF' stroke-linecap='round' fill='none'%3E%3Cpath d='M12 30 L34 24' stroke-width='1' opacity='.05'/%3E%3Cpath d='M50 62 L72 58' stroke-width='1.4' opacity='.04'/%3E%3Cpath d='M60 14 L70 20' stroke-width='.8' opacity='.06'/%3E%3C/g%3E%3Cpath d='M18 66 q6 -3 12 0' stroke='%23000000' stroke-width='2' fill='none' opacity='.08'/%3E%3C/svg%3E"),
-    linear-gradient(180deg, #41516C, #2E3A50);
+    linear-gradient(180deg, var(--case-hi, #41516C), var(--case-lo, #2E3A50));
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y, repeat, no-repeat;
   background-position: left 4px top 2px, left 4px bottom 2px,
                        left 2px top 4px, right 2px top 4px, 0 0, 0 0;
@@ -153,10 +153,10 @@
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 14'%3E%3Crect x='1' y='1' width='18' height='12' rx='2' fill='%239AA6B8'/%3E%3Crect x='1' y='1' width='18' height='12' rx='2' fill='none' stroke='%23414B5D' stroke-width='.8'/%3E%3Ccircle cx='10' cy='7' r='4.2' fill='%23707C90'/%3E%3Crect x='8.9' y='3.2' width='2.2' height='7.6' rx='1.1' fill='%23D6DEE9'/%3E%3C/svg%3E"),
     radial-gradient(circle at 16% 16%, #E3E9F2 0 4%, transparent 5%),
-    radial-gradient(circle at 0 0,       #AEB9CB 0 13%, #78829a 13% 15%, transparent 16%),
-    radial-gradient(circle at 100% 0,    #AEB9CB 0 13%, #78829a 13% 15%, transparent 16%),
-    radial-gradient(circle at 0 100%,    #909BAF 0 13%, #5f6a80 13% 15%, transparent 16%),
-    radial-gradient(circle at 100% 100%, #909BAF 0 13%, #5f6a80 13% 15%, transparent 16%);
+    radial-gradient(circle at 0 0,       var(--alu-hi, #AEB9CB) 0 13%, var(--alu-mid, #78829a) 13% 15%, transparent 16%),
+    radial-gradient(circle at 100% 0,    var(--alu-hi, #AEB9CB) 0 13%, var(--alu-mid, #78829a) 13% 15%, transparent 16%),
+    radial-gradient(circle at 0 100%,    var(--alu-lo, #909BAF) 0 13%, var(--alu-dk, #5f6a80) 13% 15%, transparent 16%),
+    radial-gradient(circle at 100% 100%, var(--alu-lo, #909BAF) 0 13%, var(--alu-dk, #5f6a80) 13% 15%, transparent 16%);
   background-repeat: no-repeat;
   background-position: center top 5%, 0 0, 0 0, 0 0, 0 0, 0 0;
   background-size: 20% auto, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
@@ -256,7 +256,7 @@
     radial-gradient(circle at 86% 14%, #7f8aa0 0 4.5%, transparent 5.5%),
     radial-gradient(circle at 14% 86%, #626d83 0 4.5%, transparent 5.5%),
     radial-gradient(circle at 86% 86%, #626d83 0 4.5%, transparent 5.5%),
-    linear-gradient(180deg, #26303F, #1A222F);
+    linear-gradient(180deg, var(--plate-hi, #26303F), var(--plate-lo, #1A222F));
   border-radius: 20%;
   margin: 6%;
   width:  calc(var(--w, 1) / var(--cols) * 100% - 12%);
@@ -367,7 +367,7 @@
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Ccircle cx='5' cy='7' r='.9' fill='%23FFF6E4' opacity='.55'/%3E%3Ccircle cx='18' cy='3' r='.6' fill='%23FFF6E4' opacity='.4'/%3E%3Ccircle cx='12' cy='17' r='.75' fill='%23FFF6E4' opacity='.5'/%3E%3Ccircle cx='22' cy='21' r='.55' fill='%23FFF6E4' opacity='.38'/%3E%3C/svg%3E") 0 0 / 26px 26px repeat,
     radial-gradient(closest-side, rgba(255, 230, 180, .16), transparent 85%),
-    rgba(245, 200, 110, .27);
+    var(--beam-c, rgba(245, 200, 110, .27));
   mix-blend-mode: screen;
   border-radius: 12%;
   animation: beam-on 320ms ease-out, dust-drift 8s linear infinite;
@@ -572,4 +572,45 @@
 .game-scene[data-motion="reduced"] .grid-cat .cat-dream,
 .game-scene[data-motion="reduced"] .grid-cat.cat-celebrate .cat-tail {
   animation: none !important;
+}
+
+/* ============ ÉTAPE E : LES LIVRÉES PAR LIEU ============
+   Le matériel se teinte selon l'acte joué. Les couleurs SÉMANTIQUES
+   (paires de câbles c0-c4, gaffeur, matcha) ne changent JAMAIS. */
+
+/* Acte II · Théâtre : caisses velours bordeaux, cornières laiton */
+.game-scene[data-theme="act2"] {
+  --case-hi: #5A3140; --case-lo: #422230;
+  --alu-hi: #DCC084;  --alu-mid: #A8853F;
+  --alu-lo: #C9A55C;  --alu-dk: #8F6F30;
+  --wall-a: #3A2430;  --wall-b: #2F1C27;
+  --plate-hi: #3A2A33; --plate-lo: #291C24;
+  --beam-c: rgba(245, 190, 120, .29);
+}
+/* Acte III · Festival : bleu de nuit festive, alu clair */
+.game-scene[data-theme="act3"] {
+  --case-hi: #2F4068; --case-lo: #243254;
+  --alu-hi: #C6D2E4;  --alu-mid: #8794AC;
+  --alu-lo: #AAB8CE;  --alu-dk: #6F7D96;
+  --wall-a: #26314E;  --wall-b: #1E2840;
+  --plate-hi: #263048; --plate-lo: #1A2338;
+  --beam-c: rgba(250, 195, 150, .27);
+}
+/* Acte IV · Tournée : road-cases noir profond, acier */
+.game-scene[data-theme="act4"] {
+  --case-hi: #2A2F38; --case-lo: #1F242C;
+  --alu-hi: #BEC7D5;  --alu-mid: #7E8899;
+  --alu-lo: #9CA6B6;  --alu-dk: #646E80;
+  --wall-a: #2C3038;  --wall-b: #23272E;
+  --plate-hi: #272C35; --plate-lo: #1B2028;
+  --beam-c: rgba(240, 205, 140, .26);
+}
+/* Acte V · Concert : anodisé violet nuit, chrome */
+.game-scene[data-theme="act5"] {
+  --case-hi: #3C2C5A; --case-lo: #2C2044;
+  --alu-hi: #CBD2E2;  --alu-mid: #8B93AB;
+  --alu-lo: #ABB3C8;  --alu-dk: #6E7690;
+  --wall-a: #322847;  --wall-b: #281f3a;
+  --plate-hi: #2F2647; --plate-lo: #211a35;
+  --beam-c: rgba(240, 190, 200, .27);
 }

@@ -653,3 +653,61 @@
   animation: none !important;
   transition: opacity 1ms !important, transform 1ms !important;
 }
+
+/* ============ ÉTAPE C : LES SCÈNES VARIENT (3 mises en scène/acte) ============ */
+/* v1 = pleine troupe (mise en scène de base, rien à déclarer) */
+
+/* --- v2 : la troupe rapprochée, lumière de nuit bleue, lampions --- */
+.rideau[data-variant="v2"] .stage-set { filter: hue-rotate(150deg) saturate(.9); }
+.rideau[data-variant="v2"] .troupe .perso { scale: 1.12; }
+.rideau[data-variant="v2"] .p-benevole   { left: 56%; } .rideau[data-variant="v2"] .p-gardien    { left: 26%; }
+.rideau[data-variant="v2"] .p-comedienne { left: 64%; } .rideau[data-variant="v2"] .p-metteur    { left: 16%; }
+.rideau[data-variant="v2"] .p-habilleuse { left: 41%; }
+.rideau[data-variant="v2"] .p-jongleuse  { left: 56%; } .rideau[data-variant="v2"] .p-danseuse   { left: 26%; }
+.rideau[data-variant="v2"] .p-machiniste1{ left: 58%; } .rideau[data-variant="v2"] .p-machiniste2{ left: 26%; }
+.rideau[data-variant="v2"] .p-chanteuse  { left: 42%; } .rideau[data-variant="v2"] .p-guitariste { left: 14%; }
+.rideau[data-variant="v2"] .p-batteur    { left: 70%; }
+.rideau[data-variant="v2"] .troupe::before {
+  content: "";
+  position: absolute;
+  left: 6%; right: 6%; top: -34%;
+  height: 26%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 34'%3E%3Cpath d='M0 6 q30 10 60 6 q30 -4 60 2' stroke='#3a3325' stroke-width='2' fill='none'/%3E%3Cg%3E%3Cellipse cx='20' cy='16' rx='6' ry='7.5' fill='#F0B45C'/%3E%3Crect x='17.5' y='7.5' width='5' height='3' rx='1' fill='#33281E'/%3E%3Cpath d='M15 16 h10' stroke='#C98A3A' stroke-width='1'/%3E%3C/g%3E%3Cg%3E%3Cellipse cx='62' cy='18' rx='6' ry='7.5' fill='#C94F4F'/%3E%3Crect x='59.5' y='9.5' width='5' height='3' rx='1' fill='#33281E'/%3E%3Cpath d='M57 18 h10' stroke='#8f3a3a' stroke-width='1'/%3E%3C/g%3E%3Cg%3E%3Cellipse cx='102' cy='14' rx='6' ry='7.5' fill='#F0B45C'/%3E%3Crect x='99.5' y='5.5' width='5' height='3' rx='1' fill='#33281E'/%3E%3Cpath d='M97 14 h10' stroke='#C98A3A' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") center top / auto 100% repeat-x;
+  opacity: 0;
+}
+.rideau[data-variant="v2"].p-open .troupe::before {
+  opacity: 1;
+  transition: opacity 1200ms ease-out 900ms;
+}
+
+/* --- v3 : le soliste en pleine lumière, lucioles, teinte chaleureuse --- */
+.rideau[data-variant="v3"] .stage-set { filter: hue-rotate(-45deg) saturate(1.15); }
+.rideau[data-variant="v3"] .troupe .perso { display: none !important; }
+.rideau[data-variant="v3"] .stage-set[data-act="act1"] ~ .troupe .p-gardien,
+.rideau[data-variant="v3"] .stage-set[data-act="act2"] ~ .troupe .p-comedienne,
+.rideau[data-variant="v3"] .stage-set[data-act="act3"] ~ .troupe .p-danseuse,
+.rideau[data-variant="v3"] .stage-set[data-act="act4"] ~ .troupe .p-machiniste1,
+.rideau[data-variant="v3"] .stage-set[data-act="act5"] ~ .troupe .p-chanteuse {
+  display: block !important;
+  left: 41%;
+  scale: 1.3;
+}
+.rideau[data-variant="v3"] .troupe::before {
+  content: "";
+  position: absolute;
+  inset: -40% 0 0 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 90'%3E%3Ccircle cx='16' cy='24' r='2' fill='#F8E6BE'/%3E%3Ccircle cx='52' cy='10' r='1.4' fill='#F0B45C'/%3E%3Ccircle cx='92' cy='30' r='1.8' fill='#F8E6BE'/%3E%3Ccircle cx='124' cy='14' r='1.4' fill='#F0B45C'/%3E%3Ccircle cx='70' cy='52' r='1.6' fill='#F8E6BE'/%3E%3Ccircle cx='30' cy='66' r='1.3' fill='#F0B45C'/%3E%3Ccircle cx='112' cy='64' r='1.9' fill='#F8E6BE'/%3E%3C/svg%3E") center / 220px auto repeat;
+  opacity: 0;
+}
+.rideau[data-variant="v3"].p-spots .troupe::before {
+  opacity: .9;
+  animation: lucioles 4s ease-in-out infinite alternate;
+  transition: opacity 1500ms ease-out 700ms;
+}
+@keyframes lucioles {
+  from { transform: translateY(0);    opacity: .55; }
+  to   { transform: translateY(-7px); opacity: .95; }
+}
+
+/* Animations réduites : décors posés, lucioles immobiles */
+.game-scene[data-motion="reduced"] .troupe::before { animation: none !important; }

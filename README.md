@@ -14,7 +14,7 @@ zéro build, zéro dépendance, zéro publicité, zéro suivi.
 
 ## Version 1.0.0 🏁
 
-- 🧩 **64 missions faites main** sur 5 actes (Salle Municipale, Théâtre
+- 🧩 **84 missions faites main** sur 5 actes (dont 20 Rappels) (Salle Municipale, Théâtre
   Suzume, Festival des Lanternes, Grande Tournée, Concert Géant),
   **toutes prouvées solvables** par des solveurs dédiés, avec seuils
   d'éventails dérivés des optima calculés
@@ -109,6 +109,39 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v1.10.0 — Univers, étape D : les Rappels (+20 niveaux) (juillet 2026)
+- 🧩 **4 missions « Rappel » par acte** (84 niveaux au total), placées
+  après chaque Générale — le déblocage séquentiel existant les ouvre
+  naturellement après elle, **zéro logique nouvelle**. Courbe par
+  pack : une détente, deux intermédiaires, une experte.
+- Parmi elles : *L'encombrement* (4 caisses, optimum 28), *La répétition
+  nocturne*, *Le bouquet final*, *L'éventail inversé* (optimum 50), et
+  le morceau de bravoure : *Le rappel du public* — 7 projecteurs.
+- 🔬 Le solveur a encore frappé : une lune posée dans la colonne de tir
+  obligatoire de la cible (5,5) rendait A5-R4 insolvable — corrigée
+  avant livraison. 20/20 prouvés, seuils dérivés des optima.
+- ℹ️ Les succès « acte complet » et « perfection d'acte » englobent
+  désormais les Rappels (ils parcourent la liste complète de l'acte) —
+  cohérent : l'acte inclut ses Rappels. Les succès déjà obtenus
+  restent acquis (persistés en sauvegarde).
+- Moteurs **intacts**. `CACHE_VERSION` → v1.10.0.
+
+### v1.9.0 — Univers, étape C : les scènes varient (juillet 2026)
+- 🎬 **3 mises en scène par acte** (15 tableaux), choisies par niveau de
+  façon stable (somme des caractères de l'identifiant % 3 — zéro
+  stockage, zéro migration de sauvegarde) :
+  · **v1 La pleine troupe** — la mise en scène de référence ;
+  · **v2 La troupe rapprochée** — artistes plus proches (×1,12),
+    positions permutées, **nuit bleue** (rotation de teinte du décor),
+    et une **guirlande de lampions** suspendue au cintre ;
+  · **v3 Le soliste** — un seul artiste emblématique au centre (×1,3) :
+    le gardien, la comédienne, la danseuse, le machiniste ou la
+    chanteuse — **teinte chaleureuse** et **lucioles** qui flottent.
+- D'un niveau à l'autre, on découvre un autre tableau ; rejouer un
+  niveau retrouve « sa » mise en scène (c'est la sienne).
+- 2 lignes dans main.js ; moteurs et curtain.js fermés.
+  `CACHE_VERSION` → v1.9.0.
 
 ### v1.8.2 — Réglage : la troupe au milieu de la scène (juillet 2026)
 - 🎭 Les artistes entrent désormais **au cœur de la scène** (pieds à
