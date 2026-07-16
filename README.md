@@ -110,6 +110,22 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.8.1 — Troupe v2 : chara-design soigné (juillet 2026)
+- 🎭 Les 12 artistes redessinés : **corps galbés** (épaules rondes, ourlet
+  ombré, col en V), **pieds**, **bras en courbes** (plus de bâtons),
+  **quatre coiffures travaillées avec reflets** (frange, chignon à ruban
+  ambré, cheveux longs à mèches, béret rouge), **yeux à reflets** ou
+  fermés de bonheur, joues rosées.
+- 🎁 Accessoires détaillés : théière et tasse de la bénévole, lanterne
+  et trousseau du gardien, éventail à baleines de la comédienne, script
+  et écharpe rouge du metteur en scène, mètre-ruban et ciseaux de
+  l'habilleuse, balles à reflets de la jongleuse, tutu double couche et
+  rubans de chaussons de la danseuse, bande hi-vis et gaffeur du
+  machiniste, badge et talkie du second, micro à grille de la chanteuse,
+  guitare complète à cordes, baguettes croisées du batteur.
+- Classes de gestes inchangées (les animations CSS s'appliquent telles
+  quelles). `CACHE_VERSION` → v1.8.1.
+
 ### v1.8.0 — Univers, étape B : la troupe entre en scène (juillet 2026)
 - 🎭 **12 artistes** dans le style du jeu, propres à chaque acte :
   la bénévole au plateau de thé et le gardien (Salle Municipale) ·
