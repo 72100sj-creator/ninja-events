@@ -110,6 +110,48 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.8.0 — Univers, étape B : la troupe entre en scène (juillet 2026)
+- 🎭 **12 artistes** dans le style du jeu, propres à chaque acte :
+  la bénévole au plateau de thé et le gardien (Salle Municipale) ·
+  la comédienne à l'éventail, le metteur en scène au béret, l'habilleuse
+  au mètre-ruban (Théâtre) · la jongleuse (balles en l'air) et la
+  danseuse en tutu (Festival) · deux machinistes (Tournée) · la
+  chanteuse au micro, le guitariste, le batteur (Concert).
+- 🙏 **Ils remercient le régisseur invisible** : entrée un à un à
+  l'arrivée du public (700 ms, décalés), puis chacun son geste en
+  boucle douce — révérence, main qui salue, applaudissements, petits
+  bonds, pouce levé insistant du metteur en scène.
+- ⚙️ **Zéro JavaScript ajouté** : la troupe suit l'acte du décor déjà
+  posé (sélecteur CSS de voisinage). Moteurs et curtain.js fermés.
+- ~7 KB de SVG en ligne ; « Réduire les animations » : la troupe
+  apparaît et salue immobile. `CACHE_VERSION` → v1.8.0.
+
+### v1.7.1 — Correctif : le Chat, sans décollage (juillet 2026)
+- 🐱 L'oreille « décollée » venait des rotations appliquées à des
+  éléments séparés (tête/oreilles). **Plus aucune rotation
+  désolidarisante** : frémissements d'oreilles en translation pure,
+  bascule de tête supprimée, et la célébration soulève **le chat
+  entier** (translateY + scale sur le conteneur, comme le nudge).
+- 👀 Gestes plus visibles : oreilles toutes les 5,5 s, étirement franc
+  toutes les 14 s — pendant lequel le songe « z z » s'estompe (il
+  émerge une seconde), puis se rendort. `CACHE_VERSION` → v1.7.1.
+
+### v1.7.0 — Univers, étape A : le Chat mascotte (juillet 2026)
+100 % CSS sur les parties nommées + 2 lignes dans main.js — `cases.js`
+fermé, comme promis en v0.5.1 (« un futur réveil ne demandera que
+quelques lignes de CSS »). Promesse tenue.
+- 🐱 **Trois horloges décalées** (7,3 / 17 / 23 s) : oreilles qui
+  frémissent, tête qui s'incline, étirement paresseux rare — ses gestes
+  ne retombent jamais ensemble, il semble improviser.
+- 😾→😸 Dérangé par une caisse : ses **oreilles s'aplatissent** (en plus
+  du sursaut existant).
+- 🎉 **À la victoire, il se réveille pour saluer** : le songe « z z »
+  s'évanouit, la tête et les oreilles se redressent d'un coup souple,
+  le souffle s'accélère et **la queue exulte** — visible sur le plateau
+  pendant toute la séquence Rideau.
+- « Réduire les animations » : il dort profondément, point.
+- `CACHE_VERSION` → v1.7.0. Régressions : aucune (moteur intact).
+
 ### v1.6.1 — Réglages de projectionniste (juillet 2026)
 - 🔦 Gobo **deux fois plus discret** (opacité .07 → .035) et taches plus
   espacées (180 px) — une caresse de lumière, plus un motif.

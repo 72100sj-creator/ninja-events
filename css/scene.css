@@ -487,3 +487,89 @@
   background-color: var(--cable);
   box-shadow: 0 0 0 1.5px rgba(10, 14, 22, .4);
 }
+
+/* ============ ÉTAPE A v2 : LE CHAT MASCOTTE ============
+   Règle d'or : oreilles, tête et corps sont des éléments SÉPARÉS du
+   SVG → aucune rotation qui les désolidarise. Les frémissements sont
+   des translations pures ; la célébration porte le chat ENTIER. */
+
+/* Oreilles : petit frémissement vertical (toutes les ~5,5 s) */
+.grid-cat .cat-ears {
+  transform-box: fill-box;
+  animation: cat-ears 5.5s ease-in-out infinite;
+}
+@keyframes cat-ears {
+  0%, 88%, 100% { transform: translateY(0); }
+  91%           { transform: translateY(-1.6px); }
+  94%           { transform: translateY(.6px); }
+}
+
+/* Étirement paresseux, bien visible (toutes les ~14 s) */
+.grid-cat .cat-body {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: cat-breathe 3.4s ease-in-out infinite,
+             cat-stretch 14s ease-in-out infinite;
+}
+@keyframes cat-stretch {
+  0%, 70%, 86%, 100% { scale: 1 1; }
+  76%                { scale: 1.07 .95; }
+  80%                { scale: 1.05 .97; }
+}
+
+/* Le songe s'estompe pendant l'étirement (il émerge une seconde) */
+.grid-cat .cat-dream {
+  animation: cat-dream 3.4s ease-in-out infinite,
+             cat-dream-wake 14s ease-in-out infinite;
+}
+@keyframes cat-dream-wake {
+  0%, 68%, 88%, 100% { opacity: 1; }
+  76%                { opacity: .15; }
+}
+
+/* Dérangé (nudge) : les oreilles s'aplatissent (translation pure) */
+.grid-cat.nudge .cat-ears { animation: cat-ears-flat .55s ease-out; }
+@keyframes cat-ears-flat {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(2.6px); }
+  100% { transform: translateY(0); }
+}
+
+/* ---- LA CÉLÉBRATION : le chat ENTIER se redresse (aucun décollage) ---- */
+.grid-cat.cat-celebrate {
+  animation: cat-sit-up 600ms cubic-bezier(.3, 1.4, .4, 1) both;
+}
+@keyframes cat-sit-up {
+  from { transform: translateY(0) scale(1); }
+  to   { transform: translateY(-6%) scale(1.06); }
+}
+.grid-cat.cat-celebrate .cat-dream {
+  animation: none;
+  opacity: 0;
+  scale: .3;
+  transition: opacity 350ms ease-out, scale 350ms ease-out;
+}
+.grid-cat.cat-celebrate .cat-ears {
+  animation: none;
+  transform: translateY(-2.2px);            /* oreilles dressées, plantées */
+  transition: transform 450ms cubic-bezier(.3, 1.4, .4, 1) 100ms;
+}
+.grid-cat.cat-celebrate .cat-body {
+  animation: cat-breathe 1.5s ease-in-out infinite;   /* le cœur bat vite */
+}
+.grid-cat.cat-celebrate .cat-tail {
+  animation: cat-tail-happy .65s ease-in-out infinite;
+}
+@keyframes cat-tail-happy {
+  0%, 100% { transform: rotate(-13deg); }
+  50%      { transform: rotate(9deg); }
+}
+
+/* Animations réduites : le Chat dort profondément, c'est tout */
+.game-scene[data-motion="reduced"] .grid-cat,
+.game-scene[data-motion="reduced"] .grid-cat .cat-ears,
+.game-scene[data-motion="reduced"] .grid-cat .cat-body,
+.game-scene[data-motion="reduced"] .grid-cat .cat-dream,
+.game-scene[data-motion="reduced"] .grid-cat.cat-celebrate .cat-tail {
+  animation: none !important;
+}

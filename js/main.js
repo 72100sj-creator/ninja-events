@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.6.1";
+const APP_VERSION = "v1.8.0";
 
 const App = (() => {
 
@@ -216,8 +216,11 @@ const App = (() => {
       s.stats.totalMoves = (s.stats.totalMoves || 0) + moves;   // pour l'Album
     });
 
-    // Yuki exulte pendant toute la séquence, le décor de l'acte s'installe
+    // Yuki exulte pendant toute la séquence, le décor de l'acte s'installe,
+    // et si le Chat est du spectacle, il se redresse pour saluer aussi
     setMood("party");
+    document.querySelectorAll("#puzzle-grid .grid-cat")
+      .forEach(c => c.classList.add("cat-celebrate"));
     document.getElementById("stage-set").dataset.act =
       Levels.actOf(level.id) || "act1";
     // Confettis : réservés aux Générales (dernier spectacle de l'acte)
