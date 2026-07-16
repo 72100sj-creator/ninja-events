@@ -110,6 +110,23 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.13.0 — 🚚 É1 : le moteur du Chargement du Camion (juillet 2026)
+**4e famille de puzzles** — nouveau moteur `families/truck.js` au
+contrat d'API identique aux trois autres (init/undo/restart/destroy +
+hooks) ; **les trois moteurs gelés n'ont pas été ouverts** (une entrée
+ajoutée au registre FAMILIES de main.js, c'est tout).
+- 🚛 **Le Hangar** en prologue de la Feuille de Route (acte 〇, toujours
+  ouvert — aucune sauvegarde existante n'est affectée) avec **3 missions
+  prototypes** (seuils provisoires, le solveur É2 recalculera).
+- 🎮 Le geste : **glisser** le matériel du quai vers le camion,
+  **toucher** pour pivoter (90°), glisser hors du camion pour reposer
+  sur le quai. Formes libres (rectangles et L), passages de roues,
+  aperçu de dépose (le camion s'allume si ça tient), rebond de pose,
+  annuler/recommencer/sauvegarde continue comme partout.
+- 🧪 Banc d'essai géométrie **4/4** (rotations normalisées, L, barres).
+- ⚠️ `truck.js` reste OUVERT pendant la construction (É1→É5), gel à la
+  fin comme les autres. `CACHE_VERSION` → v1.13.0.
+
 ### v1.12.0 — Univers, étape F : la Troupe dans l'Album (juillet 2026)
 - 📖 **Nouvelle section « 🎭 La Troupe » dans le Grand Album** : les 12
   artistes en portraits (grille de cartes), avec nom et lieu. Un

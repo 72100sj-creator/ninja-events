@@ -32,6 +32,7 @@ const Progress = (() => {
   /** L'acte est-il accessible ? Règle GDD §7.3 : la Générale de
       l'acte précédent doit être terminée (1 éventail suffit). */
   function isActUnlocked(actId) {
+    if (actId === "hangar") return true;   // le prologue, toujours ouvert
     if (actId === "act1") return true;
     if (actId === "act2") return isDone("A1-12");
     if (actId === "act3") return isDone("A2-16");

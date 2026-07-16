@@ -10,6 +10,8 @@ const Levels = (() => {
 
   /** Les cinq actes de la carrière (GDD §7.1). */
   const ACTS = [
+    { id: "hangar", num: "〇", emoji: "🚛", name: "Le Hangar",
+      sub: "Charger le camion — le prologue de toute tournée" },
     { id: "act1", num: "I",   emoji: "🏮", name: "La Salle Municipale",
       sub: "Hanabi-chō — là où tout commence" },
     { id: "act2", num: "II",  emoji: "🎭", name: "Le Théâtre Suzume",
@@ -23,7 +25,7 @@ const Levels = (() => {
   ];
 
   /** Registre : actId → tableau ordonné de niveaux (format GDD §14.5). */
-  const registry = { act1: [], act2: [], act3: [], act4: [], act5: [] };
+  const registry = { hangar: [], act1: [], act2: [], act3: [], act4: [], act5: [] };
 
   return {
     ACTS,
