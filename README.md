@@ -110,6 +110,11 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.8.2 — Réglage : la troupe au milieu de la scène (juillet 2026)
+- 🎭 Les artistes entrent désormais **au cœur de la scène** (pieds à
+  32 % de la hauteur, au milieu du décor) au lieu du bas de l'écran.
+  `CACHE_VERSION` → v1.8.2.
+
 ### v1.8.1 — Troupe v2 : chara-design soigné (juillet 2026)
 - 🎭 Les 12 artistes redessinés : **corps galbés** (épaules rondes, ourlet
   ombré, col en V), **pieds**, **bras en courbes** (plus de bâtons),
