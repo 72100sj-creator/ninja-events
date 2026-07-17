@@ -21,6 +21,16 @@ const Achievements = (() => {
       desc: "Terminer ton premier spectacle.",
       check: () => Save.get().stats.totalLevels >= 1 },
 
+    { id: "convoi",     emoji: "🚚", trigger: "victory",
+      name: "Le premier convoi",
+      desc: "Charger ton premier camion au Hangar.",
+      check: (ctx) => ctx.level.family === "truck" },
+
+    { id: "maitre-hangar", emoji: "🔑", trigger: "victory",
+      name: "Le maître du Hangar",
+      desc: "Réussir « Le maître du Hangar », le chargement ultime.",
+      check: (ctx) => ctx.level.id === "T1-46" },
+
     { id: "triomphe",   emoji: "🪭", trigger: "victory",
       name: "Premier triomphe",
       desc: "Obtenir trois éventails sur un spectacle.",

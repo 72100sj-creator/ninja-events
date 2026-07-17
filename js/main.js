@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.17.2";
+const APP_VERSION = "v1.18.0";
 
 const App = (() => {
 
@@ -293,6 +293,7 @@ const App = (() => {
     // « Rencontré » = au moins un spectacle joué dans son lieu.
     // Les portraits sont CLONÉS depuis la troupe du rideau (zéro doublon SVG).
     const TROUPE = [
+      ["p-chauffeur",   "Le Chauffeur",        "Le Hangar",              "hangar"],
       ["p-benevole",    "La Bénévole",         "Salle Municipale",       "act1"],
       ["p-gardien",     "Le Gardien",          "Salle Municipale",       "act1"],
       ["p-comedienne",  "La Comédienne",       "Théâtre Suzume",         "act2"],
@@ -307,7 +308,7 @@ const App = (() => {
       ["p-batteur",     "Le Batteur",          "Le Concert Géant",       "act5"]
     ];
     const actMet = {};
-    ["act1", "act2", "act3", "act4", "act5"].forEach(a => {
+    ["hangar", "act1", "act2", "act3", "act4", "act5"].forEach(a => {
       actMet[a] = Levels.ofAct(a).some(l => Progress.isDone(l.id));
     });
     const wrap = document.getElementById("album-troupe");

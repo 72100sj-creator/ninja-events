@@ -110,6 +110,18 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.18.0 — 🏅 Le Hangar dans les récompenses (juillet 2026)
+- 🪭 **Deux nouveaux Éventails d'Or** (12 au total) : 🚚 « Le premier
+  convoi » (charger ton premier camion) et 🔑 « Le maître du Hangar »
+  (réussir T1-46, le chargement ultime). Les succès déjà gagnés
+  restent acquis ; les nouveaux se débloquent rétroactivement à la
+  prochaine victoire concernée.
+- 🧢 **Le Chauffeur rejoint la Troupe** (13e membre, « x / 13 » dans
+  l'Album) : casquette de routier sur la visière, bloc de bons de
+  livraison, porte-clés du camion à la ceinture, salut de la main.
+  Rencontré dès le premier chargement au Hangar.
+- `CACHE_VERSION` → v1.18.0.
+
 ### v1.17.2 — Correctif : le départ, propre (juillet 2026)
 Retour joueur (capture) : poussière flottant au mauvais endroit.
 - 💨 **La poussière est ré-ancrée à la scène immobile** (`:has()`),
