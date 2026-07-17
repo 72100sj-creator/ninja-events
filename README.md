@@ -110,6 +110,38 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.14.0 — 🎨 É3 : le beau camion (juillet 2026)
+- 🚛 **La baie du camion** : plancher **bois à lames et veines**, deux
+  **rails d'arrimage** à œillets le long des parois, cadre de **tôle**
+  double, profondeur de caisse ombrée, **éclairage intérieur chaud**
+  tombant du plafond — et les **portes arrière grandes ouvertes** de
+  part et d'autre du quai (elles se fermeront en É5).
+- 📦 **Le matériel en vraies matières** (texture PAR CELLULE : chaque
+  forme et chaque rotation fonctionne automatiquement) : caisse à
+  cornières rivetées, bois à lames, **grille d'ampli**, échelle à
+  barreaux, **structure alu triangulée**, velours à plis des
+  pendrillons, **clavier à touches**, pied de micro replié, **peau de
+  grosse caisse cerclée rouge à tirants** (pièce maîtresse sur le 2×2),
+  lentille ambrée du projecteur. Badge d'identification discret en
+  coin, ombres portées.
+- 3 lignes dans truck.js (classe .truck-bay posée/retirée, badge) —
+  moteur encore ouvert jusqu'au gel de fin de famille (É5).
+- `CACHE_VERSION` → v1.14.0. Régressions : aucune (habillage).
+
+### v1.13.1 — 🧩 É2 : le solveur de chargement (juillet 2026)
+- 🔬 **solver_truck.py** : recherche « couvrir-ou-condamner » (chaque
+  case libre est couverte par du matériel ou dépensée sur le budget de
+  trous), orientations symétriques dédupliquées, **coût de rotation
+  minimal** par forme, borne et élagage. Auto-tests **5/5** (dont un
+  insolvable détecté et le coût de la barre forcée horizontale).
+- ✅ Les 3 missions du Hangar sont **prouvées** ; leurs seuils
+  d'éventails passent de provisoires à **dérivés des optima**.
+- Incident de fabrication attrapé : une première passe avait échoué à
+  lire les niveaux (extraction remplacée par un export Node → JSON,
+  fiable par construction) — aucune version erronée livrée.
+- La règle absolue s'étend à la 4e famille : **aucun niveau de camion
+  n'entrera dans le jeu sans preuve**. `CACHE_VERSION` → v1.13.1.
+
 ### v1.13.0 — 🚚 É1 : le moteur du Chargement du Camion (juillet 2026)
 **4e famille de puzzles** — nouveau moteur `families/truck.js` au
 contrat d'API identique aux trois autres (init/undo/restart/destroy +

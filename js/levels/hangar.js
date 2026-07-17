@@ -1,9 +1,9 @@
 /* ============================================================
    NINJA EVENTS — levels/hangar.js
    LE HANGAR 〇 — Le Chargement du Camion (famille "truck").
-   ⚠️ É1 : 3 missions PROTOTYPES aux seuils provisoires ;
-   le solveur de chargement (É2) les prouvera et recalculera
-   les seuils, puis la vague complète arrivera (É6).
+   ⚠️ Chaque niveau est VÉRIFIÉ par le solveur de chargement
+   (solver_truck.py — couvrir-ou-condamner, optimum prouvé).
+   La vague complète de 50 niveaux arrivera en É6.
    ============================================================ */
 "use strict";
 
@@ -22,7 +22,7 @@ Levels.register("hangar", [
     ],
     walls: [],
     modifiers: [],
-    par: { moves2fans: 8, moves3fans: 5 },    // provisoire (É2 recalculera)
+    par: { moves2fans: 6, moves3fans: 4 },   // optimum prouvé : 4
     reward: null
   },
   {
@@ -40,7 +40,7 @@ Levels.register("hangar", [
     ],
     walls: [[3,3],[0,3]],
     modifiers: [],
-    par: { moves2fans: 12, moves3fans: 7 },   // provisoire (É2 recalculera)
+    par: { moves2fans: 8, moves3fans: 5 },   // optimum prouvé : 5
     reward: null
   },
   {
@@ -60,7 +60,7 @@ Levels.register("hangar", [
     ],
     walls: [[3,4]],
     modifiers: [],
-    par: { moves2fans: 16, moves3fans: 9 },   // provisoire (É2 recalculera)
+    par: { moves2fans: 12, moves3fans: 8 },   // optimum prouvé : 7
     reward: null
   }
 ]);

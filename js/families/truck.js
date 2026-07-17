@@ -113,7 +113,7 @@ const FamilyTruck = (() => {
     // silhouette exacte de la forme (les L se dessinent cellule à cellule)
     el.innerHTML = cells.map(([x, y]) =>
       `<i style="--cx:${x};--cy:${y}"></i>`).join("") +
-      `<span class="it-label">${ICONS[item.type] || "📦"}</span>`;
+      `<span class="it-badge">${ICONS[item.type] || "📦"}</span>`;
     if (item.placed) {
       el.style.left   = (item.x / S.cols * 100) + "%";
       el.style.top    = (item.y / S.rows * 100) + "%";
@@ -292,6 +292,8 @@ const FamilyTruck = (() => {
       dockEl: null
     };
 
+    gridEl.classList.add("truck-bay");        // habillage camion (É3)
+
     // Les passages de roues (cases condamnées du plancher)
     (level.walls || []).forEach(([x, y]) => {
       SceneEngine.place(gridEl, "truck-wheel", x, y, 1, 1);
@@ -358,7 +360,7 @@ const FamilyTruck = (() => {
     S = null;
     if (gridEl) {
       gridEl.innerHTML = "";
-      gridEl.classList.remove("truck-full", "drop-ok");
+      gridEl.classList.remove("truck-full", "drop-ok", "truck-bay");
     }
   }
 
