@@ -14,7 +14,7 @@ zéro build, zéro dépendance, zéro publicité, zéro suivi.
 
 ## Version 1.0.0 🏁
 
-- 🧩 **84 missions faites main** sur 5 actes (dont 20 Rappels) (Salle Municipale, Théâtre
+- 🧩 **134 missions prouvées** sur 6 lieux (dont 20 Rappels et les 50 chargements du Hangar) (Salle Municipale, Théâtre
   Suzume, Festival des Lanternes, Grande Tournée, Concert Géant),
   **toutes prouvées solvables** par des solveurs dédiés, avec seuils
   d'éventails dérivés des optima calculés
@@ -109,6 +109,54 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v1.17.0 — 🗺 É6 : le Hangar complet — 50 niveaux (juillet 2026)
+**La 4e famille est terminée.** Le jeu passe à **134 niveaux prouvés**.
+- 🚛 **46 nouvelles missions** (T1-01 → T1-46) générées **par paliers**
+  puis filtrées une à une par le solveur (budget de calcul anti-
+  explosion) : 12 faciles (1-2⭐), 16 intermédiaires (3⭐), 12 avancées
+  (4⭐), 6 expertes (5⭐) — optima de 3 à 9, remplissages de 50 % à
+  quasi parfait, murs de passages de roues, **fragiles disséminés**
+  (le violoncelle voyage, la guitare entre amis…), et le final :
+  **« Le maître du Hangar »**.
+- 📈 Courbe naturelle : la difficulté vient de l'espace, jamais de
+  l'artifice — chaque niveau expert reste un remplissage honnête dont
+  l'existence d'une solution est mathématiquement prouvée.
+- Zéro ligne de moteur (gelé en v1.16.0) : pures données.
+- `CACHE_VERSION` → v1.17.0.
+
+### v1.16.0 — 🔊 É5 : le grand départ + les sons — MOTEUR GELÉ (juillet 2026)
+- 🚛 **La séquence de départ** (≈3,6 s) à chaque victoire du Hangar :
+  les **portes de tôle nervurée coulissent** et se ferment (850 ms) →
+  le **verrou claque** (apparition à ressort + double vibration) → le
+  **moteur démarre** (la caisse vibre) → le camion **s'en va** dans un
+  **nuage de poussière** sur le quai. Puis : « **Direction le prochain
+  spectacle !** » sur le panneau. Le Hangar ne joue pas le rideau de
+  théâtre (pas de troupe en coulisses de hangar) ; « Réduire les
+  animations » saute toute la séquence.
+- 🔊 **3 sons synthétisés** (27 KB au total, préchargés hors ligne) :
+  `truck-door` (glissement + butée sourde), `truck-latch` (double
+  cliquetis métallique), `truck-engine` (démarreur, ronronnement diesel
+  qui tremble, montée et départ).
+- 🧊 **`truck.js` est GELÉ** — la famille est complète moteur/solveur/
+  DA/règle/séquence. É6 n'ajoutera que des données de niveaux.
+- `CACHE_VERSION` → v1.16.0.
+
+### v1.15.0 — 🎻 É4 : les objets fragiles (juillet 2026)
+- 🎻 **La règle des fragiles** : un objet fragile (guitare, violoncelle,
+  projecteur de prix) ne doit jamais finir **collé à un objet lourd**
+  (adjacence orthogonale). L'infraction est visible immédiatement —
+  l'objet **tremble**, liseré rouge, avertissement haptique — et le
+  camion **ne part pas** tant que le chargement est dangereux (même
+  langage que les kuroko des projecteurs).
+- 🏷 Habillage : **ruban FRAGILE** en coin, liseré ambré pointillé,
+  étuis moulés de la guitare et du violoncelle.
+- 🔬 Le solveur porte la contrainte : auto-tests **7/7** (dont « deux
+  barres dans un 2×2 plein : insolvable » et « isolées par un
+  couloir : 2 actions »). **T0-04 « La guitare de la diva »** ajoutée
+  et prouvée.
+- Présente sur une minorité de niveaux (modificateur `fragile`), comme
+  convenu. `CACHE_VERSION` → v1.15.0.
 
 ### v1.14.0 — 🎨 É3 : le beau camion (juillet 2026)
 - 🚛 **La baie du camion** : plancher **bois à lames et veines**, deux

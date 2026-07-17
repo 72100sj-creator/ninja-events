@@ -8,7 +8,7 @@
    ============================================================ */
 "use strict";
 
-const CACHE_VERSION = "ninja-events-v1.14.0";
+const CACHE_VERSION = "ninja-events-v1.17.0";
 
 /* Tous les fichiers du cœur du jeu. À maintenir à chaque livraison.
    NB : les musiques/ambiances des actes II-III ne sont PAS préchargées —
@@ -51,6 +51,9 @@ const CORE_FILES = [
   "./assets/audio/curtain-open.m4a",
   "./assets/audio/case-roll.m4a",
   "./assets/audio/case-lock.m4a",
+  "./assets/audio/truck-door.m4a",
+  "./assets/audio/truck-latch.m4a",
+  "./assets/audio/truck-engine.m4a",
   "./assets/audio/level-complete.m4a",
   "./assets/audio/undo.m4a",
   "./assets/audio/restart.m4a",

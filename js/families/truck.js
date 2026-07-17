@@ -19,8 +19,9 @@
      items: [{ type, cells:[[dx,dy],…] }]  — formes en offsets (0,0 min)
      walls: [[x,y],…]               — passages de roues (cases neutralisées)
 
-   ⚠️ Fichier OUVERT pendant la construction de la famille (É1→É5),
-   gelé ensuite comme les trois autres.
+   ⚠️ MOTEUR GELÉ depuis la v1.16.0 (famille complète É1→É5) — comme
+   cases.js, cables.js et lights.js : ne plus modifier sans nécessité
+   absolue documentée. Les niveaux (É6) sont des données, pas du moteur.
    ============================================================ */
 "use strict";
 
@@ -107,7 +108,8 @@ const FamilyTruck = (() => {
     const bb = bboxOf(cells);
     const el = item.el;
     el.className = "truck-item it-" + item.type +
-      (item.placed ? " in-truck" : " on-dock") + " rot-" + (item.rot % 4);
+      (item.placed ? " in-truck" : " on-dock") + " rot-" + (item.rot % 4) +
+      (item.fragile ? " is-fragile" : "") + (item.heavy ? " is-heavy" : "");
     el.style.setProperty("--w", bb.w);
     el.style.setProperty("--h", bb.h);
     // silhouette exacte de la forme (les L se dessinent cellule à cellule)
@@ -129,10 +131,40 @@ const FamilyTruck = (() => {
   }
 
   const ICONS = {
-    flight: "🎛", spot: "💡", micstand: "🎤", drum: "🥁", amp: "🎸",
+    flight: "🎛", spot: "💡", micstand: "🎤", drum: "🥁", amp: "🔊",
     keyboard: "🎹", ladder: "🪜", crate: "📦", decor: "🎪",
     drapes: "🎭", truss: "🔩", guitar: "🎸", cello: "🎻"
   };
+
+  /* ---------- La règle des fragiles (É4) ----------
+     Un objet fragile placé ADJACENT (orthogonal) à un objet lourd
+     tremble en alerte ; la victoire exige un chargement sûr. */
+  function updateDanger() {
+    const heavy = new Set();
+    S.items.forEach(it => {
+      if (it.placed && it.heavy) {
+        cellsFor(it.base, it.rot).forEach(([dx, dy]) =>
+          heavy.add((it.x + dx) + "," + (it.y + dy)));
+      }
+    });
+    let any = false;
+    S.items.forEach(it => {
+      let danger = false;
+      if (it.placed && it.fragile) {
+        outer: for (const [dx, dy] of cellsFor(it.base, it.rot)) {
+          for (const [ax, ay] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+            if (heavy.has((it.x + dx + ax) + "," + (it.y + dy + ay))) {
+              danger = true;
+              break outer;
+            }
+          }
+        }
+      }
+      it.el.classList.toggle("in-danger", danger);
+      if (danger) any = true;
+    });
+    return any;
+  }
 
   /* ---------- Actions de jeu ---------- */
 
@@ -151,6 +183,7 @@ const FamilyTruck = (() => {
     GameAudio.play("case-roll");
     GameAudio.haptic(6);
     render(item);
+    updateDanger();
     emitChange();
     checkWin();
   }
@@ -166,6 +199,7 @@ const FamilyTruck = (() => {
     render(item);
     item.el.classList.add("landed");          // petit rebond de pose
     setTimeout(() => item.el.classList.remove("landed"), 260);
+    if (updateDanger()) GameAudio.haptic(14);  // avertissement tactile
     emitChange();
     checkWin();
     return true;
@@ -178,18 +212,53 @@ const FamilyTruck = (() => {
     S.moves++;
     GameAudio.play("case-roll");
     render(item);
+    updateDanger();
     emitChange();
   }
 
   function checkWin() {
     if (S.won) return;
     if (!S.items.every(it => it.placed)) return;
+    if (updateDanger()) return;               // chargement dangereux : pas de départ
     S.won = true;
-    GameAudio.play("level-complete");
     S.gridEl.classList.add("truck-full");
+    const fire = () => { if (S && S.hooks.onWin) S.hooks.onWin(S.moves, S.undos); };
+    const scene = document.querySelector(".game-scene");
+    if (scene && scene.dataset.motion === "reduced") {
+      GameAudio.play("level-complete");
+      setTimeout(fire, 350);
+      return;
+    }
+    // ---- LE GRAND DÉPART (≈3,6 s) ----
+    // 1. les portes coulissent et se ferment
+    const g = S.gridEl;
+    ["bay-door bay-door-l", "bay-door bay-door-r"].forEach(cls => {
+      const d = document.createElement("div");
+      d.className = cls;
+      g.appendChild(d);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() =>
+      g.classList.add("doors-closing")));
+    setTimeout(() => GameAudio.play("truck-door"), 120);
+    // 2. les verrous claquent
     setTimeout(() => {
-      if (S && S.hooks.onWin) S.hooks.onWin(S.moves, S.undos);
-    }, 350);
+      GameAudio.play("truck-latch");
+      GameAudio.haptic([12, 90, 12]);
+      g.classList.add("bay-locked");
+    }, 1050);
+    // 3. le moteur démarre, la caisse vibre
+    setTimeout(() => {
+      GameAudio.play("truck-engine");
+      g.classList.add("bay-engine");
+    }, 1500);
+    // 4. le camion s'en va dans un nuage de poussière
+    setTimeout(() => {
+      g.classList.remove("bay-engine");
+      g.classList.add("bay-departing");
+      if (S.dockEl) S.dockEl.classList.add("dock-dust");
+      GameAudio.play("level-complete");
+    }, 2350);
+    setTimeout(fire, 3650);
   }
 
   /* ---------- Glisser (pointeurs tactiles et souris) ---------- */
@@ -310,6 +379,7 @@ const FamilyTruck = (() => {
     level.items.forEach((data, i) => {
       const item = {
         id: i, type: data.type,
+        fragile: !!data.fragile, heavy: !!data.heavy,
         base: data.cells.map(c => [c[0], c[1]]),
         placed: false, x: 0, y: 0, rot: 0,
         el: document.createElement("div")
@@ -330,6 +400,7 @@ const FamilyTruck = (() => {
     }
 
     S.items.forEach(render);
+    updateDanger();
     emitChange();
     if (S.items.every(it => it.placed)) checkWin();
   }
@@ -342,6 +413,7 @@ const FamilyTruck = (() => {
     S.undos++;
     GameAudio.play("undo");
     S.items.forEach(render);
+    updateDanger();
     emitChange();
   }
 
@@ -352,6 +424,7 @@ const FamilyTruck = (() => {
     S.moves++;
     GameAudio.play("restart");
     S.items.forEach(render);
+    updateDanger();
     emitChange();
   }
 
@@ -360,7 +433,9 @@ const FamilyTruck = (() => {
     S = null;
     if (gridEl) {
       gridEl.innerHTML = "";
-      gridEl.classList.remove("truck-full", "drop-ok", "truck-bay");
+      gridEl.classList.remove("truck-full", "drop-ok", "truck-bay",
+        "doors-closing", "bay-locked", "bay-engine", "bay-departing");
+      gridEl.style.transform = "";
     }
   }
 

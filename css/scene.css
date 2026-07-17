@@ -778,3 +778,106 @@
 /* Ombres portées : le matériel pèse */
 .truck-item.in-truck { filter: drop-shadow(0 4px 5px rgba(0, 0, 0, .4)); }
 .truck-dock .truck-item { filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .35)); }
+
+/* ---- É4 : les objets fragiles ---- */
+/* Liseré ambré pointillé + ruban FRAGILE en coin */
+.truck-item.is-fragile i {
+  box-shadow: inset 0 0 0 2px rgba(240, 180, 92, .75),
+              inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+.truck-item.is-fragile::before {
+  content: "";
+  position: absolute;
+  top: -4%; left: -6%;
+  width: 42%; height: 26%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 14'%3E%3Cg transform='rotate(-9 20 7)'%3E%3Crect x='1' y='2' width='38' height='10' rx='2' fill='%23F0B45C'/%3E%3Cpath d='M6 7 l3 -3 M6 7 l3 3 M34 7 l-3 -3 M34 7 l-3 3' stroke='%2333281E' stroke-width='1.6'/%3E%3Crect x='12' y='5.4' width='16' height='3.2' rx='1.6' fill='%2333281E'/%3E%3C/g%3E%3C/svg%3E")
+    center / contain no-repeat;
+  pointer-events: none;
+  z-index: 2;
+}
+/* La guitare : étui moulé */
+.it-guitar i {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%233A2B25'/%3E%3Cellipse cx='20' cy='24' rx='13' ry='13' fill='%234A372E'/%3E%3Cellipse cx='20' cy='13' rx='9' ry='9' fill='%234A372E'/%3E%3Cpath d='M17 4 h6' stroke='%23C98A3A' stroke-width='2'/%3E%3C/svg%3E");
+}
+.it-cello i {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%232E2530'/%3E%3Cellipse cx='20' cy='22' rx='14' ry='15' fill='%233D3140'/%3E%3Cpath d='M20 2 v10' stroke='%23C98A3A' stroke-width='3'/%3E%3C/svg%3E");
+}
+/* En danger : la caisse tremble, liseré rouge */
+.truck-item.in-danger i {
+  box-shadow: inset 0 0 0 2.5px rgba(201, 79, 79, .95),
+              0 0 10px rgba(201, 79, 79, .5);
+}
+.truck-item.in-danger { animation: fragile-tremble .5s ease-in-out infinite; }
+@keyframes fragile-tremble {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25%      { transform: translateX(-1.5px) rotate(-.8deg); }
+  75%      { transform: translateX(1.5px) rotate(.8deg); }
+}
+.game-scene[data-motion="reduced"] .truck-item.in-danger { animation: none !important; }
+
+/* ============ É5 : LE GRAND DÉPART ============ */
+/* Les portes coulissantes (tôle nervurée) */
+.bay-door {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  z-index: 8;
+  background:
+    repeating-linear-gradient(90deg,
+      #66707F 0 14px, #58626F 14px 18px),
+    linear-gradient(180deg, #6E7887, #59636F);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .12),
+              inset 0 -3px 0 rgba(0, 0, 0, .3);
+  transition: width 850ms cubic-bezier(.45, 0, .2, 1);
+  overflow: hidden;
+}
+.bay-door-l { left: 0;  border-right: 2px solid #3B4350; }
+.bay-door-r { right: 0; border-left: 2px solid #3B4350; }
+.doors-closing .bay-door { width: 50.5%; }
+/* Le verrou apparaît au claquement */
+.bay-door-r::before {
+  content: "";
+  position: absolute;
+  left: -9px; top: 50%;
+  width: 18px; height: 44px;
+  transform: translateY(-50%) scale(0);
+  background: linear-gradient(180deg, #8C97AB, #5A6478);
+  border: 2px solid #2A3140;
+  border-radius: 5px;
+  transition: transform 220ms cubic-bezier(.3, 1.5, .4, 1);
+}
+.bay-locked .bay-door-r::before { transform: translateY(-50%) scale(1); }
+/* Le moteur tourne : la caisse vibre doucement */
+.bay-engine { animation: bay-idle .16s linear infinite; }
+@keyframes bay-idle {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(.6px, -.4px); }
+  75%      { transform: translate(-.6px, .4px); }
+}
+/* Et il s'en va */
+.bay-departing {
+  transition: transform 1250ms cubic-bezier(.5, 0, .85, .4),
+              opacity 1250ms ease-in;
+  transform: translateX(-135%) rotate(-1.2deg) !important;
+  opacity: .25;
+}
+/* Le nuage de poussière sur le quai */
+.truck-dock.dock-dust::after {
+  content: "";
+  position: absolute;
+  left: -6%; bottom: 40%;
+  width: 60%; height: 50%;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(214, 200, 178, .5), transparent 60%),
+    radial-gradient(circle at 65% 45%, rgba(214, 200, 178, .35), transparent 65%);
+  filter: blur(3px);
+  animation: dust-puff 1.4s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes dust-puff {
+  0%   { opacity: 0; transform: translateX(0) scale(.5); }
+  25%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-40%) scale(1.5); }
+}
+.truck-dock { position: relative; }
+.game-scene[data-motion="reduced"] .bay-door { transition: none; }

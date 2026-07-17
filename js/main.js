@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.14.0";
+const APP_VERSION = "v1.17.0";
 
 const App = (() => {
 
@@ -243,11 +243,21 @@ const App = (() => {
     });
     document.getElementById("btn-next").classList.toggle("hidden", !nextLevel(level));
 
-    // La séquence signature : noir → trois coups → rideau → lumières
-    Curtain.playVictory({
-      skippable: alreadySeen,
-      onDone: () => document.getElementById("victory").classList.remove("hidden")
-    });
+    // La séquence signature — SAUF au Hangar : le camion a déjà joué
+    // son grand départ (portes, verrous, moteur) dans le moteur truck.
+    if (level.family === "truck") {
+      document.querySelector("#victory .v-eyebrow").textContent =
+        "Direction le prochain spectacle !";
+      setTimeout(() =>
+        document.getElementById("victory").classList.remove("hidden"), 450);
+    } else {
+      document.querySelector("#victory .v-eyebrow").textContent =
+        "Le rideau s'ouvre !";
+      Curtain.playVictory({
+        skippable: alreadySeen,
+        onDone: () => document.getElementById("victory").classList.remove("hidden")
+      });
+    }
   }
 
   function hideVictory() {
