@@ -881,3 +881,43 @@
 }
 .truck-dock { position: relative; }
 .game-scene[data-motion="reduced"] .bay-door { transition: none; }
+
+/* ---- v1.17.1 : le devant du camion + un départ lisible ---- */
+.puzzle-grid.truck-bay { overflow: visible; }
+/* La cabine (vue du dessus) : pare-brise, rétroviseurs, déflecteur */
+.truck-cab {
+  position: absolute;
+  left: 4%; right: 4%;
+  bottom: 100%;
+  height: 17%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 52' preserveAspectRatio='none'%3E%3Crect x='16' y='6' width='168' height='44' rx='12' fill='#5A6478'/%3E%3Crect x='16' y='6' width='168' height='44' rx='12' fill='none' stroke='#3B4350' stroke-width='3'/%3E%3Crect x='30' y='30' width='140' height='14' rx='5' fill='#1B2230'/%3E%3Crect x='34' y='33' width='60' height='8' rx='3' fill='#2E3B52'/%3E%3Crect x='26' y='12' width='148' height='9' rx='4' fill='#6E7887'/%3E%3Crect x='0' y='18' width='18' height='8' rx='3' fill='#3B4350'/%3E%3Crect x='182' y='18' width='18' height='8' rx='3' fill='#3B4350'/%3E%3Ccircle cx='9' cy='22' r='4.5' fill='#8C97AB'/%3E%3Ccircle cx='191' cy='22' r='4.5' fill='#8C97AB'/%3E%3Crect x='58' y='0' width='84' height='7' rx='3' fill='#454E5C'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .45));
+  pointer-events: none;
+  z-index: 1;
+}
+/* Portes plus lentes, la droite légèrement décalée (plus vivant) */
+.doors-closing .bay-door { transition-duration: 1100ms; }
+.doors-closing .bay-door-r { transition-delay: 140ms; }
+/* Le départ : VERS L'AVANT (le haut), long et lisible */
+.bay-departing {
+  transition: transform 1650ms cubic-bezier(.5, 0, .8, .5),
+              opacity 1650ms ease-in;
+  transform: translateY(-175%) !important;
+  opacity: .12;
+}
+/* La poussière roule derrière le camion (bas du plateau) */
+.truck-dock.dock-dust::after {
+  left: 12%; right: 12%; width: auto;
+  bottom: 55%;
+  height: 90%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(214, 200, 178, .5), transparent 60%),
+    radial-gradient(circle at 70% 55%, rgba(214, 200, 178, .38), transparent 62%),
+    radial-gradient(circle at 50% 30%, rgba(214, 200, 178, .3), transparent 65%);
+  animation: dust-puff-up 1.8s ease-out forwards;
+}
+@keyframes dust-puff-up {
+  0%   { opacity: 0; transform: translateY(0) scale(.5); }
+  22%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(28%) scale(1.7); }
+}

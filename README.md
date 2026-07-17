@@ -110,6 +110,19 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.17.1 — 🚚 Le devant du camion + départ lisible (juillet 2026)
+Retour joueur (capture) : camion sans avant, animation peu lisible.
+- 🚛 **La cabine apparaît à l'avant** de la caisse (vue du dessus) :
+  pare-brise sombre, tableau de bord, **rétroviseurs qui dépassent**,
+  déflecteur de toit — impossible de ne pas voir un camion.
+- 🎬 **Le départ se lit** : portes plus lentes (1,1 s, la droite
+  décalée de 140 ms), vrai temps de ralenti moteur, puis le camion
+  part **vers l'avant** (le haut de l'écran — logique de la cabine)
+  en 1,65 s, la **poussière roulant derrière lui**. Panneau à ~4,6 s.
+- ⚠️ `truck.js` gelé : **exception documentée** dans l'en-tête du
+  fichier — retouche strictement cinématique (cabine décorative +
+  tempo), zéro logique de jeu. `CACHE_VERSION` → v1.17.1.
+
 ### v1.17.0 — 🗺 É6 : le Hangar complet — 50 niveaux (juillet 2026)
 **La 4e famille est terminée.** Le jeu passe à **134 niveaux prouvés**.
 - 🚛 **46 nouvelles missions** (T1-01 → T1-46) générées **par paliers**

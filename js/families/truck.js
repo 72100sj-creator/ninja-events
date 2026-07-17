@@ -22,6 +22,10 @@
    ⚠️ MOTEUR GELÉ depuis la v1.16.0 (famille complète É1→É5) — comme
    cases.js, cables.js et lights.js : ne plus modifier sans nécessité
    absolue documentée. Les niveaux (É6) sont des données, pas du moteur.
+   • Exception documentée v1.17.1 (retour joueur, capture du 17/07) :
+     retouche STRICTEMENT CINÉMATIQUE du grand départ — cabine
+     décorative ajoutée, tempo allongé, départ vers l'AVANT (le haut).
+     Zéro logique de jeu touchée.
    ============================================================ */
 "use strict";
 
@@ -239,26 +243,26 @@ const FamilyTruck = (() => {
     });
     requestAnimationFrame(() => requestAnimationFrame(() =>
       g.classList.add("doors-closing")));
-    setTimeout(() => GameAudio.play("truck-door"), 120);
+    setTimeout(() => GameAudio.play("truck-door"), 150);
     // 2. les verrous claquent
     setTimeout(() => {
       GameAudio.play("truck-latch");
       GameAudio.haptic([12, 90, 12]);
       g.classList.add("bay-locked");
-    }, 1050);
-    // 3. le moteur démarre, la caisse vibre
+    }, 1300);
+    // 3. le moteur démarre, la caisse vibre (un vrai temps de ralenti)
     setTimeout(() => {
       GameAudio.play("truck-engine");
       g.classList.add("bay-engine");
-    }, 1500);
-    // 4. le camion s'en va dans un nuage de poussière
+    }, 1800);
+    // 4. le camion part VERS L'AVANT dans un nuage de poussière
     setTimeout(() => {
       g.classList.remove("bay-engine");
       g.classList.add("bay-departing");
       if (S.dockEl) S.dockEl.classList.add("dock-dust");
       GameAudio.play("level-complete");
-    }, 2350);
-    setTimeout(fire, 3650);
+    }, 2900);
+    setTimeout(fire, 4600);
   }
 
   /* ---------- Glisser (pointeurs tactiles et souris) ---------- */
@@ -362,6 +366,9 @@ const FamilyTruck = (() => {
     };
 
     gridEl.classList.add("truck-bay");        // habillage camion (É3)
+    const cab = document.createElement("div"); // la cabine, à l'avant (v1.17.1)
+    cab.className = "truck-cab";
+    gridEl.appendChild(cab);
 
     // Les passages de roues (cases condamnées du plancher)
     (level.walls || []).forEach(([x, y]) => {
