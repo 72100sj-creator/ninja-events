@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.17.1";
+const APP_VERSION = "v1.17.2";
 
 const App = (() => {
 

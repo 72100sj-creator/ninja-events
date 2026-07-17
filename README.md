@@ -110,6 +110,18 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.17.2 — Correctif : le départ, propre (juillet 2026)
+Retour joueur (capture) : poussière flottant au mauvais endroit.
+- 💨 **La poussière est ré-ancrée à la scène immobile** (`:has()`),
+  exactement à l'emplacement que le camion vient de quitter — elle ne
+  voyage plus avec le quai (qui, sur écran large, se plaçait à côté).
+- 📐 **Le quai est forcé SOUS le camion** à toutes les largeurs
+  d'écran (retour à la ligne pleine largeur dans le conteneur flex).
+- 🚪 Les **anciennes portes ouvertes s'effacent** pendant que les
+  vraies coulissent (elles restaient bizarrement écartées sous un
+  camion fermé). 100 % CSS — moteur gelé non touché.
+  `CACHE_VERSION` → v1.17.2.
+
 ### v1.17.1 — 🚚 Le devant du camion + départ lisible (juillet 2026)
 Retour joueur (capture) : camion sans avant, animation peu lisible.
 - 🚛 **La cabine apparaît à l'avant** de la caisse (vue du dessus) :
