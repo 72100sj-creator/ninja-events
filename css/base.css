@@ -21,13 +21,16 @@
   --c-washi-2: #ece4d0;
   --c-text:    #EFE9DA;  /* texte crème chaud */
   --c-text-dim: rgba(239, 233, 218, .62);
-  --c-line:    rgba(240, 180, 92, .16);   /* filets ambrés */
+  --c-line:    rgba(240, 180, 92, .12);   /* filets ambrés (épure É5) */
 
   /* --- UI --- */
   --radius: 16px;
   --radius-s: 12px;
-  --shadow: 0 10px 26px rgba(0, 0, 0, .38);
-  --bevel: inset 0 1px 0 rgba(255, 255, 255, .06);
+  /* Élévation à 2 couches (É3) : ambiante serrée + portée douce */
+  --shadow: 0 2px 5px rgba(0, 0, 0, .26), 0 10px 26px rgba(0, 0, 0, .24);
+  --shadow-lift: 0 4px 10px rgba(0, 0, 0, .28), 0 22px 52px rgba(0, 0, 0, .34);
+  --bevel: inset 0 1px 0 rgba(255, 255, 255, .08),
+           inset 0 -1px 0 rgba(0, 0, 0, .18);
   --tap-min: 48px;        /* cible tactile minimale (GDD §9.1) */
   --font: "Nunito", "Quicksand", ui-rounded, "Hiragino Maru Gothic ProN",
           system-ui, -apple-system, "Segoe UI", sans-serif;

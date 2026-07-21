@@ -307,22 +307,48 @@
 
 /* ============ PREMIUM v1.1 : micro-animations ============ */
 
-/* Chaque écran entre en fondu + léger glissement (260 ms) */
-.screen.is-active { animation: screen-in 260ms ease-out; }
+/* ============ É5 REFONTE : ENTRÉES ORCHESTRÉES ============
+   L'écran s'éclaire (fondu pur), puis son contenu entre en cascade
+   courte — chaque bloc monte avec un micro-tassement d'arrivée.
+   Transform/opacité uniquement : le pacte 60 FPS est respecté. */
+.screen.is-active { animation: screen-in 300ms ease-out; }
 @keyframes screen-in {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.screen.is-active > * {
+  animation: rise-in 460ms cubic-bezier(.2, 1.12, .3, 1) backwards;
+}
+.screen.is-active > *:nth-child(1) { animation-delay: 0ms; }
+.screen.is-active > *:nth-child(2) { animation-delay: 70ms; }
+.screen.is-active > *:nth-child(3) { animation-delay: 140ms; }
+.screen.is-active > *:nth-child(4) { animation-delay: 210ms; }
+.screen.is-active > *:nth-child(n+5) { animation-delay: 270ms; }
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* La touche « Reprendre » : LED ambrée qui respire */
 #btn-resume {
   border-color: rgba(240, 180, 92, .45);
+  position: relative;
+  box-shadow: var(--bevel), 0 6px 14px rgba(0, 0, 0, .35);
+}
+/* Le halo vit sur sa propre couche : seule son OPACITÉ respire (GPU) */
+#btn-resume::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  box-shadow: 0 0 16px rgba(240, 180, 92, .38);
+  opacity: 0;
+  pointer-events: none;
   animation: led-breathe 2.6s ease-in-out infinite;
 }
 @keyframes led-breathe {
-  0%, 100% { box-shadow: var(--bevel), 0 6px 14px rgba(0, 0, 0, .35); }
-  50%      { box-shadow: var(--bevel), 0 6px 14px rgba(0, 0, 0, .35),
-                         0 0 16px rgba(240, 180, 92, .38); }
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 1; }
 }
 
 /* Victoire plus spectaculaire : le panneau monte en scène + éclat d'or */
@@ -339,19 +365,23 @@
   position: absolute;
   inset: -3px;
   border-radius: inherit;
-  border: 2px solid rgba(240, 180, 92, .0);
+  border: 2px solid rgba(240, 180, 92, .85);
+  box-shadow: 0 0 26px rgba(240, 180, 92, .55);
+  opacity: 0;
   pointer-events: none;
   animation: gold-flash 900ms ease-out 150ms;
 }
 @keyframes gold-flash {
-  0%   { border-color: rgba(240, 180, 92, 0);   box-shadow: 0 0 0 rgba(240,180,92,0); }
-  35%  { border-color: rgba(240, 180, 92, .85); box-shadow: 0 0 26px rgba(240,180,92,.55); }
-  100% { border-color: rgba(240, 180, 92, 0);   box-shadow: 0 0 0 rgba(240,180,92,0); }
+  0%   { opacity: 0; }
+  35%  { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Animations réduites : tout s'efface */
 .game-scene[data-motion="reduced"] .screen.is-active,
+.game-scene[data-motion="reduced"] .screen.is-active > *,
 .game-scene[data-motion="reduced"] #btn-resume,
+.game-scene[data-motion="reduced"] #btn-resume::after,
 .game-scene[data-motion="reduced"] .victory-panel,
 .game-scene[data-motion="reduced"] .victory-panel::after { animation: none !important; }
 

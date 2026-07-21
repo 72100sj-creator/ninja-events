@@ -110,6 +110,71 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.20.0 — 🎬 Refonte, É5 : entrées orchestrées + épure — PHASE COMPLÈTE (juillet 2026)
+- 🎬 **Chaque écran entre comme un plan de cinéma** : l'écran
+  s'éclaire (fondu pur), puis son contenu monte **en cascade courte**
+  (70 ms d'écart par bloc, ~460 ms par bloc) avec un **micro-
+  tassement d'arrivée** (courbe à léger dépassement). Titre d'abord,
+  contenu ensuite, HUD en dernier — partout, automatiquement.
+  Transform/opacité uniquement : le pacte 60 FPS (É4) est respecté.
+  « Réduire les animations » saute tout.
+- 🍃 **La passe d'épure** : les filets ambrés s'allègent (--c-line
+  .16 → .12) et les liserés de cartes s'estompent (.07 → .05) — le
+  système d'élévation d'É3 porte le relief, les traits n'ont plus à
+  crier.
+- 🏁 **La phase « Refonte graphique complète » est terminée (É1→É5)** :
+  icônes signatures, personnages ancrés, élévation à 2 couches,
+  lumière de pupitre, 60 FPS, entrées orchestrées, épure.
+- `CACHE_VERSION` → v1.20.0.
+
+### v1.19.5 — Réglage : Exporter/Importer plus discrets (juillet 2026)
+- Les deux boutons de sauvegarde des Réglages passent en taille
+  compacte (padding réduit, coins resserrés) — des utilitaires, pas
+  des appels à l'action. `CACHE_VERSION` → v1.19.5.
+
+### v1.19.4 — 🎞 Refonte, É4 : le pacte des 60 FPS (juillet 2026)
+Audit complet des ~40 animations du jeu → trois coupables convertis
+en animations GPU pures (transform/opacité sur couches dédiées) :
+- 💡 **led-breathe** (la pire : boucle infinie sur `box-shadow` de la
+  touche « Reprendre » → repeint l'écran en continu) : le halo vit
+  désormais sur sa propre couche, seule son **opacité** respire.
+- ✨ **gold-flash** (éclat d'or de victoire) : liseré et lueur cuits
+  en statique, seule l'**opacité** flashe.
+- 🚪 **Les portes du camion** animaient leur `width` (recalcul de mise
+  en page à chaque image pendant 1,1 s) : converties en **panneau
+  interne coulissant** — le conteneur fixe sert de rail-masque, la
+  tôle glisse en `transform` pur. Rendu identique, verrou préservé.
+- Jugement d'ingénieur documenté : les transitions ponctuelles
+  d'interaction (survol des boutons, saisie des pièces) restent en
+  l'état — déclenchées une fois, sur de petites surfaces, elles ne
+  menacent pas la fluidité, et les convertir risquerait le rendu.
+- 100 % CSS. `CACHE_VERSION` → v1.19.4.
+
+### v1.19.3 — 🐛 Correctif : écran d'accueil cassé par la v1.19.2 (juillet 2026)
+Rapport joueur (capture) : le rideau de l'écran-titre s'arrêtait à
+mi-hauteur. **Cause racine** : la règle globale `#app > *` de la
+lumière de pupitre forçait `position: relative` sur tous les enfants
+de l'app — écrasant le positionnement absolu des écrans, qui ne
+remplissaient plus la fenêtre.
+- ✅ La règle globale est **supprimée** ; la lumière de pupitre est
+  désormais portée **par chaque écran** (`.screen::before`) — aucun
+  positionnement d'autrui n'est touché, par construction.
+- `CACHE_VERSION` → v1.19.3.
+
+### v1.19.2 — 🎨 Refonte, É3 : ombres douces + lumière de pupitre (juillet 2026)
+- 🌫 **Système d'élévation à 2 couches** défini à la source
+  (base.css) : ombre ambiante serrée + portée douce étalée.
+  `--shadow` (cartes, boutons, panneaux) et `--shadow-lift`
+  (surfaces flottantes) remplacent les ombres dures d'une couche ;
+  les ombres littérales dispersées rejoignent le système. Le biseau
+  gagne un filet bas sombre (relief plus doux).
+- 🏮 **Le panneau de victoire flotte** (`--shadow-lift`) dans un
+  **halo de scène ambré**.
+- 💡 **La lumière de pupitre** : une source chaude en haut de chaque
+  écran + une vignette des recoins — deux dégradés statiques (zéro
+  animation, coût de rendu nul), l'ambiance console partout.
+- 100 % CSS. `CACHE_VERSION` → v1.19.2.
+
 ### v1.19.1 — 🎨 Refonte, É2 : l'harmonisation des personnages (juillet 2026)
 - 🔍 **L'audit d'abord** : les peaux des 4 familles de dessins (Yuki,
   mini-Yuki, la troupe de 13, le Chauffeur) sont déjà strictement

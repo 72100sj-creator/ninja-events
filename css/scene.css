@@ -828,24 +828,35 @@
 .bay-door {
   position: absolute;
   top: 0; bottom: 0;
-  width: 0;
+  width: 50.5%;               /* rail fixe : masque du panneau (É4) */
   z-index: 8;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bay-door-l { left: 0; }
+.bay-door-r { right: 0; }
+/* Le panneau de tôle coulisse en TRANSFORM pur (composition GPU) */
+.bay-door::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
     repeating-linear-gradient(90deg,
       #66707F 0 14px, #58626F 14px 18px),
     linear-gradient(180deg, #6E7887, #59636F);
   box-shadow: inset 0 2px 0 rgba(255, 255, 255, .12),
               inset 0 -3px 0 rgba(0, 0, 0, .3);
-  transition: width 850ms cubic-bezier(.45, 0, .2, 1);
-  overflow: hidden;
+  transition: transform 1100ms cubic-bezier(.45, 0, .2, 1);
 }
-.bay-door-l { left: 0;  border-right: 2px solid #3B4350; }
-.bay-door-r { right: 0; border-left: 2px solid #3B4350; }
-.doors-closing .bay-door { width: 50.5%; }
+.bay-door-l::after { transform: translateX(-101%); border-right: 2px solid #3B4350; }
+.bay-door-r::after { transform: translateX(101%);  border-left: 2px solid #3B4350; }
+.doors-closing .bay-door-l::after,
+.doors-closing .bay-door-r::after { transform: translateX(0); }
 /* Le verrou apparaît au claquement */
 .bay-door-r::before {
   content: "";
   position: absolute;
+  z-index: 1;                 /* au-dessus du panneau coulissant */
   left: -9px; top: 50%;
   width: 18px; height: 44px;
   transform: translateY(-50%) scale(0);
@@ -888,7 +899,7 @@
   100% { opacity: 0; transform: translateX(-40%) scale(1.5); }
 }
 .truck-dock { position: relative; }
-.game-scene[data-motion="reduced"] .bay-door { transition: none; }
+.game-scene[data-motion="reduced"] .bay-door::after { transition: none; }
 
 /* ---- v1.17.1 : le devant du camion + un départ lisible ---- */
 .puzzle-grid.truck-bay { overflow: visible; }
@@ -903,9 +914,8 @@
   pointer-events: none;
   z-index: 1;
 }
-/* Portes plus lentes, la droite légèrement décalée (plus vivant) */
-.doors-closing .bay-door { transition-duration: 1100ms; }
-.doors-closing .bay-door-r { transition-delay: 140ms; }
+/* La porte droite légèrement décalée (plus vivant) */
+.doors-closing .bay-door-r::after { transition-delay: 140ms; }
 /* Le départ : VERS L'AVANT (le haut), long et lisible */
 .bay-departing {
   transition: transform 1650ms cubic-bezier(.5, 0, .8, .5),
