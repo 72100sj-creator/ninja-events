@@ -601,9 +601,16 @@
   transform: translateY(0);
   transition: opacity 700ms ease-out, transform 700ms cubic-bezier(.25, 1.2, .4, 1);
 }
-.rideau.p-audience .troupe .perso:nth-of-type(1) { transition-delay: 200ms; }
-.rideau.p-audience .troupe .perso:nth-of-type(2) { transition-delay: 650ms; }
-.rideau.p-audience .troupe .perso:nth-of-type(3) { transition-delay: 1100ms; }
+/* Délais d'entrée PAR PERSONNAGE (v1.18.1 — l'ancien nth-of-type ne
+   couvrait que les 3 premiers du DOM, tous actes confondus) */
+.rideau.p-audience .p-benevole,   .rideau.p-audience .p-comedienne,
+.rideau.p-audience .p-jongleuse,  .rideau.p-audience .p-machiniste1,
+.rideau.p-audience .p-chanteuse  { transition-delay: 200ms; }
+.rideau.p-audience .p-gardien,    .rideau.p-audience .p-metteur,
+.rideau.p-audience .p-danseuse,
+.rideau.p-audience .p-guitariste { transition-delay: 650ms; }
+.rideau.p-audience .p-habilleuse, .rideau.p-audience .p-machiniste2,
+.rideau.p-audience .p-batteur    { transition-delay: 1100ms; }
 
 /* Placements (jusqu'à 3 par acte : jardin, centre-jardin, cour) */
 .p-benevole   { left: 22%; } .p-gardien    { left: 62%; }

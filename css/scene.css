@@ -913,28 +913,63 @@
   transform: translateY(-175%) !important;
   opacity: .12;
 }
-/* La poussière : ancrée à la SCÈNE immobile (:has), exactement là où
-   le camion démarre — elle ne voyage plus avec lui ni avec le quai */
-.mission-stage { position: relative; }
-.mission-stage:has(.bay-departing)::after {
+
+
+/* ============ v1.18.3 : LA SORTIE DU HANGAR, EN LANGAGE FLAT ============ */
+/* Le quai s'éteint doucement : service terminé */
+.truck-dock.dock-dust {
+  opacity: .38;
+  transform: translateY(6px);
+  transition: opacity 1200ms ease-out 500ms, transform 1200ms ease-out 500ms;
+}
+/* Les traces de pneus, laissées là où le camion démarrait */
+.truck-dock.dock-dust::before {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 4%;
-  width: min(72%, 340px);
-  height: 34%;
+  bottom: 100%;
+  width: min(64%, 240px);
+  height: 130px;
   transform: translateX(-50%);
   background:
-    radial-gradient(circle at 32% 45%, rgba(214, 200, 178, .5), transparent 58%),
-    radial-gradient(circle at 68% 60%, rgba(214, 200, 178, .38), transparent 60%),
-    radial-gradient(circle at 50% 30%, rgba(214, 200, 178, .3), transparent 64%);
-  filter: blur(4px);
+    linear-gradient(to top, rgba(214, 200, 178, .16), transparent 85%) no-repeat 22% 0 / 13% 100%,
+    linear-gradient(to top, rgba(214, 200, 178, .16), transparent 85%) no-repeat 78% 0 / 13% 100%;
+  opacity: 0;
+  animation: tire-tracks 900ms ease-out 250ms forwards;
   pointer-events: none;
-  animation: dust-puff-up 1.9s ease-out forwards;
 }
-@keyframes dust-puff-up {
-  0%   { opacity: 0; transform: translateX(-50%) translateY(0) scale(.45); }
-  20%  { opacity: 1; }
-  100% { opacity: 0; transform: translateX(-50%) translateY(30%) scale(1.7); }
+@keyframes tire-tracks {
+  to { opacity: 1; }
 }
-.truck-dock.dock-dust::after { content: none; }   /* l'ancien ancrage, neutralisé */
+/* La poussière : trois petits nuages RONDS (style flat), au ras du sol */
+.truck-dock.dock-dust::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - 10px);
+  width: min(70%, 270px);
+  height: 74px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle at 22% 72%, rgba(222, 209, 188, .5) 0 26%, transparent 29%),
+    radial-gradient(circle at 50% 55%, rgba(222, 209, 188, .42) 0 21%, transparent 24%),
+    radial-gradient(circle at 76% 74%, rgba(222, 209, 188, .48) 0 24%, transparent 27%),
+    radial-gradient(circle at 36% 40%, rgba(222, 209, 188, .3) 0 14%, transparent 17%),
+    radial-gradient(circle at 64% 36%, rgba(222, 209, 188, .28) 0 12%, transparent 15%);
+  filter: blur(1px);
+  animation: flat-dust 1.5s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes flat-dust {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(8px) scale(.55); }
+  18%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(1.35); }
+}
+/* Mini-Yuki au-dessus du quai pendant les missions du Hangar */
+.game-scene:has(.truck-bay) .yuki-mini {
+  bottom: calc(4% + 158px);
+}
+.game-scene[data-motion="reduced"] .truck-dock.dock-dust::before,
+.game-scene[data-motion="reduced"] .truck-dock.dock-dust::after {
+  animation: none !important;
+}

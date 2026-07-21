@@ -110,6 +110,53 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.18.3 — La sortie du Hangar, en langage flat (juillet 2026)
+Retour joueur (capture) : fin de séquence « bizarre » — tache floue
+photoréaliste flottant à mi-écran, quai vide qui fixe le joueur.
+- 💨 **Poussière refaite en style flat** : trois petits nuages ronds
+  (plus deux volutes), au ras du sol, à l'endroit exact du démarrage —
+  ils gonflent, montent d'un souffle et s'effacent en 1,5 s.
+- 🛞 **Les traces de pneus** restent au sol après le départ — la
+  signature du camion parti.
+- 🌙 **Le quai s'éteint doucement** une fois le camion parti (fondu,
+  léger tassement) : service terminé.
+- 🥷 Mini-Yuki remonte au-dessus du quai pendant les missions du
+  Hangar (il chevauchait son coin).
+- 100 % CSS — moteur gelé non rouvert. `CACHE_VERSION` → v1.18.3.
+
+### v1.18.2 — Correctif : le Chauffeur à sa place (juillet 2026)
+Rapport joueur (3 captures) : Chauffeur géant sur toutes les scènes,
+case vide dans l'Album. **Cause racine unique** : depuis la v1.18.0,
+mon point d'insertion l'avait placé dans le conteneur des CONFETTIS
+au lieu de la troupe — hors de .troupe : aucune contrainte de taille
+(géant), aucune règle d'acte (visible partout), clonage d'Album
+introuvable (case vide).
+- ✅ Le Chauffeur est **dans la troupe** (taille normale, portrait
+  d'Album fonctionnel).
+- ✅ **Décision joueur appliquée : Hangar uniquement** — il ne monte
+  sur aucune scène de rideau (retiré de l'Acte IV, positions et
+  soliste des machinistes rétablis) ; il vit dans l'Album, rencontré
+  au premier chargement.
+- 🛡 **Contrôle structurel automatique ajouté** au processus de
+  livraison : les 13 artistes doivent être DANS #troupe, et les
+  confettis ne contenir que leurs 12 brins.
+- `CACHE_VERSION` → v1.18.2.
+
+### v1.18.1 — 🧢 Le Chauffeur entre en scène (juillet 2026)
+- 🎨 **Chauffeur redessiné** (qualité troupe v2) : casquette de routier
+  à double visière avec bouton ambré, veste de travail zippée à badge,
+  **thermos fumant** dans la main gauche, porte-clés du camion à la
+  ceinture, salut de la main.
+- 🎭 **Il salue à la levée de rideau de la Grande Tournée** (Acte IV,
+  au centre, entre les deux machinistes) — c'est lui qui a amené le
+  matériel. Et en mise en scène « soliste » (v3) de l'Acte IV, c'est
+  désormais **lui** qui s'avance seul en pleine lumière.
+- 🐛 Corrigé en chemin : les **délais d'entrée en scène** ne
+  s'appliquaient qu'aux 3 premiers personnages du DOM (tous actes
+  confondus) — ils sont désormais définis **par personnage** : chaque
+  acte voit sa troupe entrer en 200/650/1100 ms.
+- `CACHE_VERSION` → v1.18.1.
+
 ### v1.18.0 — 🏅 Le Hangar dans les récompenses (juillet 2026)
 - 🪭 **Deux nouveaux Éventails d'Or** (12 au total) : 🚚 « Le premier
   convoi » (charger ton premier camion) et 🔑 « Le maître du Hangar »
