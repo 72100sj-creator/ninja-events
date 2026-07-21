@@ -18,7 +18,7 @@ zéro build, zéro dépendance, zéro publicité, zéro suivi.
   Suzume, Festival des Lanternes, Grande Tournée, Concert Géant),
   **toutes prouvées solvables** par des solveurs dédiés, avec seuils
   d'éventails dérivés des optima calculés
-- 🎮 **3 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
+- 🎮 **4 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
   Projecteurs (orienter la lumière sans éclairer les kuroko)
 - 🎬 **La Séquence Rideau** : noir de salle, trois coups, ouverture sur
   VOTRE plateau, projecteurs en cascade, public, pétales
