@@ -12,13 +12,13 @@ zéro build, zéro dépendance, zéro publicité, zéro suivi.
 
 ---
 
-## v1.18.3 🏁
+## Version 1.0.0 🏁
 
 - 🧩 **134 missions prouvées** sur 6 lieux (dont 20 Rappels et les 50 chargements du Hangar) (Salle Municipale, Théâtre
   Suzume, Festival des Lanternes, Grande Tournée, Concert Géant),
   **toutes prouvées solvables** par des solveurs dédiés, avec seuils
   d'éventails dérivés des optima calculés
-- 🎮 **4 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
+- 🎮 **3 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
   Projecteurs (orienter la lumière sans éclairer les kuroko)
 - 🎬 **La Séquence Rideau** : noir de salle, trois coups, ouverture sur
   VOTRE plateau, projecteurs en cascade, public, pétales
@@ -109,6 +109,26 @@ des cases au toucher, traces audio).
 ---
 
 ## Changelog
+
+### v1.19.0 — 🎨 Refonte, É1 : les icônes signatures (juillet 2026)
+L'ennemi n°1 de la reconnaissabilité était l'emoji. Il recule.
+- 🪭 **L'Éventail maison** remplace l'emoji 🪭 sur ses 7 points
+  d'usage (panneau de victoire, cartes d'actes, cartes de missions,
+  Album, Dojo) : papier washi plissé à baleines ambrées, gardes
+  rouges, rivet de pivot. Au panneau de victoire, les éventails
+  gagnés **s'ouvrent en couleur** (ressort + halo doré), les autres
+  restent gris repliés.
+- 🏅 **Six emblèmes-médaillons gravés** pour les lieux (remplacent
+  les emojis des cartes et de l'en-tête du Carnet) : le hangar à
+  portes, la lanterne, le masque de nô, le lampion-fleur du festival,
+  la route en lacets de la tournée, le hanabi éclaté du concert —
+  tous au même trait ambré sur médaillon serti.
+- 🎛 **Les touches HUD redessinées en pictos de pupitre** : flèche
+  d'annulation, **trois faders à curseurs ambrés** (le menu — la
+  signature console !), boucle de reprise.
+- 🥇 Les 12 **médailles des Éventails d'Or** : chaque succès dans son
+  médaillon washi serti d'ambre — collection immédiatement cohérente.
+- `CACHE_VERSION` → v1.19.0. Moteurs intacts.
 
 ### v1.18.3 — La sortie du Hangar, en langage flat (juillet 2026)
 Retour joueur (capture) : fin de séquence « bizarre » — tache floue

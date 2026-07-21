@@ -209,9 +209,9 @@
         </g>
       </svg>
       <div class="mission-hud">
-        <button id="btn-undo" class="btn btn-icon" aria-label="Annuler" disabled>↩</button>
-        <button id="btn-menu" class="btn btn-icon" data-goto="notebook" aria-label="Menu">☰</button>
-        <button id="btn-restart" class="btn btn-icon" aria-label="Recommencer" disabled>⟳</button>
+        <button id="btn-undo" class="btn btn-icon" aria-label="Annuler" disabled><span class="ico ico-undo"></span></button>
+        <button id="btn-menu" class="btn btn-icon" data-goto="notebook" aria-label="Menu"><span class="ico ico-menu"></span></button>
+        <button id="btn-restart" class="btn btn-icon" aria-label="Recommencer" disabled><span class="ico ico-restart"></span></button>
       </div>
 
       <!-- Séquence Rideau de victoire (GDD §11.5) — couches animées :
@@ -482,7 +482,7 @@
         <div class="victory-panel">
           <p class="v-eyebrow">Le rideau s'ouvre&nbsp;!</p>
           <div class="v-fans" aria-label="Éventails gagnés">
-            <span>🪭</span><span>🪭</span><span>🪭</span>
+            <span class="fan-i fan-big"></span><span class="fan-i fan-big"></span><span class="fan-i fan-big"></span>
           </div>
           <h3 id="victory-name"></h3>
           <p id="victory-moves" class="muted"></p>
@@ -501,7 +501,7 @@
       <div class="album-list scrollable">
         <h3 class="album-h">📊 La tournée</h3>
         <div id="album-stats" class="album-stats"></div>
-        <h3 class="album-h">🪭 Éventails d'Or</h3>
+        <h3 class="album-h"><i class="fan-i fan-s"></i> Éventails d'Or</h3>
         <div id="album-achievements" class="album-achievements"></div>
         <h3 class="album-h">🎭 La Troupe</h3>
         <div id="album-troupe" class="troupe-grid"></div>

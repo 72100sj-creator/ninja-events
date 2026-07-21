@@ -6,7 +6,7 @@
    ============================================================ */
 "use strict";
 
-const APP_VERSION = "v1.18.3";
+const APP_VERSION = "v1.19.0";
 
 const App = (() => {
 
@@ -53,10 +53,10 @@ const App = (() => {
       card.setAttribute("aria-label",
         `Acte ${act.num}, ${act.name}` + (unlocked ? "" : ", verrouillé"));
       card.innerHTML =
-        `<span class="act-emoji">${act.emoji}</span>` +
+        `<span class="act-emblem" data-act="${act.id}" aria-hidden="true"></span>` +
         `<span><span class="act-name">Acte ${act.num} — ${act.name}</span><br>` +
         `<span class="act-sub">${sub}</span></span>` +
-        (fans > 0 ? `<span class="act-fans">🪭 ${fans}</span>` : "");
+        (fans > 0 ? `<span class="act-fans"><i class="fan-i fan-s"></i> ${fans}</span>` : "");
       if (unlocked) {
         card.addEventListener("click", () => {
           currentAct = act.id;
@@ -82,8 +82,8 @@ const App = (() => {
     document.getElementById("screen-notebook").style
       .setProperty("--warmth", listAll.length ? done / listAll.length : 0);
     const act = Levels.ACTS.find(a => a.id === currentAct);
-    document.getElementById("notebook-title").textContent =
-      `${act.emoji} ${act.name}`;
+    document.getElementById("notebook-title").innerHTML =
+      `<span class="act-emblem act-emblem-s" data-act="${act.id}" aria-hidden="true"></span> ${act.name}`;
 
     const list = document.getElementById("notebook-list");
     list.innerHTML = "";
@@ -100,7 +100,7 @@ const App = (() => {
       card.innerHTML =
         `<span class="m-num">${i + 1}</span>` +
         `<span class="m-name">${lvl.name.fr}</span>` +
-        `<span class="m-fans">${"🪭".repeat(fans)}</span>`;
+        `<span class="m-fans">${'<i class="fan-i fan-s"></i>'.repeat(fans)}</span>`;
       if (unlocked) {
         card.addEventListener("click", () => openMission(lvl));
       }
@@ -280,8 +280,8 @@ const App = (() => {
 
     const rows = [
       ["🎭", "Spectacles terminés", s.stats.totalLevels],
-      ["🪭", "Éventails gagnés", s.stats.totalFans],
-      ["🌸", "Spectacles parfaits (3 🪭)", perfect],
+      ['<i class="fan-i fan-s"></i>', "Éventails gagnés", s.stats.totalFans],
+      ["🌸", 'Spectacles parfaits (3 <i class="fan-i fan-s"></i>)', perfect],
       ["👣", "Coups joués", s.stats.totalMoves || 0]
     ];
     document.getElementById("album-stats").innerHTML = rows.map(
@@ -486,7 +486,7 @@ const App = (() => {
     const st = Save.get().stats;
     document.getElementById("dojo-stats").textContent =
       st.totalLevels > 0
-        ? `${st.totalLevels} spectacle${st.totalLevels > 1 ? "s" : ""} · 🪭 ${st.totalFans}`
+        ? `${st.totalLevels} spectacle${st.totalLevels > 1 ? "s" : ""} · <i class="fan-i fan-s"></i> ${st.totalFans}`
         : "Ton premier spectacle t'attend.";
 
     // « Reprendre » : visible seulement si une mission est en cours
