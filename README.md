@@ -12,7 +12,7 @@ zéro build, zéro dépendance, zéro publicité, zéro suivi.
 
 ---
 
-## Version 1.0.0 🏁
+## v1.18.3 🏁
 
 - 🧩 **134 missions prouvées** sur 6 lieux (dont 20 Rappels et les 50 chargements du Hangar) (Salle Municipale, Théâtre
   Suzume, Festival des Lanternes, Grande Tournée, Concert Géant),
