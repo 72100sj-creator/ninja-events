@@ -110,6 +110,20 @@ des cases au toucher, traces audio).
 
 ## Changelog
 
+### v1.19.1 — 🎨 Refonte, É2 : l'harmonisation des personnages (juillet 2026)
+- 🔍 **L'audit d'abord** : les peaux des 4 familles de dessins (Yuki,
+  mini-Yuki, la troupe de 13, le Chauffeur) sont déjà strictement
+  harmonisées — seuls les 3 hex canoniques existent dans tout le
+  fichier (peau ×48, ombré ×13, joues ×28). Yuki possédait déjà son
+  ombre au sol. Le manque : l'ancrage des autres.
+- 👥 **L'ombre de contact commune** (ellipse douce aux pieds) injectée
+  dans les **13 artistes** — elle voyage avec leurs entrées en scène,
+  leurs saluts, et leurs portraits d'Album (clonés, donc à jour
+  automatiquement). Plus personne ne flotte.
+- 🐈 **Le Chat reçoit la sienne** en CSS pur (peinte sous son svg par
+  le conteneur — le moteur gelé n'a pas été ouvert).
+- `CACHE_VERSION` → v1.19.1.
+
 ### v1.19.0 — 🎨 Refonte, É1 : les icônes signatures (juillet 2026)
 L'ennemi n°1 de la reconnaissabilité était l'emoji. Il recule.
 - 🪭 **L'Éventail maison** remplace l'emoji 🪭 sur ses 7 points

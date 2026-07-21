@@ -973,3 +973,17 @@
 .game-scene[data-motion="reduced"] .truck-dock.dock-dust::after {
   animation: none !important;
 }
+
+/* ============ É2 REFONTE : HARMONISATION DES PERSONNAGES ============ */
+/* L'ombre de contact du Chat (le ::before peint sous son svg) */
+.grid-cat::before {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 2%;
+  height: 12%;
+  background: radial-gradient(ellipse at center,
+    rgba(0, 0, 0, .3), transparent 68%);
+  pointer-events: none;
+}
