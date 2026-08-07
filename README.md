@@ -12,24 +12,35 @@ zéro build, zéro dépendance, zéro publicité, zéro suivi.
 
 ---
 
-## Version 1.0.0 🏁
+## Version 1.20.0 — « Édition Signature » 🏁
 
-- 🧩 **134 missions prouvées** sur 6 lieux (dont 20 Rappels et les 50 chargements du Hangar) (Salle Municipale, Théâtre
-  Suzume, Festival des Lanternes, Grande Tournée, Concert Géant),
-  **toutes prouvées solvables** par des solveurs dédiés, avec seuils
-  d'éventails dérivés des optima calculés
-- 🎮 **3 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
-  Projecteurs (orienter la lumière sans éclairer les kuroko)
+- 🧩 **134 missions prouvées** sur **6 lieux** — Le Hangar, la Salle
+  Municipale, le Théâtre Suzume, le Festival des Lanternes, la Grande
+  Tournée, le Concert Géant (dont 20 Rappels et les 50 chargements du
+  Hangar) — **toutes prouvées solvables** par des solveurs dédiés, avec
+  seuils d'éventails dérivés des optima calculés
+- 🎮 **4 familles de puzzles** : Flight Cases (pousser), Câbles (relier),
+  Projecteurs (orienter la lumière sans éclairer les kuroko), et
+  **Chargement du Camion** (ranger, pivoter, protéger les objets fragiles)
 - 🎬 **La Séquence Rideau** : noir de salle, trois coups, ouverture sur
-  VOTRE plateau, projecteurs en cascade, public, pétales
+  VOTRE plateau, projecteurs en cascade, public, pétales — et **le grand
+  départ** au Hangar (portes, verrous, moteur, poussière) : chaque lieu a
+  sa cérémonie
+- 🎭 **Un univers habité** : Yuki et son Chat, une troupe de **13 artistes**
+  qui vous saluent, **15 mises en scène** réparties sur les actes, une
+  livrée de matériel par lieu
 - 🎼 **Une scène sonore par acte** (musiques et ambiances synthétisées
   sur mesure, fondu enchaîné, gamme unique de ré pentatonique)
+- 🎨 **Direction artistique signature** : éventail washi maison, emblèmes-
+  médaillons des lieux, pictos de pupitre, élévation à deux couches,
+  lumière de régie, animations GPU (60 FPS), entrées d'écran orchestrées
 - 💾 Sauvegarde continue (reprise exacte, annulations comprises) +
   **export/import par code** (parade à l'effacement iOS)
-- 🪭 Grand Album : statistiques + 10 Éventails d'Or bienveillants
+- 🪭 Grand Album : statistiques, **12 Éventails d'Or** bienveillants et
+  la galerie de **La Troupe**
 - ♿ Accessibilité : daltonisme (couleur **et** forme), mode sombre,
   gros éléments, animations réduites, focus clavier, jouable sans son
-- 📦 Cœur installable : **< 1 MB** · projet complet : 2,4 MB
+- 📦 Cœur installable : **< 1 MB** · projet complet : 2,8 MB
 
 ## Jouer
 
@@ -62,15 +73,24 @@ css/
   animations.css      animations ambiantes + LE RIDEAU
 js/
   save.js             ⚠️ CRITIQUE — sauvegarde locale
-  audio.js            squelette audio (sons en Phase 2)
+  audio.js            moteur audio (23 sons et musiques synthétisés)
   scene-engine.js     cases logiques → pourcentages
   scene-debug.js      outil de debug (?debug=1)
   levels-index.js     catalogue des actes + registre des niveaux
-  levels/act1.js      niveaux de l'Acte I (données pures, format GDD §14.5)
-  families/cases.js   famille A « Flight Cases » (Phase 1 : affichage seul)
+  achievements.js     les 12 Éventails d'Or
   progress.js         déblocages, éventails, statistiques
   curtain.js          transition rideau entre écrans
   main.js             navigation, rendu des menus, réglages, démarrage
+  levels/             données pures (format GDD §14.5), zéro code :
+    act1.js · act2.js · act2-lights.js · act3.js · act4.js · act5.js
+    rappels.js        les 4 Rappels de chaque acte
+    hangar.js         les 50 chargements du Hangar
+  families/           🧊 MOTEURS GELÉS (API commune init/undo/restart/destroy) :
+    cases.js          famille A « Flight Cases »
+    cables.js         famille B « Câbles »
+    lights.js         famille C « Projecteurs »
+    truck.js          famille D « Chargement du Camion »
+assets/audio/         23 sons et musiques (m4a synthétisés)
 assets/icons/         icônes PWA (192, 512, maskable)
 ```
 
